@@ -1,0 +1,59 @@
+/* 
+    Document   : positions
+    Created on : Jan 29, 2014, 1:26:46 PM
+    Author     : Ryan Kenney
+    Description:
+        Define the layout and positions for specific control elements
+*/
+
+#Controls_Executor {
+    width: 800px;
+    height: 650px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+#Controls_Executor_Result {
+    top: 150px;
+    left: 450px;
+    position: fixed;
+}
+
+#Controls_Executor_Arg0 {
+    top: 300px;
+    left: 300px;
+    position: fixed;
+}
+
+#Controls_Executor_Arg1 {
+    top: 300px;
+    left: 600px;
+    position: fixed;
+}
+
+#Controls_Executor_Rule {
+    top: 500px;
+    left: 450px;
+    position: fixed;
+}
+
+#Controls_Facts {
+    width: 224px;
+    height: 650px;
+    position: fixed;
+    top: 0px;
+    left: 800px;
+}
+
+#Controls_Rules {
+    width: 1024px;
+    height: 118px;
+    position: fixed;
+    top: 650px;
+    left: 0px;
+    
+    border-top: black solid 2px;
+    background: -webkit-gradient(linear, center top, center bottom, from(#000000), to(#ffffff));
+    background: -webkit-linear-gradient(#000000, #A0A0A0);
+}

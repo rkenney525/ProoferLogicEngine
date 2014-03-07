@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html manifest="etc/main.appcache">
+    <head>
+        <title>Proofer - The Logic Engine</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <link rel="stylesheet" type="text/css" href="css/positions.css" />
+        <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
+        <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/classes/Engine.js"></script>
+        <script src="js/classes/Level.js"></script>
+        <script src="js/classes/Operator.js"></script>
+        <script src="js/classes/Fact.js"></script>
+        <script src="js/classes/Rule.js"></script>
+        <script src="js/init.js"></script>
+        <script src="js/control.js"></script>
+        <script src="js/events.js"></script>
+    </head>
+    <body class="menu-focused">
+        <div id="GameContent">
+            <div id="MainMenu">
+                <div id="OpeningGraphic">
+                    <canvas width="650" height="450" class="center" id="OpeningGraphicCanvas">
+                        Something went wrong when rendering the canvas.
+                    </canvas>
+                </div>
+                <ul id="MainMenuOptions" class="center">
+                    <li><input type="button" value="Play Game" id="MenuPlayGame" class="menu-item" /></li>
+                    <li><input type="button" value="Exit" class="menu-item" /></li>
+                </ul>
+            </div>
+            <div id="GameScreen" style="display: none;">
+                <canvas width="1024" height="768" id="MainGameCanvas">
+                    Something went wrong when rendering the canvas.
+                </canvas>
+                <div id="GameControls">
+                    <div id="Controls_Executor">
+                        <div id="Controls_Executor_Result" class="executor-input-box boxed"></div>
+                        <div id="Controls_Executor_Arg0" class="executor-input-box boxed"></div>
+                        <div id="Controls_Executor_Arg1" class="executor-input-box boxed"></div>
+                        <div id="Controls_Executor_Rule" class="executor-input-box boxed rule-container"></div>
+                    </div>
+                    <div id="Controls_Rules">
+                        <ul id="Controls_Rules_List"></ul>
+                    </div>
+                    <div id="Controls_Facts">
+                        <table id="Controls_Facts_Table"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
