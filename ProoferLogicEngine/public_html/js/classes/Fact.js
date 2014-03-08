@@ -12,20 +12,6 @@ function Fact(arg0, arg1, op) {
     this.op = op;
 }
 
-/**
- * Creates a Fact with the provided operand.  Use the neg flag to set whether 
- * the Fact should be negated.
- * 
- * @param {Fact|String} arg0 The single operand
- * @param {boolean} neg True if the Fact should be negated, false otherwise.
- * @returns {Fact} A fact with the specified operand.
- */
-function Fact(arg0, neg) {
-    this.arg0 = arg0;
-    this.arg1 = null;
-    this.op = (neg) ? Operators.NEG : null;
-}
-
 // Built in functions
 /**
  * Test otherFact for equality against the calling Fact.
@@ -57,7 +43,7 @@ Fact.prototype.toString = function() {
  * Create a Fact from a String.  The grammatical structure of a Fact can be seen 
  * below.
  * 
- * FACT = [a-z]  |  ~(FACT)  |  (FACT OP FACT)
+ * FACT = [a-z]  |  (FACT OP FACT)  |  ~(FACT)
  * OP   = &or; (disjunction)     |
  *	  &and; (conjunction)    |
  *        &oplus; (exclusive or) |
@@ -79,25 +65,13 @@ function getFactFromString(data) {
 
     // Case 1: [a-z]
     if (current.match(/[a-z]/i) !== null) {
-	return new Fact(current, false);
+	return new Fact(current, null, null);
     }
-    // Case 2: ~(FACT)
-    else if (getOperatorFromString(current).equals(Operators.NEG) &&
-	    data[index + 1] === "(") {
-	// Move up a char
-	index++;
-	
-	// Get the inner Fact
-	subFactString = data.substring(index + 1, data.lastIndexOf(")"));
-	
-	// Negate the inner fact
-	return new Fact(getFactFromString(subFactString), true);
-    }
-    // Case 3: (FACT OP FACT)
-    else {
+    // Case 2: (FACT OP FACT)
+    else if (current === "(") {
 	// Skip the paren
 	index++;
-	
+
 	// Find the midpoint
 	// The midpoint is the operator that splits arg0 from arg1
 	// Since arg0 and arg1 are Facts, they may have Operators of their own, 
@@ -107,34 +81,49 @@ function getFactFromString(data) {
 	for (var search = index; search <= endex; search++) {
 	    // Reset current
 	    current = data[search];
-	    
+
 	    // Check if current is a paren
+	    var tryOp = getOperatorFromString(current);
 	    if (current === "(") {
 		parenCount++;
 	    } else if (current === ")") {
 		parenCount--;
 	    } else if (parenCount === 0 &&
-		   getOperatorFromString(current) !== null) {
-	       midpoint = search;
-	       break;
+		    tryOp !== null &&
+		    !tryOp.equals(Operators.NEG)) {
+		midpoint = search;
+		break;
 	    }
 	}
-	
+
 	// Get arg0
 	var arg0;
 	subFactString = data.substring(index, midpoint);
 	arg0 = getFactFromString(subFactString);
-	
+
 	// Get the Operator
 	var op = getOperatorFromString(data[midpoint]);
-	
+
 	// Get arg1
 	var arg1;
-	subFactString = data.substring(midpoint + 1);
+	subFactString = data.substring(midpoint + 1, endex);
 	arg1 = getFactFromString(subFactString);
-	
+
 	// Create the Fact
 	return new Fact(arg0, arg1, op);
+    }
+    // Case 3: ~(FACT)
+    else if (getOperatorFromString(current).equals(Operators.NEG) &&
+	    data[index + 1] === "(") {
+	// Move up a char
+	index++;
+
+	// Get the inner Fact
+	subFactString = data.substring(index + 1, data.lastIndexOf(")"));
+
+	// Negate the inner fact
+	return new Fact(getFactFromString(subFactString), null, Operators.NEG);
+
     }
 
 }
