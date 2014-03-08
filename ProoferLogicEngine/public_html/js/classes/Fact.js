@@ -53,6 +53,88 @@ Fact.prototype.toString = function() {
     }
 };
 
-Fact.prototype.fromString = function(data) {
-    // TODO implement Fact.fromString()
-};
+/**
+ * Create a Fact from a String.  The grammatical structure of a Fact can be seen 
+ * below.
+ * 
+ * FACT = [a-z]  |  ~(FACT)  |  (FACT OP FACT)
+ * OP   = &or; (disjunction)     |
+ *	  &and; (conjunction)    |
+ *        &oplus; (exclusive or) |
+ *        &rarr; (implication)   |
+ *        &harr; (biconditional)
+ * 
+ * @param {String} data The String form of the Fact
+ * @returns {Fact} The resulting Fact
+ */
+function getFactFromString(data) {
+    // Init
+    var current = "";
+    var subFactString;
+    var index = 0;
+    var endex = data.length - 1;
+
+    // Get the next character
+    current = data[index];
+
+    // Case 1: [a-z]
+    if (current.match(/[a-z]/i) !== null) {
+	return new Fact(current, false);
+    }
+    // Case 2: ~(FACT)
+    else if (getOperatorFromString(current).equals(Operators.NEG) &&
+	    data[index + 1] === "(") {
+	// Move up a char
+	index++;
+	
+	// Get the inner Fact
+	subFactString = data.substring(index + 1, data.lastIndexOf(")"));
+	
+	// Negate the inner fact
+	return new Fact(getFactFromString(subFactString), true);
+    }
+    // Case 3: (FACT OP FACT)
+    else {
+	// Skip the paren
+	index++;
+	
+	// Find the midpoint
+	// The midpoint is the operator that splits arg0 from arg1
+	// Since arg0 and arg1 are Facts, they may have Operators of their own, 
+	// so we can't simply get the next Operator.
+	var midpoint = index;
+	var parenCount = 0;
+	for (var search = index; search <= endex; search++) {
+	    // Reset current
+	    current = data[search];
+	    
+	    // Check if current is a paren
+	    if (current === "(") {
+		parenCount++;
+	    } else if (current === ")") {
+		parenCount--;
+	    } else if (parenCount === 0 &&
+		   getOperatorFromString(current) !== null) {
+	       midpoint = search;
+	       break;
+	    }
+	}
+	
+	// Get arg0
+	var arg0;
+	subFactString = data.substring(index, midpoint);
+	arg0 = getFactFromString(subFactString);
+	
+	// Get the Operator
+	var op = getOperatorFromString(data[midpoint]);
+	
+	// Get arg1
+	var arg1;
+	subFactString = data.substring(midpoint + 1);
+	arg1 = getFactFromString(subFactString);
+	
+	// Create the Fact
+	return new Fact(arg0, arg1, op);
+    }
+
+}
