@@ -6,7 +6,8 @@ function Operator(symbol) {
 Operator.prototype.equals = function(op) {
     return this.symbol === op.symbol;
 };
-Operator.prototype.getSymbol = function() {
+
+Operator.prototype.toString = function() {
     return this.symbol;
 };
 
