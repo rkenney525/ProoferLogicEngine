@@ -44,6 +44,9 @@
     position: fixed;
     top: 0px;
     left: 800px;
+    
+    border-left: black solid 2px;
+    background: -webkit-linear-gradient(#A2A2A2, #A0A0A0);
 }
 
 #Controls_Rules {
@@ -54,6 +57,5 @@
     left: 0px;
     
     border-top: black solid 2px;
-    background: -webkit-gradient(linear, center top, center bottom, from(#000000), to(#ffffff));
     background: -webkit-linear-gradient(#000000, #A0A0A0);
 }

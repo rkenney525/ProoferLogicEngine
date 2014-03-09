@@ -38,6 +38,7 @@ function populateGameScreen(level) {
     bindRuleEvents();
 
     // Facts
+    var facts = level.facts;
     // TODO populate facts
 }
 
