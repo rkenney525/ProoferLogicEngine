@@ -41,11 +41,11 @@ function populateGameScreen(level) {
     var facts = level.facts;
     for (var index in facts) {
 	$('#Controls_Facts_Table').append('<tr>' +
-		'<td>' + '<div class="fact boxed"><p>' + index + '</p></div>' + '</td>' +
+		'<td class="fact-data-holder">' + '<div class="fact boxed"><p>' + index + '</p></div>' + '</td>' +
 		'<td>' + facts[index] + '</td>' +
 	    '</tr>');
     }
-    // TODO populate facts
+    bindFactEvents();
 }
 
 function updateRulesList() {

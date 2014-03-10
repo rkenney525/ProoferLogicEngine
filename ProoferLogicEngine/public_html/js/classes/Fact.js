@@ -44,11 +44,11 @@ Fact.prototype.toString = function() {
  * below.
  * 
  * FACT = [a-z]  |  (FACT OP FACT)  |  ~(FACT)
- * OP   = &or; (disjunction)     |
- *	  &and; (conjunction)    |
- *        &oplus; (exclusive or) |
- *        &rarr; (implication)   |
- *        &harr; (biconditional)
+ * OP   = &or; and | (disjunction)     |
+ *	  &and; and & (conjunction)    |
+ *        &oplus; and # (exclusive or) |
+ *        &rarr; and > (implication)   |
+ *        &harr; and % (biconditional)
  * 
  * @param {String} data The String form of the Fact
  * @returns {Fact} The resulting Fact
