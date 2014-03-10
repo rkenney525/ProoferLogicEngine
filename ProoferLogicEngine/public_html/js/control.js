@@ -23,15 +23,14 @@ function toGameScreen() {
 /**
  * Loads the Game screen with all assets per the level.
  * 
- * @param {Level} level The level to load
- * @returns {undefined}
+ * @param {Level} level The Level to load
  */
 function populateGameScreen(level) {
     // Rules
     var rules = level.rules;
     for (var index = 0; index < rules.length; index++) {
         $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') + 
-		' rule-container" id="Controls_Rules_List_Item_' + rules[index].displayName + '">'
+		' rule-container" ruleId="' + rules[index].getHTML() + '">'
                 + rules[index].getHTML() +
                 '</li>');
     }
@@ -41,13 +40,15 @@ function populateGameScreen(level) {
     var facts = level.facts;
     for (var index in facts) {
 	$('#Controls_Facts_Table').append('<tr>' +
-		'<td class="fact-data-holder">' + '<div class="fact boxed"><p>' + index + '</p></div>' + '</td>' +
+		'<td>' + '<div class="fact boxed" factId="'
+		+ index + '">' + (Number(index) + 1) + '</div>' + '</td>' +
 		'<td>' + facts[index] + '</td>' +
 	    '</tr>');
     }
     bindFactEvents();
 }
 
+//@Depracated Delete this shit
 function updateRulesList() {
     // Get the list
     var ruleslist = $('#Controls_Rules_List li');
