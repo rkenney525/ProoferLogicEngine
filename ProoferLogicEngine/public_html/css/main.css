@@ -24,7 +24,9 @@ root {
 }
 
 #Controls_Facts_Table {
-    
+    width: 100%;
+    font-size: 16pt;
+    vertical-align: baseline;
 }
 
 #Controls_Rules_List {
@@ -56,7 +58,8 @@ root {
     width: 100px;
     height: 75px;
     text-align: center;
-    font-size: 35px;
+    vertical-align: baseline;
+    font-size: 20px;
     background-color: rgba(255, 255, 255, 0.7);
 }
 
@@ -78,7 +81,7 @@ root {
 }
 
 .menu-focused {
-    background-image: url('../img/main_bg.png');
+    background: radial-gradient(red, white);
 }
 
 .machine-focused {

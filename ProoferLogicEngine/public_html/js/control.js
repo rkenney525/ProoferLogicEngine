@@ -29,8 +29,8 @@ function toGameScreen() {
 function populateGameScreen(level) {
     // Rules
     var rules = level.rules;
-    for (var index in rules) {
-        $('#Controls_Rules_List').append('<li class="' + ((index == (rules.length - 1)) ? 'last-item' : '') + 
+    for (var index = 0; index < rules.length; index++) {
+        $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') + 
 		' rule-container" id="Controls_Rules_List_Item_' + rules[index].displayName + '">'
                 + rules[index].getHTML() +
                 '</li>');
@@ -39,6 +39,12 @@ function populateGameScreen(level) {
 
     // Facts
     var facts = level.facts;
+    for (var index in facts) {
+	$('#Controls_Facts_Table').append('<tr>' +
+		'<td>' + '<div class="fact boxed"><p>' + index + '</p></div>' + '</td>' +
+		'<td>' + facts[index] + '</td>' +
+	    '</tr>');
+    }
     // TODO populate facts
 }
 

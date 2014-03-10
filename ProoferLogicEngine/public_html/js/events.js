@@ -17,9 +17,6 @@ function bindRuleEvents() {
     $(".rule").draggable({
 	snap: ".rule-container",
 	snapMode: "inner",
-	revert: 'invalid',
-	drop: function(event, ui) {
-	    ui.draggable.draggable('option', 'revert', true);
-	}
+	revert: 'invalid'
     });
 }
