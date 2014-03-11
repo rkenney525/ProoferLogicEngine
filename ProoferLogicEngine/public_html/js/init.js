@@ -20,7 +20,8 @@ var Levels = [
     new Level([Rules.MP, Rules.MT],
             [
                 getFactFromString("(p>q)"),
-                getFactFromString("p")
+                getFactFromString("p"),
+                getFactFromString("~(q)")
             ],
             getFactFromString("q"),
             1)

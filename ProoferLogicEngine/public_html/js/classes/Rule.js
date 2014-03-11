@@ -47,7 +47,33 @@ var Rules = {
 	}
     }),
     MT: new Rule("Modus Tollens", "MT", function(arg0, arg1) {
-        // TODO: Implement MT Rule Logic
+        // Sanity check arg0
+	if (arg0.op !== Operators.COND) {
+	    return null;
+	}
+        
+        // Sanity check arg1
+	if (arg1.op !== Operators.NEG) {
+	    return null;
+	}
+        
+        /* For example:
+	 *  arg0 = p>q
+	 *  arg1 = ~(q)
+	 * Then:
+	 *  arg0.arg1 = q
+         *  neg(arg0.arg0) = ~(q)
+	 * And since:
+	 *  neg(arg0.arg1) == arg1 (~(q) == ~(q))
+	 * Return:
+	 *  arg0.arg1 ~(p)
+	 */
+        var negQ = new Fact(arg0.arg1, null, Operators.NEG);
+        if (negQ.equals(arg1)) {
+	    return new Fact(arg0.arg0, null, Operators.NEG);
+	} else {
+	    return null;
+	}
     })
 };
 

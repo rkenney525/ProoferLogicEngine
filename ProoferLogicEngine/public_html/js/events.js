@@ -48,8 +48,9 @@ $(document).ready(function() {
         if (result !== null) {
             // TODO possibly store this elsewhere, but for now just display the
             // rule in the box
-            $('#Controls_Executor_Result').text(result.toString());
+            $('#Controls_Executor_Result').html(result.toString());
             $('#Controls_Executor_Result').addClass("glowing");
+            // TODO add click event to $('#Controls_Executor_Result')
         } else {
             // TODO Do something on the UI to indicate the rule attempt failed
             // semantically
