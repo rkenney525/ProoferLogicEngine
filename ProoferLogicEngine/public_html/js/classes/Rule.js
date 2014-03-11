@@ -50,3 +50,15 @@ var Rules = {
         // TODO: Implement MT Rule Logic
     })
 };
+
+/**
+ * Check if rule is unary, which is to say it takes only one operand.
+ * 
+ * @param {Rule} rule The Rule to check
+ * @returns {boolean} True if rule takes only one operand, false otherwise
+ */
+function isUnaryRule(rule) {
+    // TODO so far none are so just return false.  Eventually there will be some
+    // and so we will do the check then.
+    return false;
+}
