@@ -25,7 +25,26 @@ Rule.prototype.getHTML = function() {
 /* Create the list of Rules */
 var Rules = {
     MP: new Rule("Modus Ponens", "MP", function(arg0, arg1){
-        // TODO: Implement MP Rule Logic
+	// Sanity check arg0
+	if (arg0.op !== Operators.COND) {
+	    return null;
+	}
+	
+	/* For example:
+	 *  arg0 = p>q
+	 *  arg1 = p
+	 * Then:
+	 *  arg0.arg0 = p
+	 * And since:
+	 *  arg0.arg0 == arg1 (p == p)
+	 * Return:
+	 *  arg0.arg1 (q)
+	 */
+	if (arg0.arg0.equals(arg1)) {
+	    return arg0.arg1;
+	} else {
+	    return null;
+	}
     }),
     MT: new Rule("Modus Tollens", "MT", function(arg0, arg1) {
         // TODO: Implement MT Rule Logic
