@@ -42,9 +42,9 @@ function bindFactEvents() {
 		// other operand.
 		var numBeingDropped = Number(droppedItem.getAttribute('factId')) + 1;
 		// TODO Bug: when one arg is empty, following statement doesnt work
-		var self = (target === $('#Controls_Executor_Arg0')) ?
+		var self = (target[0] === $('#Controls_Executor_Arg0')[0]) ?
 		$('#Controls_Executor_Arg0') : $('#Controls_Executor_Arg1');
-		var other = (self === $('#Controls_Executor_Arg0')) ?
+		var other = (self[0] === $('#Controls_Executor_Arg0')[0]) ?
 		$('#Controls_Executor_Arg1') : $('#Controls_Executor_Arg0');
 		
 		if (other.text() === String(numBeingDropped)) {
