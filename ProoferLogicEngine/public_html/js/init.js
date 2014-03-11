@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    /* Give the body the appropriate size */
+    $('body').innerWidth(window.innerWidth);
+    $('body').innerHeight(window.innerHeight);
+
     /* Opening Graphic */
     // Draw some text
     var can = $("#OpeningGraphicCanvas").get(0);
@@ -14,10 +18,10 @@ $('#Controls_Rules').width(window.innerWidth);
 var currentLevel = 0;
 var Levels = [
     new Level([Rules.MP, Rules.MT],
-	    [
-		getFactFromString("(p>q)"),
-		getFactFromString("p")
-	    ],
-	    getFactFromString("q"),
-	    1)
+            [
+                getFactFromString("(p>q)"),
+                getFactFromString("p")
+            ],
+            getFactFromString("q"),
+            1)
 ];

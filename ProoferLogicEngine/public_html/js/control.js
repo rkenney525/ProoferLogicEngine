@@ -30,7 +30,7 @@ function populateGameScreen(level) {
     var rules = level.rules;
     for (var index = 0; index < rules.length; index++) {
         $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') + 
-		' rule-container" ruleId="' + rules[index].getHTML() + '">'
+		' rule-container" ruleId="' + rules[index] + '">'
                 + rules[index].getHTML() +
                 '</li>');
     }
