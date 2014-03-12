@@ -42,6 +42,12 @@ root {
     float: left;
 }
 
+#Controls_Executor_Result {
+    text-align: center;
+    vertical-align: baseline;
+    font-size: 20px;
+}
+
 .menu-item {
 
 }
@@ -54,18 +60,36 @@ root {
     background-color: rgba(255,32,32,0.7);
 }
 
+.rule-filled {
+    text-align: center;
+    font-size: 35px;
+    background-color: rgba(255,32,32,0.7) !important;
+}
+
 .fact {
-    width: 100px;
-    height: 75px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: baseline;
     font-size: 20px;
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+.fact-filled {
+    text-align: center;
+    vertical-align: baseline;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
 .boxed {
     border: 1px black solid;
     border-radius: 5px;
+}
+
+.ovaled {
+    border: 1px black solid;
+    border-radius: 25px;
 }
 
 .glowing {

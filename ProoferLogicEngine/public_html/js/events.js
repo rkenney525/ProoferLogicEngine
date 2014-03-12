@@ -72,6 +72,7 @@ function bindRuleEvents() {
             // Make sure it's the right droppable
             if (droppedItem.getAttribute('ruleId') !== null) {
                 target.text(droppedItem.getAttribute('ruleId'));
+                target.addClass("rule-filled");
             }
         },
         over: function(event) {
@@ -117,8 +118,13 @@ function bindFactEvents() {
 
                 if (other.text() === String(numBeingDropped)) {
                     other.text(self.text());
+                    if (self.text() === "") {
+                        other.removeClass("fact-filled");
+                    }
                     self.text(numBeingDropped);
+                    self.addClass("fact-filled");
                 } else {
+                    target.addClass("fact-filled");
                     target.text(numBeingDropped);
                 }
             }

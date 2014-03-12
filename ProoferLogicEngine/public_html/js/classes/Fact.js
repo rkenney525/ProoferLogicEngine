@@ -40,6 +40,22 @@ Fact.prototype.toString = function() {
 };
 
 /**
+ * Returns the String form of the Fact that can be parsed by getFactFromString()
+ * 
+ * @returns {String} The String form of the Fact that can be parsed by getFactFromString()
+ */
+Fact.prototype.toParsableString = function() {
+    if (this.op === null) {
+	return this.arg0.toString();
+    } else if (this.arg1 === null) {
+	return this.op.id + "(" + this.arg0.toParsableString() + ")";
+    } else {
+	return "(" + this.arg0.toParsableString() + this.op.id +
+		this.arg1.toParsableString() + ")";
+    }
+};
+
+/**
  * Create a Fact from a String.  The grammatical structure of a Fact can be seen 
  * below.
  * 
