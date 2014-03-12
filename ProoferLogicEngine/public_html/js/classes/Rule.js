@@ -32,7 +32,7 @@ var Rules = {
 	}
 
 	/* For example:
-	 *  arg0 = p>q
+	 *  arg0 = (p>q)
 	 *  arg1 = p
 	 * Then:
 	 *  arg0.arg0 = p
@@ -42,7 +42,7 @@ var Rules = {
 	 *  arg0.arg1 (q)
 	 */
 	if (arg0.arg0.equals(arg1)) {
-	    return arg0.arg1;
+	    return getFactFromString(arg0.arg1.toString());
 	} else {
 	    return null;
 	}
@@ -59,7 +59,7 @@ var Rules = {
 	}
 
 	/* For example:
-	 *  arg0 = p>q
+	 *  arg0 = (p>q)
 	 *  arg1 = ~(q)
 	 * Then:
 	 *  arg0.arg1 = q
@@ -71,16 +71,76 @@ var Rules = {
 	 */
 	var negQ = new Fact(arg0.arg1, null, Operators.NEG);
 	if (negQ.equals(arg1)) {
-	    return new Fact(arg0.arg0, null, Operators.NEG);
+	    return new Fact(getFactFromString(arg0.arg0.toString()), null, Operators.NEG);
 	} else {
 	    return null;
 	}
     }),
     DS: new Rule("Disjunctive Syllogism", "DS", function(arg0, arg1) {
+	// Sanity check arg0
+	if (arg0.op !== Operators.OR) {
+	    return null;
+	}
 
+	// Sanity check arg1
+	if (arg1.op !== Operators.NEG) {
+	    return null;
+	}
+
+	/* For example:
+	 *  arg0 = (p|q)
+	 *  arg1 = ~(p)
+	 * Then:
+	 *  neg(arg0.arg0) = ~(p)
+	 * And since:
+	 *  neg(arg0.arg0) == arg1 (~(p) == ~(p))
+	 * Return:
+	 *  arg0.arg1
+	 */
+	var negP = new Fact(arg0.arg0, null, Operators.NEG);
+	if (negP.equals(arg1)) {
+	    return getFactFromString(arg0.arg1.toString());
+	} else {
+	    return null;
+	}
     }),
     CD: new Rule("Constructive Dilemma", "CD", function(arg0, arg1) {
-
+	// Sanity check arg0
+	if (arg0.op !== Operators.AND ||
+		arg0.arg0.op !== Operators.COND ||
+		arg0.arg1.op !== Operators.COND) {
+	    return null;
+	}
+	
+	// Sanity check arg1
+	if (arg1.op !== Operators.OR) {
+	    return null;
+	}
+	
+	/* For example: 
+	 *  arg0 = ((p>q)&(r>s))
+	 *  arg1 = (p|r)
+	 * Then:
+	 *  arg0.arg0 = (p>q)
+	 *  arg0.arg0.arg0 = p
+	 *  arg0.arg0.arg1 = q
+	 *  arg0.arg1 = (r>s)
+	 *  arg0.arg1.arg0 = r
+	 *  arg0.arg1.arg1 = s
+	 *  arg1.arg0 = p
+	 *  arg1.arg1 = r
+	 * And since:
+	 *  arg0.arg0.arg0 == arg1.arg0 (p == p)
+	 *  arg0.arg1.arg0 == arg1.arg1 (r == r)
+	 * Return:
+	 *  (arg0.arg0.arg1 | arg0.arg1.arg1) (q|s)
+	 */
+	if (arg0.arg0.arg0.equals(arg1.arg0) &&
+		arg0.arg1.arg0.equals(arg1.arg1)) {
+	    var firstDisjunctArg1 = getFactFromString(arg0.arg0.arg1.toString());
+	    var secondDisjunctArg1 = getFactFromString(arg0.arg1.arg1.toString());
+	    return new Fact(firstDisjunctArg1, secondDisjunctArg1, Operators.OR);
+	}
     }),
     HS: new Rule("Hypothetical Syllogism", "HS", function(arg0, arg1) {
 
@@ -106,7 +166,8 @@ var Rules = {
 	     *  (arg0.arg0 > arg0.arg1.arg1)
 	     */
 	    if (arg0.arg0.equals(arg0.arg1.arg0)) {
-		return new Fact(arg0.arg0, arg0.arg1.arg1, Operators.COND);
+		return new Fact(getFactFromString(arg0.arg0.toString()), 
+		getFactFromString(arg0.arg1.arg1.toString()), Operators.COND);
 	    } else {
 		/* For example (reverse application):
 		 *  arg0 = (p>q)
@@ -118,8 +179,9 @@ var Rules = {
 		 * So return:
 		 *  (arg0.arg0 > (arg0.arg0 & arg0.arg1))
 		 */
-		var conj = new Fact(arg0.arg0, arg0.arg1, Operators.AND);
-		return new Fact(arg0.arg0, conj, Operators.COND);
+		var conj = new Fact(getFactFromString(arg0.arg0.toString()), 
+		getFactFromString(arg0.arg1.toString()), Operators.AND);
+		return new Fact(getFactFromString(arg0.arg0.toString()), conj, Operators.COND);
 	    }
 	} else {
 	    return null;
