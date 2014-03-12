@@ -4,6 +4,14 @@ $(document).ready(function() {
         toGameScreen();
     });
 
+    $('#Controls_Executor_ClearResults').click(function() {
+        clearExecutorResult();
+    });
+
+    $('#Controls_Executor_ClearInput').click(function() {
+        clearExecutorInputs();
+    });
+
     $('#Controls_Executor_Evaluate').click(function() {
         // Get the level
         var level = Levels[currentLevel];
@@ -18,6 +26,8 @@ $(document).ready(function() {
         }
         if (rule === null) {
             // TODO The Rule wasn't valid, find a good way to show it in the UI
+            // NOTE this isnt possible through the games mechanics, but it should be
+            // handled anyway, preferably with vulgarity
             return;
         }
 
@@ -50,6 +60,41 @@ $(document).ready(function() {
             // rule in the box
             $('#Controls_Executor_Result').html(result.toString());
             $('#Controls_Executor_Result').addClass("glowing");
+            $('#Controls_Executor_Result').click(function() {
+                // Get some basic info
+                var level = Levels[currentLevel];
+                var facts = level.facts;
+
+                // Check if the proposed Fact exists
+                var factExists = false;
+                for (var index = 0; index < facts.length; index++) {
+                    if (result.equals(facts[index])) {
+                        factExists = true;
+                        break;
+                    }
+                }
+
+                // If the fact doesnt exist, add it to the list and table
+                if (!factExists) {
+                    // The new index will always be the current length of the array
+                    var index = facts.length;
+                    
+                    // Add the fact
+                    facts.push(result);
+                    
+                    // Update the table
+                    $('#Controls_Facts_Table').append(generateFactRow(index, result));
+                }
+
+                // Clear the results and input
+                clearExecutorResult();
+                clearExecutorInputs();
+
+                // Remove the event, it's no longer valid
+                $('#Controls_Executor_Result').unbind("click");
+                
+                // TODO sound effect like a pop or pow (think mario rpg pop)
+            });
             // TODO add click event to $('#Controls_Executor_Result')
         } else {
             // TODO Do something on the UI to indicate the rule attempt failed
@@ -68,7 +113,7 @@ function bindRuleEvents() {
             // Remove the class that gives the glow
             target.removeClass("hover-glowing");
             var droppedItem = event.toElement;
-            
+
             // Make sure it's the right droppable
             if (droppedItem.getAttribute('ruleId') !== null) {
                 target.text(droppedItem.getAttribute('ruleId'));
@@ -104,7 +149,7 @@ function bindFactEvents() {
             // Remove the class that gives the glow
             target.removeClass("hover-glowing");
             var droppedItem = event.toElement;
-            
+
             // Make sure it's the right droppable
             if (droppedItem.getAttribute('factId') !== null) {
                 // You can't apply any rule with two identical operands. So 

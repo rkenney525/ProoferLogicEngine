@@ -39,20 +39,36 @@ function populateGameScreen(level) {
     // Facts
     var facts = level.facts;
     for (var index in facts) {
-	$('#Controls_Facts_Table').append('<tr>' +
-		'<td>' + '<div class="fact ovaled" factId="'
-		+ index + '">' + (Number(index) + 1) + '</div>' + '</td>' +
-		'<td>' + facts[index] + '</td>' +
-	    '</tr>');
+	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index]));
             // TODO verify length of fact doesnt excede screen
     }
     bindFactEvents();
+}
+
+/**
+ * Create the HTML for an entry in the Fact table.
+ * 
+ * @param {Number} index The index in the current level's array of Facts
+ * @param {Fact} fact The Fact being displayed
+ * @returns {String} The HTML for a row int he Fact table
+ */
+function generateFactRow(index, fact) {
+    return '<tr>' +
+		'<td>' + '<div class="fact ovaled" factId="'
+		+ index + '">' + (index + 1) + '</div>' + '</td>' +
+		'<td>' + fact + '</td>' +
+	    '</tr>'
 }
 
 function clearExecutorInputs() {
     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1, #Controls_Executor_Rule')
             .removeClass("rule-filled fact-filled")
             .html("");
+}
+
+function clearExecutorResult() {
+    $('#Controls_Executor_Result').removeClass("glowing");
+        $('#Controls_Executor_Result').html("");
 }
 
 function navigateAway() {
