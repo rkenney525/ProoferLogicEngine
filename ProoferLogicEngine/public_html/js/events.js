@@ -56,8 +56,6 @@ $(document).ready(function() {
 
         // Handle the result appropriately
         if (result !== null) {
-            // TODO possibly store this elsewhere, but for now just display the
-            // rule in the box
             $('#Controls_Executor_Result').html(result.toString());
             $('#Controls_Executor_Result').addClass("glowing");
             $('#Controls_Executor_Result').click(function() {
@@ -84,6 +82,9 @@ $(document).ready(function() {
                     
                     // Update the table
                     $('#Controls_Facts_Table').append(generateFactRow(index, result));
+                    
+                    // Make it draggable
+                    bindFactEvents();
                 }
 
                 // Clear the results and input
