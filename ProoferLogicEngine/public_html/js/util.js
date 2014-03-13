@@ -1,3 +1,6 @@
+/**
+ * Close the browser window
+ */
 function closeWindow() {
     // TODO closeWindow() doesnt work in chrome app
     //if (chrome.app.window != null) {

@@ -17,6 +17,11 @@ function Rule(ruleName, displayName, ruleFunction) {
 }
 ;
 
+/**
+ * Generate HTML for this Rule.
+ * 
+ * @returns {String} HTML representing a Rule
+ */
 Rule.prototype.getHTML = function() {
     return '<div id="Rule_' + this.displayName + '" class="rule boxed"'
             + ' ruleid="' + this.displayName + '">' + this.displayName +

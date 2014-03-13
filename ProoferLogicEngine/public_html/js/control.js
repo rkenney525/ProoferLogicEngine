@@ -1,3 +1,7 @@
+/**
+ * Configure the page to display the main menu.  This is the default state of 
+ * the application.
+ */
 function toMainMenu() {
     // Clean up
     navigateAway();
@@ -7,6 +11,10 @@ function toMainMenu() {
     $('#MainMenu').show();
 }
 
+/**
+ * Configure the page to display the game screen.  Even if you're already on the 
+ * game screen, this function can be used after increasing the currentLevel.
+ */
 function toGameScreen() {
     // Clean up
     navigateAway();
@@ -57,20 +65,32 @@ function generateFactRow(index, fact) {
 		'<td>' + '<div class="fact ovaled" factId="'
 		+ index + '">' + (index + 1) + '</div>' + '</td>' +
 		'<td>' + fact + '</td>' +
-	    '</tr>'
+	    '</tr>';
 }
 
+/**
+ * Clear input fields of possible *-filled classes and empty the HTML.
+ */
 function clearExecutorInputs() {
     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1, #Controls_Executor_Rule')
             .removeClass("rule-filled fact-filled")
             .html("");
 }
 
+/**
+ * Clear the result field of possible added classes and empty the HTML.
+ */
 function clearExecutorResult() {
     $('#Controls_Executor_Result').removeClass("glowing");
         $('#Controls_Executor_Result').html("");
 }
 
+/**
+ * Hide all of the major view divs so the slate can be set clean. Also removes 
+ * CSS properties from the body that are used to configure pages.  Call this 
+ * function before a major navigation such as going to the main menu or the game 
+ * screen.
+ */
 function navigateAway() {
     // Hide other divs
     $('#MainMenu').hide();

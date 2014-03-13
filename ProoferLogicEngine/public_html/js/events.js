@@ -1,6 +1,5 @@
 $(document).ready(function() {
     $('#MenuPlayGame').click(function() {
-        // TODO Implement starting sequence, level management, etc
         toGameScreen();
     });
 
@@ -106,6 +105,10 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Grab every Rule and make it draggable. Also add the droppable event to the Rule
+ * box.
+ */
 function bindRuleEvents() {
     $('#Controls_Executor_Rule').droppable({
         tolerance: 'touch',
@@ -142,6 +145,10 @@ function bindRuleEvents() {
     });
 }
 
+/**
+ * Bind Fact related events: Make the numbers draggable and the Arg boxes 
+ * droppable.  When a new Fact is added, this method should be called.
+ */
 function bindFactEvents() {
     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1').droppable({
         tolerance: 'touch',
