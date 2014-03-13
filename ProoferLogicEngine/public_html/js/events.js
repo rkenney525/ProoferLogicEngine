@@ -103,6 +103,14 @@ $(document).ready(function() {
         }
 
     });
+    
+    // Base key event handler
+    $('body').keypress(function(event) {
+        var keycode = event.which;
+        switch(keycode) {
+            
+        }
+    });
 });
 
 /**
