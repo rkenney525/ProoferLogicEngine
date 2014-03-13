@@ -122,6 +122,8 @@ function bindRuleEvents() {
             if (droppedItem.getAttribute('ruleId') !== null) {
                 target.text(droppedItem.getAttribute('ruleId'));
                 target.addClass("rule-filled");
+                // TODO: check if dropped rule was Add.  If so, do something to 
+                // arg1 box
             }
         },
         over: function(event) {

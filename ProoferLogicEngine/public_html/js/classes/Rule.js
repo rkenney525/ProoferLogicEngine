@@ -239,8 +239,17 @@ var Rules = {
             return null;
         }
     }),
-    Add: new Rule("Addition", "Add", function(arg0) {
+    Add: new Rule("Addition", "Add", function(arg0, arg1) {
         // TODO there is going to need to be an interface for this
+        /* For example:
+         *  arg0 = p
+         *  arg1 = [Something from the user] (q)
+         * So return:
+         *  (arg0 | arg1) (p | q)
+         */
+        var p = getFactFromString(arg0.toParsableString());
+        var q = getFactFromString(arg1.toParsableString());
+        return new Fact(p, q, Operators.OR);
     })
 };
 
