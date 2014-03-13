@@ -178,10 +178,30 @@ var Rules = {
         }
     }),
     Simp: new Rule("Simplification", "Simp", function(arg0) {
-
+        // Sanity check arg0
+        if (arg0.op !== Operators.AND) {
+            return null;
+        }
+        
+        /* For example:
+         *  arg0 = (p&q)
+         * Then:
+         *  arg0.arg0 = p
+         * So return:
+         *  arg0.arg0 (p)
+         */
+        return getFactFromString(arg0.arg0.toParsableString()); 
     }),
     Conj: new Rule("Conjunction", "Conj", function(arg0, arg1) {
-
+        /* For example:
+         *  arg0 = p
+         *  arg1 = q
+         * So return:
+         *  (arg0 & arg1) (p&q)
+         */
+        var p = getFactFromString(arg0);
+        var q = getFactFromString(arg1);
+        return new Fact(p, q, Operators.AND);
     }),
     Abs: new Rule("Absorption", "Abs", function(arg0) {
         // arg0 must be a conditional.  If it is, then the rule can be either 
