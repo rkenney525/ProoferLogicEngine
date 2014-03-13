@@ -17,7 +17,8 @@ $('#Controls_Rules').width(window.innerWidth);
 /* Create the list of Levels */
 var currentLevel = 0;
 var Levels = [
-    new Level([Rules.MP, Rules.MT, Rules.DS, Rules.CD, Rules.HS, Rules.Abs],
+    new Level([Rules.MP, Rules.MT, Rules.DS, Rules.CD, Rules.HS, Rules.Simp, 
+        Rules.Conj, Rules.Abs],
             [
                 getFactFromString("(p>q)"),
                 getFactFromString("p"),

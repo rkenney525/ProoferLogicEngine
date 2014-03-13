@@ -50,6 +50,8 @@
     position: fixed;
     top: 0px;
     left: 800px;
+    
+    overflow: auto;
 
     border-left: black solid 2px;
     background: -webkit-linear-gradient(#A2A2A2, #A0A0A0);
@@ -61,6 +63,8 @@
     position: fixed;
     top: 650px;
     left: 0px;
+    
+    overflow: auto;
 
     border-top: black solid 2px;
     background: -webkit-linear-gradient(#000000, #A0A0A0);

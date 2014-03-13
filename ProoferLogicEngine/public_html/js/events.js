@@ -141,7 +141,8 @@ function bindRuleEvents() {
     $(".rule").draggable({
         revert: 'invalid',
         opacity: 0.7,
-        helper: "clone"
+        helper: "clone",
+        appendTo: 'body'
     });
 }
 
@@ -199,6 +200,7 @@ function bindFactEvents() {
     $(".fact").draggable({
         revert: 'invalid',
         opacity: 0.7,
-        helper: "clone"
+        helper: "clone",
+        appendTo: 'body'
     });
 }

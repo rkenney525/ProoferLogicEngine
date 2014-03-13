@@ -31,7 +31,8 @@ root {
 
 #Controls_Rules_List {
     list-style-type: none;
-    height: auto;
+    white-space: nowrap;
+    width: 200000px;
 }
 
 #Controls_Rules_List li {
