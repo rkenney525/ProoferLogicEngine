@@ -34,6 +34,11 @@ var Levels = {
 		getFactFromString("q"),
 		7);
     },
+    /**
+     * Retrieve the current Level object if there is one in memory. If not, create 
+     * a new one based on the Level index.
+     * @returns {Level} The current Level
+     */
     getCurrentLevel: function() {
 	// Check if the Level has been loaded
 	if (this.current === null) {
@@ -43,9 +48,14 @@ var Levels = {
 	// Return the Level
 	return this.current;
     },
+    /**
+     * Advance to the next Level
+     * 
+     * @returns {Level} The next Level
+     */
     nextLevel: function() {
 	// Reset status
-	this.current = null;
+	this.reset();
 
 	// Increment the level index
 	this.currentIndex++;
@@ -53,10 +63,19 @@ var Levels = {
 	// Return the next Level
 	return this.getCurrentLevel();
     },
+    /**
+     * Check if the player is on the last Level.
+     * 
+     * @returns {Boolean} True if on the last Level, false otherwise
+     */
     onLastLevel: function() {
 	return this.currentIndex === this.finalIndex;
     },
+    /**
+     * Clears the working Level from memory
+     */
     reset: function() {
+	delete this.current;
 	this.current = null;
     }
 };
