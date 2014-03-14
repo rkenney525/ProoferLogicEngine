@@ -86,6 +86,32 @@ function clearExecutorResult() {
 }
 
 /**
+ * This function prepares the Level Cleared Dialog for display and then displays 
+ * it.
+ */
+function displayLevelClearedDialog() {
+    // Get info
+    var level = Levels[currentLevel];
+    var par = level.par;
+    var actual = level.facts.length;
+    var metPar = (actual <= par);
+    var conclusion = level.conclusion;
+    
+    // Prepare the dialog
+    $("#Dialogs_LevelCleared_Conclusion").html(conclusion.toString());
+    $("#Dialogs_LevelCleared_Par").html(par);
+    $("#Dialogs_LevelCleared_Actual").html(actual);
+    if (metPar) {
+	$("#Dialogs_LevelCleared_Congrats").show();
+    } else {
+	$("#Dialogs_LevelCleared_DoBetter").show();
+    }
+    
+    // Display the dialog
+    $("#Dialogs_LevelCleared").dialog("open");
+}
+
+/**
  * Hide all of the major view divs so the slate can be set clean. Also removes 
  * CSS properties from the body that are used to configure pages.  Call this 
  * function before a major navigation such as going to the main menu or the game 

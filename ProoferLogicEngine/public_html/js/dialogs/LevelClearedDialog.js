@@ -18,6 +18,6 @@ $(document).ready(function() {
 	    effect: "highlight",
 	    duration: 1000
 	}
+	// TODO close function that clears the spans
     });
-    $("#Dialogs_LevelCleared").dialog("open");
 });

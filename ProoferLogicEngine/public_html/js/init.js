@@ -28,5 +28,5 @@ var Levels = [
                 getFactFromString("(q>~(s))")
             ],
             getFactFromString("q"),
-            1)
+            7)
 ];
