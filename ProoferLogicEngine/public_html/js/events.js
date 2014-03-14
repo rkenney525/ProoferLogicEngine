@@ -94,7 +94,9 @@ $(document).ready(function() {
                 $('#Controls_Executor_Result').unbind("click");
                 
                 // TODO sound effect like a pop or pow (think mario rpg pop)
-		// TODO check if its the last fact.  if so, populate the dialog
+		if (result.equals(level.conclusion)) {
+		    displayLevelClearedDialog();
+		}
             });
         } else {
             // TODO Do something on the UI to indicate the rule attempt failed
