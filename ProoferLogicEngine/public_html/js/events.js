@@ -13,7 +13,7 @@ $(document).ready(function() {
 
     $('#Controls_Executor_Evaluate').click(function() {
         // Get the level
-        var level = Levels[currentLevel];
+        var level = Levels.getCurrentLevel();
 
         // Get the rule
         var rule = null;
@@ -59,7 +59,7 @@ $(document).ready(function() {
             $('#Controls_Executor_Result').addClass("glowing");
             $('#Controls_Executor_Result').click(function() {
                 // Get some basic info
-                var level = Levels[currentLevel];
+                var level = Levels.getCurrentLevel();
                 var facts = level.facts;
 
                 // Check if the proposed Fact exists

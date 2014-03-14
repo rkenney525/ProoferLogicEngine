@@ -60,6 +60,10 @@ root {
 
 }
 
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
 .rule {
     width: 100px;
     height: 75px;

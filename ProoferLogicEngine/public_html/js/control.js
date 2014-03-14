@@ -24,7 +24,7 @@ function toGameScreen() {
     $('#GameScreen').show();
 
     // Load the level data
-    var info = Levels[currentLevel];
+    var info = Levels.getCurrentLevel();
     populateGameScreen(info);
 }
 
@@ -96,7 +96,7 @@ function clearExecutorResult() {
  */
 function displayLevelClearedDialog() {
     // Get info
-    var level = Levels[currentLevel];
+    var level = Levels.getCurrentLevel();
     var par = level.par;
     var actual = level.facts.length;
     var metPar = (actual <= par);

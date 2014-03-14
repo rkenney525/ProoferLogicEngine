@@ -13,4 +13,50 @@ function Level(rules, facts, conclusion, par) {
     this.facts = facts;
     this.conclusion = conclusion;
     this.par = par;
+}
+;
+
+var Levels = {
+    currentIndex: 0,
+    finalIndex: 0,
+    current: null,
+    0: function() {
+	return new Level([Rules.MP, Rules.MT, Rules.DS, Rules.CD, Rules.HS, Rules.Simp,
+	    Rules.Conj, Rules.Abs],
+		[
+		    getFactFromString("(p>q)"),
+		    getFactFromString("p"),
+		    getFactFromString("~(q)"),
+		    getFactFromString("(q|r)"),
+		    getFactFromString("((q>x)&(r>y))"),
+		    getFactFromString("(q>~(s))")
+		],
+		getFactFromString("q"),
+		7);
+    },
+    getCurrentLevel: function() {
+	// Check if the Level has been loaded
+	if (this.current === null) {
+	    // If not, load it
+	    this.current = this[this.currentIndex]();
+	}
+	// Return the Level
+	return this.current;
+    },
+    nextLevel: function() {
+	// Reset status
+	this.current = null;
+
+	// Increment the level index
+	this.currentIndex++;
+
+	// Return the next Level
+	return this.getCurrentLevel();
+    },
+    onLastLevel: function() {
+	return this.currentIndex === this.finalIndex;
+    },
+    reset: function() {
+	this.current = null;
+    }
 };

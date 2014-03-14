@@ -4,13 +4,13 @@ $(document).ready(function() {
 	autoOpen: false,
 	buttons: {
 	    "Next Level": function() {
-		currentLevel++;
 		// TODO handle last level
-		populateGameScreen(Levels[currentLevel]);
+		populateGameScreen(Levels.nextLevel());
 		closeLevelClearedDialog();
 	    },
 	    "Retry": function() {
-		populateGameScreen(Levels[currentLevel]);
+		Levels.reset();
+		populateGameScreen(Levels.getCurrentLevel());
 		closeLevelClearedDialog();
 	    }
 	},
