@@ -61,7 +61,7 @@ root {
 }
 
 .ui-dialog-titlebar-close {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .rule {
@@ -69,13 +69,16 @@ root {
     height: 75px;
     text-align: center;
     font-size: 35px;
-    background-color: rgba(255,32,32,0.7);
+    background: 
+	radial-gradient(rgba(255, 32, 32, 0.8), rgba(255, 32, 32, 0.6));
 }
 
 .rule-filled {
     text-align: center;
     font-size: 35px;
-    background-color: rgba(255,32,32,0.7) !important;
+    background: 
+	radial-gradient(rgba(255, 32, 32, 0.8), rgba(255, 32, 32, 0.6)) 
+	!important;
 }
 
 .fact {
@@ -84,14 +87,17 @@ root {
     text-align: center;
     vertical-align: baseline;
     font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background: 
+	radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
 }
 
 .fact-filled {
     text-align: center;
     vertical-align: baseline;
     font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.7) !important;
+    background: 
+	radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4)) 
+	!important;
 }
 
 .boxed {
@@ -119,7 +125,7 @@ root {
 .executor-box {
     width: 100px;
     height: 75px;
-    background-color: rgba(128,128,128,0.3);
+    background: rgba(128,128,128,0.3);
     border: 1px black solid;
     border-radius: 5px;
 }
