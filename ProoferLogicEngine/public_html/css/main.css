@@ -49,6 +49,13 @@ root {
     font-size: 20px;
 }
 
+#Controls_Display {
+    position:  absolute;
+    font-size: 20px;
+    left: 0px;
+    top: 25px;
+}
+
 .menu-item {
 
 }

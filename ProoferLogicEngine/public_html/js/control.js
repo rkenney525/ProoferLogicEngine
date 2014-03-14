@@ -51,6 +51,9 @@ function populateGameScreen(level) {
             // TODO verify length of fact doesnt excede screen
     }
     bindFactEvents();
+    
+    // Conclusion
+    $("#Controls_Display_Conclusion").html(level.conclusion.toString());
 }
 
 /**
