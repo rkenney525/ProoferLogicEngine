@@ -17,7 +17,8 @@ $(document).ready(function() {
                 // Append the HTML
                 $("#Dialogs_Tutorial").html(tutorial.pages[index].content);
 
-                // TODO Modify the subtitle
+                // Modify the subtitle
+                $('#ui-id-2').html(tutorial.title + " - " + tutorial.pages[index].subtitle);
 
                 // Modify the buttons if necessary
                 checkTutorialButtons();
@@ -34,7 +35,8 @@ $(document).ready(function() {
                     // Append the HTML
                     $("#Dialogs_Tutorial").html(tutorial.pages[index].content);
 
-                    // TODO Modify the subtitle
+                    // Modify the subtitle
+                    $('#ui-id-2').html(tutorial.title + " - " + tutorial.pages[index].subtitle);
 
                     // Modify the buttons if necessary
                     checkTutorialButtons();
@@ -96,7 +98,9 @@ function openTutorial(tutorial) {
     // Append the HTML
     $("#Dialogs_Tutorial").html(tutorial.pages[0].content);
 
-    // TODO Modify the title
+    // Modify the title
+    // ui-id-2 is the id given by jquery-ui by order in the DOM
+    $('#ui-id-2').html(tutorial.title + " - " + tutorial.pages[0].subtitle);
 
     // Modify the buttons
     checkTutorialButtons();
