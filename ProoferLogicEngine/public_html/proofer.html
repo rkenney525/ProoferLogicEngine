@@ -13,6 +13,7 @@
         <script src="js/classes/Operator.js"></script>
         <script src="js/classes/Fact.js"></script>
         <script src="js/classes/Rule.js"></script>
+	<script src="js/dialogs/LevelClearedDialog.js"></script>
         <script src="js/init.js"></script>
         <script src="js/control.js"></script>
         <script src="js/events.js"></script>
@@ -52,6 +53,22 @@
                     </div>
                 </div>
             </div>
+	    <div id="Dialogs" style="display: none;">
+		<div id="Dialogs_LevelCleared" title="Stage cleared">
+		    <p>Congrats, you've shown <span id="Dialogs_LevelCleared_Conclusion"></span> to be true!</p>
+		    <br />
+		    <p>A pro can do this establishing only <span id="Dialogs_LevelCleared_Par"></span> 
+		    facts.  You solved it by establishing <span id="Dialogs_LevelCleared_Actual"></span>.  
+		    <span id="Dialogs_LevelCleared_Congrats" style="display: none;">
+			Looks like you know what you're doing after all!
+		    </span>
+		    <span id="Dialogs_LevelCleared_DoBetter" style="display: none;">
+			That's not bad, but the conclusion could have been shown in fewer steps.
+		    </span></p>
+		    <br />
+		    <p>Now you can either move on to the next level or replay this one to get a better score.</p>
+		</div>
+	    </div>
         </div>
     </body>
 </html>
