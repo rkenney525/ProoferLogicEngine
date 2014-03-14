@@ -6,13 +6,16 @@
  * @param {Fact[]} facts The premises for the argument
  * @param {Fact} conclusion The Fact that needs to be shown
  * @param {Number} par The max number of moves for a good score
+ * @param {Tutorial} tutorial The Tutorial to precede the level starting. null if
+ * not used.
  * @returns {Level} The resulting Level object
  */
-function Level(rules, facts, conclusion, par) {
+function Level(rules, facts, conclusion, par, tutorial) {
     this.rules = rules;
     this.facts = facts;
     this.conclusion = conclusion;
     this.par = par;
+    this.tutorial = tutorial;
 }
 ;
 
@@ -32,11 +35,13 @@ var Levels = {
 		    getFactFromString("(q>~(s))")
 		],
 		getFactFromString("q"),
-		7);
+		7,
+            Tutorials.INTRO);
     },
     /**
      * Retrieve the current Level object if there is one in memory. If not, create 
      * a new one based on the Level index.
+     * 
      * @returns {Level} The current Level
      */
     getCurrentLevel: function() {

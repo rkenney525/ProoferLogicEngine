@@ -56,6 +56,9 @@ function populateGameScreen(level) {
     
     // Conclusion
     $("#Controls_Display_Conclusion").html(level.conclusion.toString());
+    
+    // Load tutorial
+    openTutorial(level.tutorial);
 }
 
 /**
