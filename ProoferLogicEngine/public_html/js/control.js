@@ -36,6 +36,7 @@ function toGameScreen() {
 function populateGameScreen(level) {
     // Rules
     var rules = level.rules;
+    $('#Controls_Rules_List').empty();
     for (var index = 0; index < rules.length; index++) {
         $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') + 
 		' rule-container" ruleId="' + rules[index] + '">'
@@ -46,6 +47,7 @@ function populateGameScreen(level) {
 
     // Facts
     var facts = level.facts;
+    $('#Controls_Facts_Table').empty();
     for (var index in facts) {
 	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index]));
             // TODO verify length of fact doesnt excede screen
