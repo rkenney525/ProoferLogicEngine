@@ -39,7 +39,7 @@ function populateGameScreen(level) {
     $('#Controls_Rules_List').empty();
     for (var index = 0; index < rules.length; index++) {
         $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') + 
-		' rule-container" ruleId="' + rules[index] + '">'
+		' rule-container">'
                 + rules[index].getHTML() +
                 '</li>');
     }
