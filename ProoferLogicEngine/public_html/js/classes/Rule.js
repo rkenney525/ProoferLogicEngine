@@ -199,8 +199,8 @@ var Rules = {
          * So return:
          *  (arg0 & arg1) (p&q)
          */
-        var p = getFactFromString(arg0);
-        var q = getFactFromString(arg1);
+        var p = getFactFromString(arg0.toParsableString());
+        var q = getFactFromString(arg1.toParsableString());
         return new Fact(p, q, Operators.AND);
     }),
     Abs: new Rule("Absorption", "Abs", function(arg0) {

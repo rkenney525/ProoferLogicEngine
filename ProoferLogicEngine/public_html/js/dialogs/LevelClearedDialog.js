@@ -20,7 +20,7 @@ $(document).ready(function() {
 	},
 	hide: {
 	    effect: "highlight",
-	    duration: 1000
+	    duration: 200
 	}
     });
 });
@@ -32,5 +32,4 @@ function closeLevelClearedDialog() {
     $("#Dialogs_LevelCleared_Actual").html("");
     $("#Dialogs_LevelCleared_Congrats").hide();
     $("#Dialogs_LevelCleared_DoBetter").hide();
-
 }

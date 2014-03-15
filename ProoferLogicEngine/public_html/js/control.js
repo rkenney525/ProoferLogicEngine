@@ -50,7 +50,6 @@ function populateGameScreen(level) {
     $('#Controls_Facts_Table').empty();
     for (var index in facts) {
 	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index]));
-            // TODO verify length of fact doesnt excede screen
     }
     bindFactEvents();
     

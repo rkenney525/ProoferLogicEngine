@@ -51,7 +51,7 @@ $(document).ready(function() {
         },
         hide: {
             effect: "highlight",
-            duration: 1000
+            duration: 200
         }
     });
 });
@@ -104,7 +104,10 @@ function openTutorial(tutorial) {
 
     // Modify the buttons
     checkTutorialButtons();
-
+    
     // Open the dialog
     $("#Dialogs_Tutorial").dialog("open");
+    
+    // Set the height
+    $('#Dialogs_Tutorial').height(330);
 }

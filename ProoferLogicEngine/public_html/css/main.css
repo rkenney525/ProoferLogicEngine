@@ -110,6 +110,10 @@ root {
     border-radius: 25px;
 }
 
+/* TODO Animate this */
+.lifted {
+    box-shadow: 0px 5px 15px #0A0A0A;
+}
 .glowing {
     box-shadow: 0px 0px 35px #FFD700;
 }
@@ -141,4 +145,57 @@ root {
 .center {
     margin-left: auto;
     margin-right: auto;
+}
+
+.tutorial-table table { 
+    border-collapse: collapse; 
+    text-align: left; 
+    width: 100%; 
+} 
+
+.tutorial-table {
+    font: normal 12px/150% Arial, Helvetica, sans-serif; 
+    background: #fff; overflow: hidden; 
+    border: 1px solid #991821; 
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px; 
+    border-radius: 3px; }
+
+.tutorial-table table td, .tutorial-table table th {
+    padding: 3px 10px; 
+}
+
+.tutorial-table table thead th {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CC0000), color-stop(1, #80141C) );
+    background:-moz-linear-gradient( center top, #CC0000 5%, #80141C 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#CC0000', endColorstr='#80141C');
+    background-color:#CC0000; 
+    color:#FFFFFF; 
+    font-size: 15px; 
+    font-weight: bold; 
+    border-left: 1px solid #B01C26; 
+} 
+
+.tutorial-table table thead th:first-child {
+    border: none; 
+}
+
+.tutorial-table table tbody td { 
+    color: #80141C; 
+    border-left: 1px solid #F7CDCD;
+    font-size: 12px;
+    font-weight: normal; 
+}
+
+.tutorial-table table tbody .alt td { 
+    background: #F7CDCD; 
+    color: #80141C; 
+}
+
+.tutorial-table table tbody td:first-child { 
+    border-left: none; 
+}
+
+.tutorial-table table tbody tr:last-child td {
+    border-bottom: none; 
 }

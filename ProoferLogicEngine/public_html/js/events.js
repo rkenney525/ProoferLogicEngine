@@ -132,7 +132,7 @@ function bindRuleEvents() {
             if (droppedItem.getAttribute('ruleId') !== null) {
                 target.text(droppedItem.getAttribute('ruleId'));
                 target.addClass("rule-filled");
-                // TODO: check if dropped rule was Add.  If so, do something to 
+                // TODO: check if dropped rule was unary.  If so, do something to 
                 // arg1 box
             }
         },
@@ -155,6 +155,14 @@ function bindRuleEvents() {
         opacity: 0.7,
         helper: "clone",
         appendTo: 'body'
+    });
+    
+    $(".rule").mouseover(function() {
+	$(this).addClass("lifted");
+    });
+    
+    $(".rule").mouseout(function() {
+	$(this).removeClass("lifted");
     });
 }
 
@@ -214,5 +222,13 @@ function bindFactEvents() {
         opacity: 0.7,
         helper: "clone",
         appendTo: 'body'
+    });
+    
+    $(".fact").mouseover(function() {
+	$(this).addClass("lifted");
+    });
+    
+    $(".fact").mouseout(function() {
+	$(this).removeClass("lifted");
     });
 }
