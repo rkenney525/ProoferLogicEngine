@@ -22,7 +22,7 @@ function Level(rules, facts, conclusion, par, tutorial) {
 
 var Levels = {
     currentIndex: 0,
-    finalIndex: 1,
+    finalIndex: 2,
     current: null,
     0: function() {
 	return new Level(
@@ -50,6 +50,22 @@ var Levels = {
 		getFactFromString("~(p)"),
 		1,
 		Tutorials.MT_INTRO
+		);
+    },
+    2: function() {
+	return new Level(
+		[
+		    Rules.MP,
+		    Rules.MT,
+		    Rules.DS
+		],
+		[
+		    getFactFromString("(q|~((r>t)))"),
+		    getFactFromString("~(q)")
+		],
+		getFactFromString("~((r>t))"),
+		1,
+		Tutorials.DS_INTRO
 		);
     },
     /**

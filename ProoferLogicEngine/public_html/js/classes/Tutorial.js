@@ -126,13 +126,29 @@ var Tutorials = {
 	new Page(
 		'<h3>The new rule</h3><p>Now that you\'ve mastered Modus Ponens, ' +
 		'it\'s time to learn its counterpart - Modus Tollens. The form for ' +
-		'Modus Tollens will be shown below:</p><h3>The form</h3><ul style=' + 
+		'Modus Tollens will be shown below:</p><h3>The form</h3><ul style=' +
 		'"list-style-type: none;"><li>(p&rarr;q)</li><li>&tilde;(q)</li>' +
 		'<li>therefore &tilde;(p)</li></ul><h3>Summary</h3><p>Remember, for ' +
 		'this rule, you\'re looking for a negation of the second part of an ' +
 		'implication. Even though it returns a negation, sometimes those are ' +
 		'handy, as you will soon find out once you learn a few more rules.</p>',
 		'Modus Tollens')
+    ],
+	    'New Rule'),
+    DS_INTRO: new Tutorial([
+	new Page(
+		'<h3>The new rule</h3><p>The next rule to add to your toolbelt is ' +
+		'called Disjunctive Syllogism. This one lets you do something with ' +
+		'those inclusive-or statements under the right conditions. The form ' +
+		'for the rule is given below:</p><h3>The form</h3><ul style=' +
+		'"list-style-type: none;"><li>(p&or;q)</li><li>&tilde;(p)</li>' +
+		'<li>therefore q</li></ul><h3>Summary</h3><p>If the second part of ' +
+		'an inclusive-or looks like something you could use, look around ' +
+		'for a negation of the first part. Sometimes it\'s helpful to ' +
+		'go ahead and apply a rule, even if you don\'t know what to do with ' +
+		'the result just yet. You might not get as good of a score, but ' +
+		'you\'ll find the solution a lot faster.</p>',
+		'Disjunctive Syllogism')
     ],
 	    'New Rule')
 };
