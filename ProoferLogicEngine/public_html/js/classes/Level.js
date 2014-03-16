@@ -16,27 +16,41 @@ function Level(rules, facts, conclusion, par, tutorial) {
     this.conclusion = conclusion;
     this.par = par;
     this.tutorial = tutorial;
+    this.startingFacts = facts.length;
 }
-;
+
 
 var Levels = {
     currentIndex: 0,
-    finalIndex: 0,
+    finalIndex: 1,
     current: null,
     0: function() {
-	return new Level([Rules.MP, Rules.MT, Rules.DS, Rules.CD, Rules.HS, Rules.Simp,
-	    Rules.Conj, Rules.Abs],
+	return new Level(
 		[
-		    getFactFromString("(p>q)"),
-		    getFactFromString("p"),
-		    getFactFromString("~(q)"),
-		    getFactFromString("(q|r)"),
-		    getFactFromString("((q>x)&(r>y))"),
-		    getFactFromString("(q>~(s))")
+		    Rules.MP
 		],
-		getFactFromString("q"),
-		7,
-            Tutorials.INTRO);
+		[
+		    getFactFromString("(r>s)"),
+		    getFactFromString("r")
+		],
+		getFactFromString("s"),
+		1,
+		Tutorials.INTRO);
+    },
+    1: function() {
+	return new Level(
+		[
+		    Rules.MP,
+		    Rules.MT
+		],
+		[
+		    getFactFromString("(p>(r|t))"),
+		    getFactFromString("~((r|t))")
+		],
+		getFactFromString("~(p)"),
+		1,
+		Tutorials.MT_INTRO
+		);
     },
     /**
      * Retrieve the current Level object if there is one in memory. If not, create 
@@ -82,5 +96,16 @@ var Levels = {
     reset: function() {
 	delete this.current;
 	this.current = null;
+    },
+    /**
+     * Clears the state by removing the current game from memory and removing the 
+     * level index.
+     */
+    clearState: function() {
+	// Remove current game from memory
+	this.reset();
+	
+	// Reset the level index
+	this.currentIndex = 0;
     }
 };

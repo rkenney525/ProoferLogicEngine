@@ -32,7 +32,7 @@ Fact.prototype.toString = function() {
     if (this.op === null) {
 	return this.arg0.toString();
     } else if (this.arg1 === null) {
-	return this.op.toString() + "(" + this.arg0.toString() + ")";
+	return this.op.toString() + "" + this.arg0.toString() + "";
     } else {
 	return "(" + this.arg0.toString() + this.op.toString() +
 		this.arg1.toString() + ")";

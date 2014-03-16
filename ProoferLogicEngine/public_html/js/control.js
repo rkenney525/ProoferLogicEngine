@@ -5,6 +5,7 @@
 function toMainMenu() {
     // Clean up
     navigateAway();
+    Levels.reset();
 
     // Set up
     $('body').addClass('menu-focused');
@@ -38,10 +39,10 @@ function populateGameScreen(level) {
     var rules = level.rules;
     $('#Controls_Rules_List').empty();
     for (var index = 0; index < rules.length; index++) {
-        $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') + 
+	$('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
 		' rule-container">'
-                + rules[index].getHTML() +
-                '</li>');
+		+ rules[index].getHTML() +
+		'</li>');
     }
     bindRuleEvents();
 
@@ -52,12 +53,14 @@ function populateGameScreen(level) {
 	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index]));
     }
     bindFactEvents();
-    
+
     // Conclusion
     $("#Controls_Display_Conclusion").html(level.conclusion.toString());
-    
+
     // Load tutorial
-    openTutorial(level.tutorial);
+    if (level.tutorial !== null) {
+	openTutorial(level.tutorial);
+    }
 }
 
 /**
@@ -69,9 +72,9 @@ function populateGameScreen(level) {
  */
 function generateFactRow(index, fact) {
     return '<tr>' +
-		'<td>' + '<div class="fact ovaled" factId="'
-		+ index + '">' + (index + 1) + '</div>' + '</td>' +
-		'<td>' + fact + '</td>' +
+	    '<td>' + '<div class="fact ovaled" factId="'
+	    + index + '">' + (index + 1) + '</div>' + '</td>' +
+	    '<td>' + fact + '</td>' +
 	    '</tr>';
 }
 
@@ -80,8 +83,8 @@ function generateFactRow(index, fact) {
  */
 function clearExecutorInputs() {
     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1, #Controls_Executor_Rule')
-            .removeClass("rule-filled fact-filled")
-            .html("");
+	    .removeClass("rule-filled fact-filled")
+	    .html("");
 }
 
 /**
@@ -89,7 +92,7 @@ function clearExecutorInputs() {
  */
 function clearExecutorResult() {
     $('#Controls_Executor_Result').removeClass("glowing");
-        $('#Controls_Executor_Result').html("");
+    $('#Controls_Executor_Result').html("");
 }
 
 /**
@@ -100,20 +103,35 @@ function displayLevelClearedDialog() {
     // Get info
     var level = Levels.getCurrentLevel();
     var par = level.par;
+    var starting = level.startingFacts;
     var actual = level.facts.length;
-    var metPar = (actual <= par);
+    var established = actual - starting;
+    var metPar = (established <= par);
     var conclusion = level.conclusion;
-    
+
     // Prepare the dialog
     $("#Dialogs_LevelCleared_Conclusion").html(conclusion.toString());
     $("#Dialogs_LevelCleared_Par").html(par);
     $("#Dialogs_LevelCleared_Actual").html(actual);
+    $("#Dialogs_LevelCleared_Starting").html(starting);
+    $("#Dialogs_LevelCleared_Established").html(established);
     if (metPar) {
 	$("#Dialogs_LevelCleared_Congrats").show();
     } else {
 	$("#Dialogs_LevelCleared_DoBetter").show();
     }
-    
+    if (Levels.onLastLevel()) {
+	$(".ui-dialog-buttonpane button:contains('Next Level') span")
+		.filter(function(index) {
+	    return $(this).text() === "Next Level";
+	}).html("Main Menu");
+    } else {
+	$(".ui-dialog-buttonpane button:contains('Main Menu') span")
+		.filter(function(index) {
+	    return $(this).text() === "Main Menu";
+	}).html("Next Level");
+    }
+
     // Display the dialog
     $("#Dialogs_LevelCleared").dialog("open");
 }

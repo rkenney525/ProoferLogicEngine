@@ -4,9 +4,13 @@ $(document).ready(function() {
 	autoOpen: false,
 	buttons: {
 	    "Next Level": function() {
-		// TODO handle last level
-		populateGameScreen(Levels.nextLevel());
-		closeLevelClearedDialog();
+		if (Levels.onLastLevel()) {
+		    toMainMenu();
+		    closeLevelClearedDialog();
+		} else {
+		    populateGameScreen(Levels.nextLevel());
+		    closeLevelClearedDialog();
+		}
 	    },
 	    "Retry": function() {
 		Levels.reset();
