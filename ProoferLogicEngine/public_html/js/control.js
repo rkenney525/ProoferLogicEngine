@@ -85,6 +85,7 @@ function clearExecutorInputs() {
     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1, #Controls_Executor_Rule')
 	    .removeClass("rule-filled fact-filled")
 	    .html("");
+    $('#Controls_Executor_Arg1').droppable("enable");
 }
 
 /**
