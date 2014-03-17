@@ -84,7 +84,7 @@ var Levels = {
 		    Tutorials.HS_INTRO
 		    );
 	},
-		function() {
+	function() {
 	    return new Level(
 		    [
 			Rules.MP,
@@ -102,7 +102,7 @@ var Levels = {
 		    Tutorials.CD_INTRO
 		    );
 	},
-		function() {
+	function() {
 	    return new Level(
 		    [
 			Rules.MP,
@@ -120,6 +120,27 @@ var Levels = {
 		    getFactFromString("(p&r)"),
 		    3,
 		    Tutorials.Conj_Simp_INTRO
+		    );
+	},
+	function() {
+	    return new Level(
+		    [
+			Rules.MP,
+			Rules.MT,
+			Rules.DS,
+			Rules.HS,
+			Rules.CD,
+			Rules.Conj,
+			Rules.Simp,
+			Rules.Abs
+		    ],
+		    [
+			getFactFromString("(p>(p&q))"),
+			getFactFromString("(r>s)")
+		    ],
+		    getFactFromString("((p>q)&(r>(r&s)))"),
+		    1,
+		    Tutorials.Abs_INTRO
 		    );
 	}
     ],

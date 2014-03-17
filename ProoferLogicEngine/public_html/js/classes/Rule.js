@@ -220,21 +220,20 @@ var Rules = {
 	    if (arg0.arg0.equals(arg0.arg1.arg0)) {
 		return new Fact(getFactFromString(arg0.arg0.toParsableString()),
 			getFactFromString(arg0.arg1.arg1.toParsableString()), Operators.COND);
-	    } else {
-		/* For example (reverse application):
-		 *  arg0 = (p>q)
-		 * Then:
-		 *  arg0.arg0 = p
-		 *  arg0.arg1 = q
-		 * And we want:
-		 *  (p>(p&q))
-		 * So return:
-		 *  (arg0.arg0 > (arg0.arg0 & arg0.arg1))
-		 */
-		var conj = new Fact(getFactFromString(arg0.arg0.toParsableString()),
-			getFactFromString(arg0.arg1.toParsableString()), Operators.AND);
-		return new Fact(getFactFromString(arg0.arg0.toParsableString()), conj, Operators.COND);
 	    }
+	    /* For example (reverse application):
+	     *  arg0 = (p>q)
+	     * Then:
+	     *  arg0.arg0 = p
+	     *  arg0.arg1 = q
+	     * And we want:
+	     *  (p>(p&q))
+	     * So return:
+	     *  (arg0.arg0 > (arg0.arg0 & arg0.arg1))
+	     */
+	    var conj = new Fact(getFactFromString(arg0.arg0.toParsableString()),
+		    getFactFromString(arg0.arg1.toParsableString()), Operators.AND);
+	    return new Fact(getFactFromString(arg0.arg0.toParsableString()), conj, Operators.COND);
 	} else {
 	    return null;
 	}
@@ -308,6 +307,5 @@ var Rules = {
 function isUnaryRule(rule) {
     // TODO probably have to add rules of replacement
     return (rule === Rules.Simp) ||
-	    (rule === Rules.Abs) ||
-	    (rule === Rules.Add);
+	    (rule === Rules.Abs);
 }

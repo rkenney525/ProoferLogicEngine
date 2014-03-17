@@ -40,6 +40,26 @@ Fact.prototype.toString = function() {
 };
 
 /**
+ * If the Fact is encased in parens (and not a negation), strip the parens and 
+ * return that String.
+ * 
+ * @returns {String} A nicer looking String version of the Fact
+ */
+Fact.prototype.toPrettyString = function() {
+    // Init
+    var str = this.toString();
+    var len = str.length;
+    
+    // Check for outer parens
+    if (str[0] === '(' &&
+	str[len - 1] === ')') {
+	return str.substring(1, len - 1);
+    } else {
+	return str;
+    }
+};
+
+/**
  * Returns the String form of the Fact that can be parsed by getFactFromString()
  * 
  * @returns {String} The String form of the Fact that can be parsed by getFactFromString()

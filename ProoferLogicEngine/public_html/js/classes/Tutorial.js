@@ -210,8 +210,15 @@ var Tutorials = {
 	    'New Rule'),
     Abs_INTRO: new Tutorial([
 	new Page(
-		'<h3>The new rule</h3><p></p><h3>The form</h3><ul style="list-style-type: none;"><li>(p&rarr;q)</li><li>therefore (p&rarr;(p&and;q))</li></ul><h3>Summary</h3><p></p>',
-		'')
+		'<h3>The new rule</h3><p>The next rule, Absorption, is a statement ' +
+		'of the obvious. If you know that <i>p</i> gives you <i>q</i>, then ' +
+		'<i>p</i> also gives you <i>p</i> AND <i>q</i>.</p><h3>The form</h3>' +
+		'<ul style="list-style-type: none;"><li>(p&rarr;q)</li><li>therefore ' +
+		'(p&rarr;(p&and;q))</li></ul><h3>Summary</h3><p>Absorption is a unique ' +
+		'rule in that it can be applied in the reverse order. Have a fact that ' +
+		'looks like the conclusion? Apply the rule and you get a statement that ' +
+		'looks like the premise. Keep that in mind.</p>',
+		'Absorption')
     ],
 	    'New Rule'),
     Add_INTRO: new Tutorial([
