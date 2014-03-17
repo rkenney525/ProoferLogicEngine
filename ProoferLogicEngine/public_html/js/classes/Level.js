@@ -22,52 +22,87 @@ function Level(rules, facts, conclusion, par, tutorial) {
 
 var Levels = {
     currentIndex: 0,
-    finalIndex: 2,
     current: null,
-    0: function() {
-	return new Level(
-		[
-		    Rules.MP
-		],
-		[
-		    getFactFromString("(r>s)"),
-		    getFactFromString("r")
-		],
-		getFactFromString("s"),
-		1,
-		Tutorials.INTRO);
-    },
-    1: function() {
-	return new Level(
-		[
-		    Rules.MP,
-		    Rules.MT
-		],
-		[
-		    getFactFromString("(p>(r|t))"),
-		    getFactFromString("~((r|t))")
-		],
-		getFactFromString("~(p)"),
-		1,
-		Tutorials.MT_INTRO
-		);
-    },
-    2: function() {
-	return new Level(
-		[
-		    Rules.MP,
-		    Rules.MT,
-		    Rules.DS
-		],
-		[
-		    getFactFromString("(q|~((r>t)))"),
-		    getFactFromString("~(q)")
-		],
-		getFactFromString("~((r>t))"),
-		1,
-		Tutorials.DS_INTRO
-		);
-    },
+    data: [function() {
+	    return new Level(
+		    [
+			Rules.MP
+		    ],
+		    [
+			getFactFromString("(r>s)"),
+			getFactFromString("r")
+		    ],
+		    getFactFromString("s"),
+		    1,
+		    Tutorials.INTRO);
+	},
+	function() {
+	    return new Level(
+		    [
+			Rules.MP,
+			Rules.MT
+		    ],
+		    [
+			getFactFromString("(p>(r|t))"),
+			getFactFromString("~((r|t))")
+		    ],
+		    getFactFromString("~(p)"),
+		    1,
+		    Tutorials.MT_INTRO
+		    );
+	},
+	function() {
+	    return new Level(
+		    [
+			Rules.MP,
+			Rules.MT,
+			Rules.DS
+		    ],
+		    [
+			getFactFromString("(q|~((r>t)))"),
+			getFactFromString("~(q)")
+		    ],
+		    getFactFromString("~((r>t))"),
+		    1,
+		    Tutorials.DS_INTRO
+		    );
+	},
+	function() {
+	    return new Level(
+		    [
+			Rules.MP,
+			Rules.MT,
+			Rules.DS,
+			Rules.HS
+		    ],
+		    [
+			getFactFromString("(p>(r|s))"),
+			getFactFromString("((r|s)>q)")
+		    ],
+		    getFactFromString("(p>q)"),
+		    1,
+		    Tutorials.HS_INTRO
+		    );
+	},
+		function() {
+	    return new Level(
+		    [
+			Rules.MP,
+			Rules.MT,
+			Rules.DS,
+			Rules.HS,
+			Rules.CD
+		    ],
+		    [
+			getFactFromString("((p>q)&(s>~(r)))"),
+			getFactFromString("(p|s)")
+		    ],
+		    getFactFromString("(q|~(r))"),
+		    1,
+		    Tutorials.CD_INTRO
+		    );
+	}
+    ],
     /**
      * Retrieve the current Level object if there is one in memory. If not, create 
      * a new one based on the Level index.
@@ -78,7 +113,7 @@ var Levels = {
 	// Check if the Level has been loaded
 	if (this.current === null) {
 	    // If not, load it
-	    this.current = this[this.currentIndex]();
+	    this.current = this.data[this.currentIndex]();
 	}
 	// Return the Level
 	return this.current;
@@ -104,7 +139,7 @@ var Levels = {
      * @returns {Boolean} True if on the last Level, false otherwise
      */
     onLastLevel: function() {
-	return this.currentIndex === this.finalIndex;
+	return this.currentIndex === (this.data.length - 1);
     },
     /**
      * Clears the working Level from memory
@@ -120,7 +155,7 @@ var Levels = {
     clearState: function() {
 	// Remove current game from memory
 	this.reset();
-	
+
 	// Reset the level index
 	this.currentIndex = 0;
     }

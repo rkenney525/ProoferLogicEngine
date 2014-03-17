@@ -150,5 +150,27 @@ var Tutorials = {
 		'you\'ll find the solution a lot faster.</p>',
 		'Disjunctive Syllogism')
     ],
+	    'New Rule'),
+	    HS_INTRO: new Tutorial([
+	new Page(
+		'<h3>The new rule</h3><p>Hypothetical Syllogism is all about ' +
+		'implications. When you see the form, you might recognize the ' +
+		'rule from mathematics. It is simply the logical form of the ' +
+		'transitive property of equality. Simply put, if a implies b and ' +
+		'b implies c, then a implies c.</p><h3>The form</h3><ul style=' +
+		'"list-style-type: none;"><li>(p&rarr;q)</li><li>(q&rarr;r)</li>' +
+		'<li>therefore (p&rarr;r)</li></ul><h3>Summary</h3><p>With the ' +
+		'rules you know right now, HS is little more than an alternative ' +
+		'to chaining MP or MT. Once you\'ve mastered more tutorial stages ' +
+		'and learned more rules of logic, you may find this rule to be much ' +
+		'more useful.</p>',
+		'Hypothetical Syllogism')
+    ],
+	    'New Rule'),
+	    CD_INTRO: new Tutorial([
+	new Page(
+		'<h3>The new rule</h3><p></p><h3>The form</h3><ul style="list-style-type: none;"><li>(((p&rarr;q))&and;((r&rarr;s)))</li><li>(p&or;r)</li><li>therefore (q&or;s)</li></ul><h3>Summary</h3><p></p>',
+		'')
+    ],
 	    'New Rule')
 };
