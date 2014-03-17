@@ -101,6 +101,26 @@ var Levels = {
 		    1,
 		    Tutorials.CD_INTRO
 		    );
+	},
+		function() {
+	    return new Level(
+		    [
+			Rules.MP,
+			Rules.MT,
+			Rules.DS,
+			Rules.HS,
+			Rules.CD,
+			Rules.Conj,
+			Rules.Simp
+		    ],
+		    [
+			getFactFromString("(p&q)"),
+			getFactFromString("(r&s)")
+		    ],
+		    getFactFromString("(p&r)"),
+		    3,
+		    Tutorials.Conj_Simp_INTRO
+		    );
 	}
     ],
     /**

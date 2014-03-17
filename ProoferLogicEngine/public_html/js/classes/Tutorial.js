@@ -151,7 +151,7 @@ var Tutorials = {
 		'Disjunctive Syllogism')
     ],
 	    'New Rule'),
-	    HS_INTRO: new Tutorial([
+    HS_INTRO: new Tutorial([
 	new Page(
 		'<h3>The new rule</h3><p>Hypothetical Syllogism is all about ' +
 		'implications. When you see the form, you might recognize the ' +
@@ -167,7 +167,54 @@ var Tutorials = {
 		'Hypothetical Syllogism')
     ],
 	    'New Rule'),
-	    CD_INTRO: new Tutorial([
+    CD_INTRO: new Tutorial([
+	new Page(
+		'<h3>The new rule</h3><p>Constructive dilemma is a complex rule. ' +
+		'It says if you have a conunction (and) of two implications, and ' +
+		'you know at least one of the first parts of the implications is ' +
+		'true, then you know one of the second parts must be true as well. ' +
+		'Check out the form.</p><h3>The form</h3><ul style="list-style-type:' +
+		' none;"><li>(((p&rarr;q))&and;((r&rarr;s)))</li><li>(p&or;r)</li>' +
+		'<li>therefore (q&or;s)</li></ul><h3>Summary</h3><p>This can be ' +
+		'a tricky one to find a use for. After the tutorials, you may find ' +
+		'this more useful.</p>',
+		'')
+    ],
+	    'New Rule'),
+    Conj_Simp_INTRO: new Tutorial([
+	new Page(
+		'<h3>The first new rule</h3><p>This time, we\'re going to learn ' +
+		'two new rules at once. The first rule is conjunction. Take any ' +
+		'two facts and make yourself an "AND" sandwhich.</p><h3>The form' +
+		'</h3><ul style="list-style-type: none;"><li>p</li><li>q</li><li>' +
+		'therefore (p&and;q)</li></ul><h3>Summary</h3><p>Not much to it. ' +
+		'Unlike the other rules, this rule can <u>always</u> be applied ' +
+		'given any parameters.. However it is only useful if it helps you ' +
+		'get to your conclusion, so keep that in mind.</p>',
+		'Conjunction'),
+	new Page(
+		'<h3>The second new rule</h3><p>The next rule is just the opposite. ' +
+		'Previously you used two statements to make a conjunction, while ' +
+		'here you take a conjunction and get the first statement. This is ' +
+		'the first rule that only takes one statement as a parameter.</p>' +
+		'<h3>The form</h3><ul style="list-style-type: none;"><li>(p&and;q)' +
+		'</li><li>therefore p</li></ul><h3>Summary</h3><p>You might think, ' +
+		'a conjunction is true when both parts are true, so why am I only ' +
+		'getting the first part? The short answer is it makes for a simpler ' +
+		'rule. Once you get to the second series of tutorials, you will learn ' +
+		'about rules of replacement, which will allow you to get that second ' +
+		'part of a conjunction. For now, this is a limitation you must ' +
+		'strategize around.</p>',
+		'Simplification')
+    ],
+	    'New Rule'),
+    Abs_INTRO: new Tutorial([
+	new Page(
+		'<h3>The new rule</h3><p></p><h3>The form</h3><ul style="list-style-type: none;"><li>(p&rarr;q)</li><li>therefore (p&rarr;(p&and;q))</li></ul><h3>Summary</h3><p></p>',
+		'')
+    ],
+	    'New Rule'),
+    Add_INTRO: new Tutorial([
 	new Page(
 		'<h3>The new rule</h3><p></p><h3>The form</h3><ul style="list-style-type: none;"><li>(((p&rarr;q))&and;((r&rarr;s)))</li><li>(p&or;r)</li><li>therefore (q&or;s)</li></ul><h3>Summary</h3><p></p>',
 		'')
