@@ -79,8 +79,8 @@ var Tutorials = {
 	new Page('<p>A negation, represented with &tilde;, is essentially taking the ' +
 		'opposite of a statement. The &tilde; will always be beside the ' +
 		'parenthesis of the statement it is negating. If <i>p</i> is true, ' +
-		'then <i>&tilde;(p)</i> is false. Likewise if <i>p</i> is false, ' +
-		'then <i>&tilde;(p)</i> is true.</p><div class="tutorial-table">' +
+		'then &tilde;<i>(p)</i> is false. Likewise if <i>p</i> is false, ' +
+		'then &tilde;<i>(p)</i> is true.</p><div class="tutorial-table">' +
 		'<table><thead><tr><th>p</th><th>&tilde;p</th></tr></thead><tbody>' +
 		'<tr><td>T</td><td>F</td></tr><tr class="alt"><td>F</td><td>T</td>' +
 		'</tr></tbody></table></div>',
@@ -92,10 +92,10 @@ var Tutorials = {
 		'the argument to work, and offer a conclusion. You use a rule by ' +
 		'finding two facts that work as premises for that rule</p>' +
 		'<p>The rules are generic. Consider the following:<ul style="' +
-		'list-style-type: none;"><li>(p&rarr;q)</li><li>p</li><li>therefore ' +
+		'list-style-type: none;"><li>p&rarr;q</li><li>p</li><li>therefore ' +
 		'q</li></ul>Now assume that the following two facts are true:<ul ' +
-		'style="list-style-type: none;"><li>((q&or;r)&rarr;&tilde;(s))</li>' +
-		'<li>(q&or;r)</li></ul>Then &tilde;(s) must be true, since those ' +
+		'style="list-style-type: none;"><li>(q&or;r)&rarr;&tilde;(s)</li>' +
+		'<li>q&or;r</li></ul>Then &tilde;(s) must be true, since those ' +
 		'facts fit the form.</p>',
 		'Rules'),
 	new Page('<p>The first rule you will learn is called Modus Ponens. It is ' +
@@ -103,7 +103,7 @@ var Tutorials = {
 		'know it had a name. As a matter of fact, it was the argument form ' +
 		'used to explain that rules are generic in the last page.  Let\'s ' +
 		'recap.</p><h3>The form</h3><ul style="list-style-type: none;"><li>' +
-		'(p&rarr;q)</li><li>p</li><li>therefore q</li></ul><p>In general, ' +
+		'p&rarr;q</li><li>p</li><li>therefore q</li></ul><p>In general, ' +
 		'keep an out for some fact that you\'ve shown being the first part ' +
 		'of an implication.</p>',
 		'Modus Ponens'),
@@ -127,7 +127,7 @@ var Tutorials = {
 		'<h3>The new rule</h3><p>Now that you\'ve mastered Modus Ponens, ' +
 		'it\'s time to learn its counterpart - Modus Tollens. The form for ' +
 		'Modus Tollens will be shown below:</p><h3>The form</h3><ul style=' +
-		'"list-style-type: none;"><li>(p&rarr;q)</li><li>&tilde;(q)</li>' +
+		'"list-style-type: none;"><li>p&rarr;q</li><li>&tilde;(q)</li>' +
 		'<li>therefore &tilde;(p)</li></ul><h3>Summary</h3><p>Remember, for ' +
 		'this rule, you\'re looking for a negation of the second part of an ' +
 		'implication. Even though it returns a negation, sometimes those are ' +
@@ -141,7 +141,7 @@ var Tutorials = {
 		'called Disjunctive Syllogism. This one lets you do something with ' +
 		'those inclusive-or statements under the right conditions. The form ' +
 		'for the rule is given below:</p><h3>The form</h3><ul style=' +
-		'"list-style-type: none;"><li>(p&or;q)</li><li>&tilde;(p)</li>' +
+		'"list-style-type: none;"><li>p&or;q</li><li>&tilde;(p)</li>' +
 		'<li>therefore q</li></ul><h3>Summary</h3><p>If the second part of ' +
 		'an inclusive-or looks like something you could use, look around ' +
 		'for a negation of the first part. Sometimes it\'s helpful to ' +
@@ -158,8 +158,8 @@ var Tutorials = {
 		'rule from mathematics. It is simply the logical form of the ' +
 		'transitive property of equality. Simply put, if a implies b and ' +
 		'b implies c, then a implies c.</p><h3>The form</h3><ul style=' +
-		'"list-style-type: none;"><li>(p&rarr;q)</li><li>(q&rarr;r)</li>' +
-		'<li>therefore (p&rarr;r)</li></ul><h3>Summary</h3><p>With the ' +
+		'"list-style-type: none;"><li>p&rarr;q</li><li>q&rarr;r</li>' +
+		'<li>therefore p&rarr;r</li></ul><h3>Summary</h3><p>With the ' +
 		'rules you know right now, HS is little more than an alternative ' +
 		'to chaining MP or MT. Once you\'ve mastered more tutorial stages ' +
 		'and learned more rules of logic, you may find this rule to be much ' +
@@ -174,8 +174,8 @@ var Tutorials = {
 		'you know at least one of the first parts of the implications is ' +
 		'true, then you know one of the second parts must be true as well. ' +
 		'Check out the form.</p><h3>The form</h3><ul style="list-style-type:' +
-		' none;"><li>(((p&rarr;q))&and;((r&rarr;s)))</li><li>(p&or;r)</li>' +
-		'<li>therefore (q&or;s)</li></ul><h3>Summary</h3><p>This can be ' +
+		' none;"><li>(p&rarr;q)&and;(r&rarr;s)</li><li>p&or;r</li>' +
+		'<li>therefore q&or;s</li></ul><h3>Summary</h3><p>This can be ' +
 		'a tricky one to find a use for. After the tutorials, you may find ' +
 		'this more useful.</p>',
 		'')
@@ -187,7 +187,7 @@ var Tutorials = {
 		'two new rules at once. The first rule is conjunction. Take any ' +
 		'two facts and make yourself an "AND" sandwhich.</p><h3>The form' +
 		'</h3><ul style="list-style-type: none;"><li>p</li><li>q</li><li>' +
-		'therefore (p&and;q)</li></ul><h3>Summary</h3><p>Not much to it. ' +
+		'therefore p&and;q</li></ul><h3>Summary</h3><p>Not much to it. ' +
 		'Unlike the other rules, this rule can <u>always</u> be applied ' +
 		'given any parameters.. However it is only useful if it helps you ' +
 		'get to your conclusion, so keep that in mind.</p>',
@@ -197,7 +197,7 @@ var Tutorials = {
 		'Previously you used two statements to make a conjunction, while ' +
 		'here you take a conjunction and get the first statement. This is ' +
 		'the first rule that only takes one statement as a parameter.</p>' +
-		'<h3>The form</h3><ul style="list-style-type: none;"><li>(p&and;q)' +
+		'<h3>The form</h3><ul style="list-style-type: none;"><li>p&and;q' +
 		'</li><li>therefore p</li></ul><h3>Summary</h3><p>You might think, ' +
 		'a conjunction is true when both parts are true, so why am I only ' +
 		'getting the first part? The short answer is it makes for a simpler ' +
@@ -213,8 +213,8 @@ var Tutorials = {
 		'<h3>The new rule</h3><p>The next rule, Absorption, is a statement ' +
 		'of the obvious. If you know that <i>p</i> gives you <i>q</i>, then ' +
 		'<i>p</i> also gives you <i>p</i> AND <i>q</i>.</p><h3>The form</h3>' +
-		'<ul style="list-style-type: none;"><li>(p&rarr;q)</li><li>therefore ' +
-		'(p&rarr;(p&and;q))</li></ul><h3>Summary</h3><p>Absorption is a unique ' +
+		'<ul style="list-style-type: none;"><li>p&rarr;q</li><li>therefore ' +
+		'p&rarr;(p&and;q)</li></ul><h3>Summary</h3><p>Absorption is a unique ' +
 		'rule in that it can be applied in the reverse order. Have a fact that ' +
 		'looks like the conclusion? Apply the rule and you get a statement that ' +
 		'looks like the premise. Keep that in mind.</p>',

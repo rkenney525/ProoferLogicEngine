@@ -12,6 +12,7 @@ $(document).ready(function() {
     });
 
     $('#Controls_Executor_Evaluate').click(function() {
+        // TODO total rule attempt count??
 	// Get the level
 	var level = Levels.getCurrentLevel();
 
@@ -47,6 +48,7 @@ $(document).ready(function() {
 	    // TODO notify the UI
 	    return;
 	}
+        // TODO try catch arg1
 	arg1 = level.facts[Number(arg1) - 1];
 
 	// Get the result
@@ -55,7 +57,9 @@ $(document).ready(function() {
 
 	// Handle the result appropriately
 	if (result !== null) {
-	    $('#Controls_Executor_Result').html(result.toString());
+            // TODO successful rule attempt count??
+            // TODO check result length and then do something if its too long
+	    $('#Controls_Executor_Result').html(result.toPrettyString());
 	    $('#Controls_Executor_Result').addClass("glowing");
 	    $('#Controls_Executor_Result').click(function() {
 		// Get some basic info
@@ -80,7 +84,7 @@ $(document).ready(function() {
 		    facts.push(result);
 
 		    // Update the table
-		    $('#Controls_Facts_Table').append(generateFactRow(index, result));
+		    $('#Controls_Facts_Table').append(generateFactRow(index, result.toPrettyString()));
 
 		    // Make it draggable
 		    bindFactEvents();

@@ -50,12 +50,12 @@ function populateGameScreen(level) {
     var facts = level.facts;
     $('#Controls_Facts_Table').empty();
     for (var index in facts) {
-	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index]));
+	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index].toPrettyString()));
     }
     bindFactEvents();
 
     // Conclusion
-    $("#Controls_Display_Conclusion").html(level.conclusion.toString());
+    $("#Controls_Display_Conclusion").html(level.conclusion.toPrettyString());
 
     // Load tutorial
     if (level.tutorial !== null) {
@@ -111,7 +111,7 @@ function displayLevelClearedDialog() {
     var conclusion = level.conclusion;
 
     // Prepare the dialog
-    $("#Dialogs_LevelCleared_Conclusion").html(conclusion.toString());
+    $("#Dialogs_LevelCleared_Conclusion").html(conclusion.toPrettyString());
     $("#Dialogs_LevelCleared_Par").html(par);
     $("#Dialogs_LevelCleared_Actual").html(actual);
     $("#Dialogs_LevelCleared_Starting").html(starting);
