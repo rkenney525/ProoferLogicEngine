@@ -106,14 +106,26 @@ $(document).ready(function() {
 
     });
 
-    // Base key event handler
-    $('body').keypress(function(event) {
-	var keycode = event.which;
-	switch (keycode) {
-
-	}
+    /**
+     * Called when the plus sign in the Add Table is clicked.
+     */
+    $('.add-rule').click(function() {
+	var idToReplace = $(this).parent()[0].id;
+	// TODO activate the Fact Creation Dialog
     });
+
+    // Base key event handler
+    /*$('body').keypress(function(event) {
+     var keycode = event.which;
+     switch (keycode) {
+     
+     }
+     });*/
 });
+
+function displayNewFactSelector() {
+
+}
 
 /**
  * Grab every Rule and make it draggable. Also add the droppable event to the Rule
@@ -135,12 +147,16 @@ function bindRuleEvents() {
 		if (isUnaryRule(Rules[droppedItem.getAttribute('ruleId')])) {
 		    $('#Controls_Executor_Arg1').droppable("disable");
 		    $('#Controls_Executor_Arg1').html('<img src="img/no.png" />');
+		} else if (Rules[droppedItem.getAttribute('ruleId')] === Rules.Add) {
+		    $('#Controls_Executor_Arg1').html('<img src="img/ellipse.png" />');
+		    $('#Controls_Executor_Arg1').click(displayNewFactSelector);
 		} else {
 		    $('#Controls_Executor_Arg1').droppable("enable");
-		    $('#Controls_Executor_Arg1').html("");
+		    $('#Controls_Executor_Arg1').unbind("click");
+		    if ($('#Controls_Executor_Arg1').children() > 0) {
+			$('#Controls_Executor_Arg1').html("");
+		    }
 		}
-		// TODO: check if dropped rule was unary.  If so, do something to 
-		// arg1 box
 	    }
 	},
 	over: function(event) {

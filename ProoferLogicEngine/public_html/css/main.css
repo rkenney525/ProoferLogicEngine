@@ -116,10 +116,12 @@ root {
 }
 .glowing {
     box-shadow: 0px 0px 35px #FFD700;
+    transition: all .5s linear;
 }
 
 .hover-glowing {
     box-shadow: 0px 0px 20px #20FF20;
+    transition: all .5s linear;
 }
 
 .last-item {

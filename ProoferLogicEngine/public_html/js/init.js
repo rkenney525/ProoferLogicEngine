@@ -9,6 +9,9 @@ $(document).ready(function() {
     var ctx = can.getContext("2d");
     ctx.font = "40px Arial";
     ctx.fillText("Proofer - The Logic Engine", 20, 75);
+    
+    /* Create buttons for the AddTable */
+    $('.add-rule').button();
 });
 
 /* Resizing */
