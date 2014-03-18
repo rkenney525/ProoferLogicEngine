@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <link rel="stylesheet" type="text/css" href="css/positions.css" />
-	<link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.10.4.custom.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.10.4.custom.min.css" />
         <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
         <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
         <script src="js/util.js"></script>
@@ -13,10 +13,11 @@
         <script src="js/classes/Operator.js"></script>
         <script src="js/classes/Fact.js"></script>
         <script src="js/classes/Rule.js"></script>
-	<script src="js/classes/Tutorial.js"></script>
+        <script src="js/classes/Tutorial.js"></script>
         <script src="js/classes/Level.js"></script>
-	<script src="js/dialogs/LevelClearedDialog.js"></script>
-	<script src="js/dialogs/TutorialDialog.js"></script>
+        <script src="js/dialogs/LevelClearedDialog.js"></script>
+        <script src="js/dialogs/TutorialDialog.js"></script>
+        <script src="js/dialogs/FactCreationDialog.js"></script>
         <script src="js/init.js"></script>
         <script src="js/control.js"></script>
         <script src="js/events.js"></script>
@@ -39,9 +40,9 @@
                     Something went wrong when rendering the canvas.
                 </canvas>
                 <div id="GameControls">
-		    <div id="Controls_Display">
-			<p>Prove:  <b><span id="Controls_Display_Conclusion"></span></b></p>
-		    </div>
+                    <div id="Controls_Display">
+                        <p>Prove:  <b><span id="Controls_Display_Conclusion"></span></b></p>
+                    </div>
                     <div id="Controls_Executor">
                         <div id="Controls_Executor_Result" class="executor-box boxed"></div>
                         <div id="Controls_Executor_Arg0" class="executor-box boxed"></div>
@@ -57,52 +58,62 @@
                     <div id="Controls_Facts">
                         <table id="Controls_Facts_Table"></table>
                     </div>
-		    <div id="Controls_Tooltip" style="display: none;">
-			
-		    </div>
-		    <div id="Controls_AddTable" style="display: none;">
-			<table>
-			    <tr><th colspan="2">Recent Facts</th></tr>
-			    <tr><td>AT1</td><td id="Controls_AddTable_Fact1">
-				    <div class="add-rule">+</div>
-				</td></tr>
-			    <tr><td>AT2</td><td id="Controls_AddTable_Fact2">
-				    <div class="add-rule">+</div>
-				</td></tr>
-			    <tr><td>AT3</td><td id="Controls_AddTable_Fact3">
-				    <div class="add-rule">+</div>
-				</td></tr>
-			    <tr><td>AT4</td><td id="Controls_AddTable_Fact4">
-				    <div class="add-rule">+</div>
-				</td></tr>
-			    <tr><td>AT5</td><td id="Controls_AddTable_Fact5">
-				    <div class="add-rule">+</div>
-				</td></tr>
-			</table>
-		    </div>
+                    <div id="Controls_Tooltip" style="display: none;">
+
+                    </div>
+                    <div id="Controls_AddTable" style="display: none;">
+                        <table>
+                            <tr><th colspan="2">Recent Facts</th></tr>
+                            <tr><td>AT1</td><td id="Controls_AddTable_Fact1">
+                                    <div class="add-rule">+</div>
+                                </td></tr>
+                            <tr><td>AT2</td><td id="Controls_AddTable_Fact2">
+                                    <div class="add-rule">+</div>
+                                </td></tr>
+                            <tr><td>AT3</td><td id="Controls_AddTable_Fact3">
+                                    <div class="add-rule">+</div>
+                                </td></tr>
+                            <tr><td>AT4</td><td id="Controls_AddTable_Fact4">
+                                    <div class="add-rule">+</div>
+                                </td></tr>
+                            <tr><td>AT5</td><td id="Controls_AddTable_Fact5">
+                                    <div class="add-rule">+</div>
+                                </td></tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-	    <div id="Dialogs" style="display: none;">
-		<div id="Dialogs_LevelCleared" title="Stage Cleared!">
-		    <p>Congratulations, you've shown <b><span id="Dialogs_LevelCleared_Conclusion"></span></b> to be true!</p>
-		    <br />
-		    <p>A pro can do this establishing only <b><span id="Dialogs_LevelCleared_Par"></span> </b>
-		    fact(s).  You had a total of <b><span id="Dialogs_LevelCleared_Actual"></span></b>, minus the 
-		    <b><span id="Dialogs_LevelCleared_Starting"></span></b> you started with means you established 
-		    <b><span id="Dialogs_LevelCleared_Established"></span></b>.  
-		    <span id="Dialogs_LevelCleared_Congrats" style="display: none;">
-			Looks like you know what you're doing after all!
-		    </span>
-		    <span id="Dialogs_LevelCleared_DoBetter" style="display: none;">
-			That's not bad, but the conclusion could have been shown in fewer steps.
-		    </span></p>
-		    <br />
-		    <p>Now you can either move on to the next level or replay this one to get a better score.</p>
-		</div>
-		<div id="Dialogs_Tutorial" title="Tutorial">
-		    
-		</div>
-	    </div>
+            <div id="Dialogs" style="display: none;">
+                <div id="Dialogs_LevelCleared" title="Stage Cleared!">
+                    <p>Congratulations, you've shown <b><span id="Dialogs_LevelCleared_Conclusion"></span></b> to be true!</p>
+                    <br />
+                    <p>A pro can do this establishing only <b><span id="Dialogs_LevelCleared_Par"></span> </b>
+                        fact(s).  You had a total of <b><span id="Dialogs_LevelCleared_Actual"></span></b>, minus the 
+                        <b><span id="Dialogs_LevelCleared_Starting"></span></b> you started with means you established 
+                        <b><span id="Dialogs_LevelCleared_Established"></span></b>.  
+                        <span id="Dialogs_LevelCleared_Congrats" style="display: none;">
+                            Looks like you know what you're doing after all!
+                        </span>
+                        <span id="Dialogs_LevelCleared_DoBetter" style="display: none;">
+                            That's not bad, but the conclusion could have been shown in fewer steps.
+                        </span>
+                    </p>
+                    <br />
+                    <p>Now you can either move on to the next level or replay this one to get a better score.</p>
+                </div>
+                <div id="Dialogs_Tutorial">
+
+                </div>
+                <div id="Dialogs_FactCreation" title="Fact Editor">
+                    <h2>Instructions</h2>
+                    <p></p>
+                    <h2>Creation Panel</h2>
+                    <div></div>
+                    <div style="float: right;">
+                        <h4>Operators and tools</h4>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

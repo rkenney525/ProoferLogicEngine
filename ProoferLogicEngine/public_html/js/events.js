@@ -114,8 +114,9 @@ $(document).ready(function() {
      * Called when the plus sign in the Add Table is clicked.
      */
     $('.add-rule').click(function() {
+        // TODO Need an edit button
 	var idToReplace = $(this).parent()[0].id;
-	// TODO activate the Fact Creation Dialog
+	openFactCreationDialog(idToReplace, "new");
     });
 
     // Base key event handler
