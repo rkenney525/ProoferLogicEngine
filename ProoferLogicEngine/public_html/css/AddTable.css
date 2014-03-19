@@ -1,0 +1,22 @@
+/* 
+    Created on : Mar 19, 2014, 7:13:19 PM
+    Author     : Ryan Kenney
+*/
+
+#Controls_AddTable {
+    position: absolute;
+    background-color: rgba(255, 245, 245, 245);
+    border: 1px solid black;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+
+#Controls_AddTable_Banner {
+    background-color: rgb(240, 225, 225);
+    border-radius: 10px;
+}
+
+#Controls_AddTable_Banner:hover {
+    background-color: rgb(230, 215, 215);
+}

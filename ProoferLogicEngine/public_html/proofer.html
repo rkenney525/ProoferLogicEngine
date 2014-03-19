@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <link rel="stylesheet" type="text/css" href="css/positions.css" />
+	<link rel="stylesheet" type="text/css" href="css/AddTable.css" />
         <link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.10.4.custom.min.css" />
         <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
         <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
@@ -15,6 +16,7 @@
         <script src="js/classes/Rule.js"></script>
         <script src="js/classes/Tutorial.js"></script>
         <script src="js/classes/Level.js"></script>
+	<script src="js/classes/AddTable.js"></script>
         <script src="js/dialogs/LevelClearedDialog.js"></script>
         <script src="js/dialogs/TutorialDialog.js"></script>
         <script src="js/dialogs/FactCreationDialog.js"></script>
@@ -63,22 +65,52 @@
                     </div>
                     <div id="Controls_AddTable" style="display: none;">
                         <table>
-                            <tr><th colspan="2">Recent Facts</th></tr>
-                            <tr><td>AT1</td><td id="Controls_AddTable_Fact1">
-                                    <div class="add-rule">+</div>
-                                </td></tr>
-                            <tr><td>AT2</td><td id="Controls_AddTable_Fact2">
-                                    <div class="add-rule">+</div>
-                                </td></tr>
-                            <tr><td>AT3</td><td id="Controls_AddTable_Fact3">
-                                    <div class="add-rule">+</div>
-                                </td></tr>
-                            <tr><td>AT4</td><td id="Controls_AddTable_Fact4">
-                                    <div class="add-rule">+</div>
-                                </td></tr>
-                            <tr><td>AT5</td><td id="Controls_AddTable_Fact5">
-                                    <div class="add-rule">+</div>
-                                </td></tr>
+                            <tr><th id="Controls_AddTable_Banner" colspan="3">Recent Facts</th></tr>
+                            <tr>
+				<td>AT1</td>
+				<td id="Controls_AddTable_Fact1">
+                                    <div class="add-fact">+</div>
+                                </td>
+				<td>
+				    <div class="edit-fact">..</div>
+				</td>
+			    </tr>
+                            <tr>
+				<td>AT2</td>
+				<td id="Controls_AddTable_Fact2">
+                                    <div class="add-fact">+</div>
+                                </td>
+				<td>
+				    <div class="edit-fact">..</div>
+				</td>
+			    </tr>
+			    <tr>
+				<td>AT3</td>
+				<td id="Controls_AddTable_Fact3">
+                                    <div class="add-fact">+</div>
+                                </td>
+				<td>
+				    <div class="edit-fact">..</div>
+				</td>
+			    </tr>
+			    <tr>
+				<td>AT4</td>
+				<td id="Controls_AddTable_Fact4">
+                                    <div class="add-fact">+</div>
+                                </td>
+				<td>
+				    <div class="edit-fact">..</div>
+				</td>
+			    </tr>
+			    <tr>
+				<td>AT5</td>
+				<td id="Controls_AddTable_Fact5">
+                                    <div class="add-fact">+</div>
+                                </td>
+				<td>
+				    <div class="edit-fact">..</div>
+				</td>
+			    </tr>
                         </table>
                     </div>
                 </div>

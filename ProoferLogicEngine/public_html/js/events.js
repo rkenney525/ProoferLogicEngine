@@ -113,10 +113,18 @@ $(document).ready(function() {
     /**
      * Called when the plus sign in the Add Table is clicked.
      */
-    $('.add-rule').click(function() {
-        // TODO Need an edit button
+    $('.add-fact').click(function() {
 	var idToReplace = $(this).parent()[0].id;
-	openFactCreationDialog(idToReplace, "new");
+	openFactCreationDialog(idToReplace, "add");
+    });
+    
+    $('.edit-fact').click(function() {
+	var idToReplace; // TODO get the id
+	openFactCreationDialog(idToReplace, "edit");
+    });
+    
+    $('#Controls_AddTable_Banner').click(function() {
+	$('#Controls_AddTable').hide(1000);
     });
 
     // Base key event handler
@@ -128,8 +136,15 @@ $(document).ready(function() {
      });*/
 });
 
-function displayNewFactSelector() {
-
+function displayNewFactSelector(event) {
+    // Get position
+    var top = event.pageY;
+    var left = event.pageX;
+    
+    // Display the popup
+    $('#Controls_AddTable').css("top", top);
+    $('#Controls_AddTable').css("left", left);
+    $('#Controls_AddTable').show(1000);
 }
 
 /**
@@ -154,6 +169,7 @@ function bindRuleEvents() {
 		    $('#Controls_Executor_Arg1').html('<img src="img/no.png" />');
 		} else if (Rules[droppedItem.getAttribute('ruleId')] === Rules.Add) {
 		    $('#Controls_Executor_Arg1').html('<img src="img/ellipse.png" />');
+		    $('#Controls_Executor_Arg1').droppable("disable");
 		    $('#Controls_Executor_Arg1').click(displayNewFactSelector);
 		} else {
 		    $('#Controls_Executor_Arg1').droppable("enable");

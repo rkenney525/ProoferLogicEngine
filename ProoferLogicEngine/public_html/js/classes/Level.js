@@ -26,7 +26,7 @@ var Levels = {
     data: [function() {
 	    return new Level(
 		    [
-			Rules.MP
+			Rules.MP,Rules.Add
 		    ],
 		    [
 			getFactFromString("(r>s)"),

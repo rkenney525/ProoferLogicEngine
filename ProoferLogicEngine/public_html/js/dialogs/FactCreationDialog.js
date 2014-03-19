@@ -5,7 +5,10 @@ $(document).ready(function() {
         buttons: {
             "OK": function() {
                 closeFactCreationDialog();
-            }
+            },
+	    "Cancel": function() {
+		closeFactCreationDialog();
+	    }
         },
         show: {
             effect: "highlight",
@@ -17,7 +20,6 @@ $(document).ready(function() {
         }
     });
 });
-// TODO make this dialog
 
 function openFactCreationDialog() {
     $("#Dialogs_FactCreation").dialog("open");

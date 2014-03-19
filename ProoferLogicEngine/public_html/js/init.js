@@ -11,7 +11,7 @@ $(document).ready(function() {
     ctx.fillText("Proofer - The Logic Engine", 20, 75);
     
     /* Create buttons for the AddTable */
-    $('.add-rule').button();
+    $('.add-fact, .edit-fact').button();
 });
 
 /* Resizing */
