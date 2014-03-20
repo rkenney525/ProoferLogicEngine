@@ -21,12 +21,12 @@ $(document).ready(function() {
     });
 });
 
-function openFactCreationDialog() {
+function openFactCreationDialog(id, operation) {
     $("#Dialogs_FactCreation").dialog("open");
 
     // Set size
-    $("#Dialogs_FactCreation").height(200);
-    $("#Dialogs_FactCreation").width(600);
+    //$("#Dialogs_FactCreation").parent().css("min-height", 350);
+    $("#Dialogs_FactCreation").parent().css("min-width", 650);
 }
 
 function closeFactCreationDialog() {

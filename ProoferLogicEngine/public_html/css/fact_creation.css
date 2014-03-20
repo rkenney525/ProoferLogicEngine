@@ -1,0 +1,53 @@
+/* 
+    Created on : Mar 19, 2014, 7:13:19 PM
+    Author     : Ryan Kenney
+*/
+
+#Controls_AddTable {
+    position: absolute;
+    background-color: rgba(255, 245, 245, 245);
+    border: 1px solid black;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+
+#Controls_AddTable_Banner {
+    background-color: rgb(240, 225, 225);
+    border-radius: 10px;
+}
+
+#Controls_AddTable_Banner:hover {
+    background-color: rgb(230, 215, 215);
+}
+
+#Dialogs_FactCreation {
+    width: auto;
+}
+
+#Dialogs_FactCreation_OpList {
+    list-style-type: none;
+    white-space: nowrap;
+    width: 600px;
+}
+
+#Dialogs_FactCreation_OpList li {
+    display: inline;
+    padding-right: 15px;
+    float: left;
+}
+
+.operator {
+    width: 30px;
+    height: 30px;
+    font-size: 14pt;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #FFDFDF;
+}
+
+.operator span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}

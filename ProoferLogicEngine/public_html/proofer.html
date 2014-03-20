@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <link rel="stylesheet" type="text/css" href="css/positions.css" />
-	<link rel="stylesheet" type="text/css" href="css/AddTable.css" />
+        <link rel="stylesheet" type="text/css" href="css/fact_creation.css" />
         <link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.10.4.custom.min.css" />
         <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
         <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
@@ -16,7 +16,7 @@
         <script src="js/classes/Rule.js"></script>
         <script src="js/classes/Tutorial.js"></script>
         <script src="js/classes/Level.js"></script>
-	<script src="js/classes/AddTable.js"></script>
+        <script src="js/classes/AddTable.js"></script>
         <script src="js/dialogs/LevelClearedDialog.js"></script>
         <script src="js/dialogs/TutorialDialog.js"></script>
         <script src="js/dialogs/FactCreationDialog.js"></script>
@@ -67,50 +67,50 @@
                         <table>
                             <tr><th id="Controls_AddTable_Banner" colspan="3">Recent Facts</th></tr>
                             <tr>
-				<td>AT1</td>
-				<td id="Controls_AddTable_Fact1">
+                                <td>AT1</td>
+                                <td id="Controls_AddTable_Fact1">
                                     <div class="add-fact">+</div>
                                 </td>
-				<td>
-				    <div class="edit-fact">..</div>
-				</td>
-			    </tr>
+                                <td>
+                                    <div class="edit-fact">..</div>
+                                </td>
+                            </tr>
                             <tr>
-				<td>AT2</td>
-				<td id="Controls_AddTable_Fact2">
+                                <td>AT2</td>
+                                <td id="Controls_AddTable_Fact2">
                                     <div class="add-fact">+</div>
                                 </td>
-				<td>
-				    <div class="edit-fact">..</div>
-				</td>
-			    </tr>
-			    <tr>
-				<td>AT3</td>
-				<td id="Controls_AddTable_Fact3">
+                                <td>
+                                    <div class="edit-fact">..</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AT3</td>
+                                <td id="Controls_AddTable_Fact3">
                                     <div class="add-fact">+</div>
                                 </td>
-				<td>
-				    <div class="edit-fact">..</div>
-				</td>
-			    </tr>
-			    <tr>
-				<td>AT4</td>
-				<td id="Controls_AddTable_Fact4">
+                                <td>
+                                    <div class="edit-fact">..</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AT4</td>
+                                <td id="Controls_AddTable_Fact4">
                                     <div class="add-fact">+</div>
                                 </td>
-				<td>
-				    <div class="edit-fact">..</div>
-				</td>
-			    </tr>
-			    <tr>
-				<td>AT5</td>
-				<td id="Controls_AddTable_Fact5">
+                                <td>
+                                    <div class="edit-fact">..</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AT5</td>
+                                <td id="Controls_AddTable_Fact5">
                                     <div class="add-fact">+</div>
                                 </td>
-				<td>
-				    <div class="edit-fact">..</div>
-				</td>
-			    </tr>
+                                <td>
+                                    <div class="edit-fact">..</div>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -137,12 +137,21 @@
 
                 </div>
                 <div id="Dialogs_FactCreation" title="Fact Editor">
-                    <h2>Instructions</h2>
-                    <p></p>
-                    <h2>Creation Panel</h2>
-                    <div></div>
-                    <div style="float: right;">
+                    <div>
+                        <h2>Instructions</h2>
+                        <p>Enter the Fact you would like to create in the Creation Panel. Use your keyboard to enter simple statements and drag operators from the toolbar</p>
+                        <h2>Creation Panel</h2>
+                        <div></div>
+                    </div>
+                    <div>
                         <h4>Operators and tools</h4>
+                        <ul id="Dialogs_FactCreation_OpList">
+                            <li><div class="operator">&and;</div></li>
+                            <li><div class="operator">&or;</div></li>
+                            <li><div class="operator">&rarr;</div></li>
+                            <li><div class="operator">&harr;</div></li>
+                            <li><div class="operator">&oplus;</div></li>
+                        </ul>
                     </div>
                 </div>
             </div>

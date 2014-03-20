@@ -118,13 +118,28 @@ $(document).ready(function() {
 	openFactCreationDialog(idToReplace, "add");
     });
     
+    /**
+     * Open the Fact editor with the current Fact loaded
+     */
     $('.edit-fact').click(function() {
 	var idToReplace; // TODO get the id
 	openFactCreationDialog(idToReplace, "edit");
     });
     
+    /**
+     * Close the AddTable when the banner is clicked
+     */
     $('#Controls_AddTable_Banner').click(function() {
-	$('#Controls_AddTable').hide(1000);
+	$('#Controls_AddTable').hide(500);
+    });
+    
+    /**
+     * Bind the events to make OPerators in the AddTable draggable
+     */
+    $('.operator').draggable({
+	revert: 'invalid',
+	opacity: 0.7,
+	helper: "clone"
     });
 
     // Base key event handler
@@ -144,7 +159,7 @@ function displayNewFactSelector(event) {
     // Display the popup
     $('#Controls_AddTable').css("top", top);
     $('#Controls_AddTable').css("left", left);
-    $('#Controls_AddTable').show(1000);
+    $('#Controls_AddTable').show(500);
 }
 
 /**
