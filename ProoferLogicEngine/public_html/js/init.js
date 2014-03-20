@@ -12,6 +12,9 @@ $(document).ready(function() {
     
     /* Create buttons for the AddTable */
     $('.add-fact, .edit-fact').button();
+    
+    /* initialize the creation elements */
+    updateCreationElements()
 });
 
 /* Resizing */
