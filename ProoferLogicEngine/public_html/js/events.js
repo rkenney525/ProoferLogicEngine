@@ -141,9 +141,12 @@ $(document).ready(function() {
         opacity: 0.7,
         helper: "clone"
     });
+});
 
+function bindKeyPressEvents() {
     // Base key event handler
-    $('#Dialogs_FactCreation_Creation_Input').keypress(function(event) {
+    $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.' +
+	    'ui-dialog-buttons.ui-draggable.ui-resizable').keypress(function(event) {
         var keycode = event.which;
         if ((keycode >= 65 && keycode <= 90) ||
                 (keycode >= 97 && keycode <= 122)) {
@@ -156,17 +159,18 @@ $(document).ready(function() {
             // Add a new span
             if (add) {
                 $('.creation-element').filter('.selected').removeClass("selected");
-                $('#Dialogs_FactCreation_Creation').append('<span class="creation-element selected">?</span>');
+		$('#Dialogs_FactCreation_Creation').append('<span class="creation-operator">?</span>&nbsp;');
+                $('#Dialogs_FactCreation_Creation').append('<span class="creation-element selected">?</span>&nbsp;');
             }
 
             // Reset
-            $('#Dialogs_FactCreation_Creation_Input').val("");
+            //$('#Dialogs_FactCreation_Creation_Input').val("");
 
             // Update creation elements
             updateCreationElements();
         }
     });
-});
+}
 
 function updateCreationElements() {
     $('.creation-element').click(function(event) {
@@ -175,7 +179,18 @@ function updateCreationElements() {
 
         // Select this one
         $(this).addClass("selected");
-    })
+    });
+    
+    $('.creation-operator').droppable({
+	tolerance: 'touch',
+        drop: function(event) {
+            // Get the op
+	    var op = event.toElement.innerHTML;
+	    
+	    // Place the op
+	    $(this).html(op);
+        }
+    });
 }
 
 function displayNewFactSelector(event) {

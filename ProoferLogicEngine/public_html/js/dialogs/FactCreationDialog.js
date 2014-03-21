@@ -22,6 +22,9 @@ $(document).ready(function() {
 });
 
 function openFactCreationDialog(id, operation) {
+    // Bind keypress events
+    bindKeyPressEvents();
+    
     $("#Dialogs_FactCreation").dialog("open");
 
     // Set size
@@ -30,5 +33,7 @@ function openFactCreationDialog(id, operation) {
 }
 
 function closeFactCreationDialog() {
+    $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog' +
+	    '-buttons.ui-draggable.ui-resizable').unbind("keypress");
     $("#Dialogs_FactCreation").dialog("close");
 }

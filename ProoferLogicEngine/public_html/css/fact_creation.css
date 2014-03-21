@@ -31,10 +31,8 @@
     background-color: #FFCFCF;
     border-radius: 10px;
     vertical-align: middle;
-}
-
-#Dialogs_FactCreation_Creation_Input {
-    width: 1em;
+    padding-left: 15px;
+    padding-top: 15px;
 }
 
 #Dialogs_FactCreation_OpList {
@@ -59,7 +57,7 @@
     font-size: 14pt;
     text-align: center;
     border-radius: 5px;
-    background-color: #FFDFDF;
+    background-color: #DFFFDF;
 }
 
 .operator span {
@@ -68,8 +66,32 @@
     line-height: normal;
 }
 
+.tool {
+    min-width: 30px;
+    min-height: 30px;
+    font-size: 11pt;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #DFDFFF;
+}
+
+.tool span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
 .creation-element {
-    background-color: #FFDFDF;
+    background-color: #FFEFEF;
+    width: 30px;
+    height: 30px;
+    font-size: 14pt;
+    border-radius: 5px;
+    font-family: monospace;
+}
+
+.creation-operator {
+    background-color: #DFFFDF;
     width: 30px;
     height: 30px;
     font-size: 14pt;
