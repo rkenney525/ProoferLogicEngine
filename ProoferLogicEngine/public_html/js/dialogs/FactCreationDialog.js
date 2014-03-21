@@ -25,6 +25,7 @@ function openFactCreationDialog(id, operation) {
     // Bind keypress events
     bindKeyPressEvents();
     
+    // open the dialog
     $("#Dialogs_FactCreation").dialog("open");
 
     // Set size

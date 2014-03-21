@@ -134,9 +134,18 @@ $(document).ready(function() {
     });
 
     /**
-     * Bind the events to make OPerators in the AddTable draggable
+     * Bind the events to make Operators in the AddTable draggable
      */
     $('.operator').draggable({
+        revert: 'invalid',
+        opacity: 0.7,
+        helper: "clone"
+    });
+
+    /**
+     * Bind the events to make Tools in the AddTable draggable
+     */
+    $('.tool').draggable({
         revert: 'invalid',
         opacity: 0.7,
         helper: "clone"
@@ -146,7 +155,7 @@ $(document).ready(function() {
 function bindKeyPressEvents() {
     // Base key event handler
     $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.' +
-	    'ui-dialog-buttons.ui-draggable.ui-resizable').keypress(function(event) {
+            'ui-dialog-buttons.ui-draggable.ui-resizable').keypress(function(event) {
         var keycode = event.which;
         if ((keycode >= 65 && keycode <= 90) ||
                 (keycode >= 97 && keycode <= 122)) {
@@ -159,8 +168,8 @@ function bindKeyPressEvents() {
             // Add a new span
             if (add) {
                 $('.creation-element').filter('.selected').removeClass("selected");
-		$('#Dialogs_FactCreation_Creation').append('<span class="creation-operator">?</span>&nbsp;');
-                $('#Dialogs_FactCreation_Creation').append('<span class="creation-element selected">?</span>&nbsp;');
+                $('#Dialogs_FactCreation_Creation').append('<span class="creation-operator negatable">?</span>');
+                $('#Dialogs_FactCreation_Creation').append('<span class="creation-element selected">?</span>');
             }
 
             // Reset
@@ -180,15 +189,18 @@ function updateCreationElements() {
         // Select this one
         $(this).addClass("selected");
     });
-    
+
     $('.creation-operator').droppable({
-	tolerance: 'touch',
+        tolerance: 'touch',
         drop: function(event) {
             // Get the op
-	    var op = event.toElement.innerHTML;
-	    
-	    // Place the op
-	    $(this).html(op);
+            var op = event.toElement.innerHTML;
+            
+            // Make sure we're holding an operator
+            if ($(event.toElement).attr("data") === "operator") {
+                // Place the op
+                $(this).html(op);
+            }
         }
     });
 }
