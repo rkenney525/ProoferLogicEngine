@@ -194,12 +194,40 @@ function updateCreationElements() {
         tolerance: 'touch',
         drop: function(event) {
             // Get the op
-            var op = event.toElement.innerHTML;
-            
-            // Make sure we're holding an operator
-            if ($(event.toElement).attr("data") === "operator") {
-                // Place the op
-                $(this).html(op);
+            var dropped = event.toElement;
+            var op = dropped.innerHTML;
+            var item = $(dropped).attr("data");
+
+            // Make sure we're holding an operator or group
+            switch (item) {
+                case "operator":
+                    // Place the op
+                    $(this).html(op);
+
+                    // Prevent propogation
+                    event.stopPropagation();
+                    break;
+                case "group":
+                    // TODO Dont do this if contains a ?
+                    // Get the elements for the new group
+                    var op = $(this);
+                    var arg0 = op.prev();
+                    var arg1 = op.next();
+                    
+                    // Create the group
+                    var group = 
+                            $('<span class="group"><span class="paren">(</span></span>')
+                            .insertBefore(arg0);
+                    
+                    // Populate the group
+                    group.append(arg0);
+                    group.append(op);
+                    group.append(arg1);
+                    group.append('<span class="paren">)</span>');
+                    
+                    // Prevent propogation
+                    event.stopPropagation();
+                    break;
             }
         }
     });

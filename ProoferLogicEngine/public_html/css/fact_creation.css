@@ -99,6 +99,12 @@
     margin-right: 10px;
 }
 
+.paren {
+    background-color: #DFDFFF;
+    font-size: 14pt;
+    border-radius: 5px;
+}
+
 .gray {
     background-color: #DFDFFF;
     border-radius: 5px;
