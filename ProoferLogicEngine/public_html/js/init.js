@@ -13,8 +13,11 @@ $(document).ready(function() {
     /* Create buttons for the AddTable */
     $('.add-fact, .edit-fact').button();
     
+    /* Create buttons for the Fact Creator */
+    $('#Dialogs_FactCreation_OpList_Clear').button();
+    
     /* initialize the creation elements */
-    updateCreationElements()
+    updateCreationElements();
 });
 
 /* Resizing */
