@@ -97,6 +97,10 @@ function clearExecutorResult() {
     $('#Controls_Executor_Result').html("");
 }
 
+function clearFactCreation() {
+    $('#Dialogs_FactCreation_Creation').empty();
+}
+
 /**
  * This function prepares the Level Cleared Dialog for display and then displays 
  * it.
@@ -125,13 +129,13 @@ function displayLevelClearedDialog() {
     if (Levels.onLastLevel()) {
 	$(".ui-dialog-buttonpane button:contains('Next Level') span")
 		.filter(function(index) {
-	    return $(this).text() === "Next Level";
-	}).html("Main Menu");
+		    return $(this).text() === "Next Level";
+		}).html("Main Menu");
     } else {
 	$(".ui-dialog-buttonpane button:contains('Main Menu') span")
 		.filter(function(index) {
-	    return $(this).text() === "Main Menu";
-	}).html("Next Level");
+		    return $(this).text() === "Main Menu";
+		}).html("Next Level");
     }
 
     // Display the dialog

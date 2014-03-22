@@ -105,6 +105,11 @@
     border-radius: 5px;
 }
 
+.negation {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
 .gray {
     background-color: #DFDFFF;
     border-radius: 5px;

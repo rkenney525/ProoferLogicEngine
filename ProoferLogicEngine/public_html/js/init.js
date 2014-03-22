@@ -15,6 +15,7 @@ $(document).ready(function() {
     
     /* Create buttons for the Fact Creator */
     $('#Dialogs_FactCreation_OpList_Clear').button();
+    $('#Dialogs_FactCreation_OpList_Negate').button();
     
     /* initialize the creation elements */
     updateCreationElements();

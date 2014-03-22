@@ -140,9 +140,26 @@ $(document).ready(function() {
      * Clear the Fact Creator
      */
     $('#Dialogs_FactCreation_OpList_Clear').click(function() {
-	$('#Dialogs_FactCreation_Creation').empty();
+	clearFactCreation();
 	$('#Dialogs_FactCreation_Creation')
-		.append('<span class="creation-element negatable selected">?</span>');
+	    .append('<span class="creation-element selected">?</span>');
+    });
+    
+    /**
+     * 
+     */
+    $('#Dialogs_FactCreation_OpList_Negate').click(function() {
+	// Get the selected element
+	var selected = $('.selected');
+	var negation = 
+		'<span class="creation-negation"><span class="negation">&tilde;</span></span>';
+	
+	// Handle operator and creation-fact
+	if (selected.hasClass('creation-operator')) {
+	    var parent = selected.parent();
+	} else if (selected.hasClass('creation-element')) {
+	    $(negation).insertBefore(selected).append(selected);
+	}
     });
 
     /**
@@ -188,13 +205,13 @@ function bindKeyPressEvents() {
 	    // Add the tags
 	    var inGroup = close.length !== 0;
 	    if (inGroup) {
-		$('<span class="creation-operator negatable">?</span>')
+		$('<span class="creation-operator">?</span>')
 			.insertBefore(close);
-		$('<span class="creation-element negatable">?</span>')
+		$('<span class="creation-element">?</span>')
 			.insertBefore(close);
 	    } else {
-		target.append('<span class="creation-operator negatable">?</span>');
-		target.append('<span class="creation-element negatable">?</span>');
+		target.append('<span class="creation-operator">?</span>');
+		target.append('<span class="creation-element">?</span>');
 	    }
 
 	    // Update creation elements
@@ -204,7 +221,7 @@ function bindKeyPressEvents() {
 }
 
 function updateCreationElements() {
-    $('.creation-element').click(function(event) {
+    $('.creation-element, .creation-operator').click(function(event) {
 	// Deselct the old selected
 	$('.selected').removeClass("selected");
 
@@ -234,6 +251,12 @@ function updateCreationElements() {
 		    var op = $(this);
 		    var arg0 = op.prev();
 		    var arg1 = op.next();
+		    
+		    // Prevent redundancy
+		    if (op.next().next().hasClass('close-paren') &&
+			    op.prev().prev().hasClass('open-paren')) {
+			break;
+		    }
 
 		    // Create the group
 		    var group =

@@ -27,9 +27,23 @@ function openFactCreationDialog(id, operation) {
     
     // open the dialog
     $("#Dialogs_FactCreation").dialog("open");
+    
+    // Check if we have data to load
+    clearFactCreation();
+    switch (operation) {
+	case "add":
+	    $('#Dialogs_FactCreation_Creation')
+	    .append('<span class="creation-element selected">?</span>');
+	    break;
+	case "edit":
+	    // TODO load current fact
+	    break;
+    }
+    
+    // Deselect the buttons
+    // TODO deselect the buttons
 
     // Set size
-    //$("#Dialogs_FactCreation").parent().css("min-height", 350);
     $("#Dialogs_FactCreation").parent().css("min-width", 650);
 }
 
