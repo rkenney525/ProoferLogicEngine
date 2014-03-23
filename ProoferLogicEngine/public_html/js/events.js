@@ -142,21 +142,24 @@ $(document).ready(function() {
     $('#Dialogs_FactCreation_OpList_Clear').click(function() {
 	clearFactCreation();
 	$('#Dialogs_FactCreation_Creation')
-	    .append('<span class="creation-element selected">?</span>');
+		.append('<span class="creation-element selected">?</span>');
     });
-    
+
     /**
      * 
      */
     $('#Dialogs_FactCreation_OpList_Negate').click(function() {
 	// Get the selected element
 	var selected = $('.selected');
-	var negation = 
+	var negation =
 		'<span class="creation-negation"><span class="negation">&tilde;</span></span>';
-	
+
 	// Handle operator and creation-fact
 	if (selected.hasClass('creation-operator')) {
-	    var parent = selected.parent();
+	    if (selected.next().next().hasClass('close-paren') &&
+		    selected.prev().prev().hasClass('open-paren')) {
+		$(negation).insertBefore(selected.parent()).append(selected.parent());
+	    }
 	} else if (selected.hasClass('creation-element')) {
 	    $(negation).insertBefore(selected).append(selected);
 	}
@@ -199,19 +202,22 @@ function bindKeyPressEvents() {
 	    updateCreationElements();
 	} else if (keycode === 32) {
 	    // Get the target
-	    var target = $('.creation-element').filter('.selected').parent();
+	    var target = $('.selected').parent();
 	    var close = target.children('span.close-paren');
 
+	    // Remove the selected tag
+	    $('.selected').removeClass('selected');
+	    
 	    // Add the tags
 	    var inGroup = close.length !== 0;
 	    if (inGroup) {
 		$('<span class="creation-operator">?</span>')
 			.insertBefore(close);
-		$('<span class="creation-element">?</span>')
+		$('<span class="creation-element selected">?</span>')
 			.insertBefore(close);
 	    } else {
 		target.append('<span class="creation-operator">?</span>');
-		target.append('<span class="creation-element">?</span>');
+		target.append('<span class="creation-element selected">?</span>');
 	    }
 
 	    // Update creation elements
@@ -251,7 +257,7 @@ function updateCreationElements() {
 		    var op = $(this);
 		    var arg0 = op.prev();
 		    var arg1 = op.next();
-		    
+
 		    // Prevent redundancy
 		    if (op.next().next().hasClass('close-paren') &&
 			    op.prev().prev().hasClass('open-paren')) {
