@@ -9,14 +9,22 @@ $(document).ready(function() {
     var ctx = can.getContext("2d");
     ctx.font = "40px Arial";
     ctx.fillText("Proofer - The Logic Engine", 20, 75);
-    
+
+    /* Add prototypes to String */
+    String.prototype.insert = function(index, val) {
+	if (index > 0)
+	    return this.substring(0, index) + val + this.substring(index, this.length);
+	else
+	    return val + this;
+    };
+
     /* Create buttons for the AddTable */
     $('.add-fact, .edit-fact').button();
-    
+
     /* Create buttons for the Fact Creator */
     $('#Dialogs_FactCreation_OpList_Clear').button();
     $('#Dialogs_FactCreation_OpList_Negate').button();
-    
+
     /* initialize the creation elements */
     updateCreationElements();
 });

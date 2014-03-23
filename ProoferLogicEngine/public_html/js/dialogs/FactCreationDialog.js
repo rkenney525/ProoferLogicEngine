@@ -4,7 +4,41 @@ $(document).ready(function() {
         autoOpen: false,
         buttons: {
             "OK": function() {
-                closeFactCreationDialog();
+		// Get the fact String and make it parsable
+		var factStr = $('#Dialogs_FactCreation_Creation').text();
+		
+		// Replace the actual operators
+		factStr = factStr.split('\u2192').join('>');
+		factStr = factStr.split('\u2295').join('#');
+		factStr = factStr.split('\u2194').join('%');
+		factStr = factStr.split('\u2227').join('&');
+		factStr = factStr.split('\u2228').join('|');
+		factStr = factStr.split('\u02DC').join('~');
+		
+		// Handle the lazy way we displayed negations
+		for (var i = 0; i < factStr.length; i++) {
+		    if (factStr[i] === '~') {
+			var parenCount = 0;
+			for (var j = i + 1; j < factStr.length; j++) {
+			    if (factStr[j] === '(') {
+				parenCount++;
+			    } else if (factStr[j] === ')') {
+				parenCount--;
+			    }  else if (factStr[j] === '~') {
+				continue;
+			    } 
+			    
+			    if (parenCount === 0) {
+				factStr = factStr.insert(j + 1, ')');
+				break;
+			    }
+			}
+			factStr = factStr.insert(i + 1, '(');
+		    }
+		}
+		
+		// Close the dialog
+                //TODO closeFactCreationDialog();
             },
 	    "Cancel": function() {
 		closeFactCreationDialog();
