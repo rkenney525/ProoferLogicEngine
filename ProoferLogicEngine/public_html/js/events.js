@@ -117,16 +117,16 @@ $(document).ready(function() {
      * Called when the plus sign in the Add Table is clicked.
      */
     $('.add-fact').click(function() {
-	var idToReplace = $(this).parent()[0].id;
-	openFactCreationDialog(idToReplace, "add");
+	var id = $($(this).parent().siblings('td')[0]).text();
+	openFactCreationDialog(id, "add");
     });
 
     /**
      * Open the Fact editor with the current Fact loaded
      */
     $('.edit-fact').click(function() {
-	var idToReplace; // TODO get the id
-	openFactCreationDialog(idToReplace, "edit");
+	var id = $($(this).parent().siblings('td')[0]).text();
+	openFactCreationDialog(id, "edit");
     });
 
     /**
