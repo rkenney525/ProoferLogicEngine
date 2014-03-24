@@ -113,27 +113,13 @@ $(document).ready(function() {
 
     });
 
-    /**
-     * Called when the plus sign in the Add Table is clicked.
-     */
-    $('.add-fact').click(function() {
-	var id = $($(this).parent().siblings('td')[0]).text();
-	openFactCreationDialog(id, "add");
-    });
-
-    /**
-     * Open the Fact editor with the current Fact loaded
-     */
-    $('.edit-fact').click(function() {
-	var id = $($(this).parent().siblings('td')[0]).text();
-	openFactCreationDialog(id, "edit");
-    });
+    updateAddTableEvents();
 
     /**
      * Close the AddTable when the banner is clicked
      */
     $('#Controls_AddTable_Banner').click(function() {
-	$('#Controls_AddTable').hide(500);
+	closeAddTable();
     });
 
     /**
@@ -181,6 +167,36 @@ $(document).ready(function() {
 	helper: "clone"
     });
 });
+
+function closeAddTable() {
+    $('#Controls_AddTable').hide(500);
+}
+
+function updateAddTableEvents() {
+    /**
+     * Called when the plus sign in the Add Table is clicked.
+     */
+    $('.add-fact').click(function() {
+	var id = $($(this).parent().siblings('td')[0]).text();
+	openFactCreationDialog(id, "add");
+    });
+
+    /**
+     * Open the Fact editor with the current Fact loaded
+     */
+    $('.edit-fact').click(function() {
+	var id = $($(this).parent().siblings('td')[0]).text();
+	openFactCreationDialog(id, "edit");
+    });
+    
+    /**
+     * Make Facts selectable
+     */
+    $('.select-fact').click(function() {
+        $('#Controls_Executor_Arg1').text($(this).text());
+        closeAddTable();
+    });
+}
 
 function bindKeyPressEvents() {
     // Base key event handler
