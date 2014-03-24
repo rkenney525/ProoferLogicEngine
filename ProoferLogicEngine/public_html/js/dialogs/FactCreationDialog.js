@@ -55,14 +55,13 @@ $(document).ready(function() {
 
 		// Exit and return
 		if (fact !== null) {
-		    var id = $("#Dialogs_FactCreation").id;
+		    var id = FactCreationDialog_id;
 		    AddTable[id] = fact;
 		    AddTable.updateHtml();
-		    closeFactCreationDialog()
+		    closeFactCreationDialog();
 		} else {
 		    // TODO error message
 		}
-		//TODO closeFactCreationDialog();
 	    },
 	    "Cancel": function() {
 		closeFactCreationDialog();
@@ -79,6 +78,14 @@ $(document).ready(function() {
     });
 });
 
+var FactCreationDialog_id;
+
+/**
+ * Opens the Fact Creation Dialog.
+ * 
+ * @param {String} id The ID of the AddTable fact being created
+ * @param {String} operation The operation to perform (add, edit)
+ */
 function openFactCreationDialog(id, operation) {
     // Bind keypress events
     bindKeyPressEvents();
@@ -97,7 +104,7 @@ function openFactCreationDialog(id, operation) {
 	    populateFactCreationAreaFromFact(fact);
 	    break;
     }
-    $("#Dialogs_FactCreation").id = id;
+    FactCreationDialog_id = id;
 
     // Deselect the buttons
     // TODO deselect the buttons

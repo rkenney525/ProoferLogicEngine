@@ -193,7 +193,9 @@ function updateAddTableEvents() {
      * Make Facts selectable
      */
     $('.select-fact').click(function() {
-        $('#Controls_Executor_Arg1').text($(this).text());
+	var id = $($(this).parent().siblings()[0]).text();
+	$('#Controls_Executor_Arg1').addClass('fact-filled');
+        $('#Controls_Executor_Arg1').text(id);
         closeAddTable();
     });
     
@@ -340,8 +342,9 @@ function bindRuleEvents() {
 		} else {
 		    $('#Controls_Executor_Arg1').droppable("enable");
 		    $('#Controls_Executor_Arg1').unbind("click");
-		    if ($('#Controls_Executor_Arg1').children() > 0) {
+		    if ($('#Controls_Executor_Arg1').children().length > 0) {
 			$('#Controls_Executor_Arg1').html("");
+			$('#Controls_Executor_Arg1').removeClass('fact-filled');
 		    }
 		}
 	    }
