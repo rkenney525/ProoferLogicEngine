@@ -196,10 +196,15 @@ function updateAddTableEvents() {
         $('#Controls_Executor_Arg1').text($(this).text());
         closeAddTable();
     });
+    
+    /* Create buttons for the AddTable */
+    $('.add-fact, .edit-fact').button();
 }
 
 function bindKeyPressEvents() {
     // Base key event handler
+    $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.' +
+	    'ui-dialog-buttons.ui-draggable.ui-resizable').unbind("keypress");
     $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.' +
 	    'ui-dialog-buttons.ui-draggable.ui-resizable').keypress(function(event) {
 	var keycode = event.which;

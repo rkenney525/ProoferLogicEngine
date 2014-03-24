@@ -10,7 +10,7 @@ var AddTable = {
     updateHtml: function() {
         // AT1
         var at1 = $('#Controls_AddTable_Fact1');
-        at1.clear();
+        at1.empty();
         at1.append('<td>AT1</td>');
         if (this.AT1 !== null) {
             at1.append('<td><div class="select-fact">' + this.AT1.toPrettyString() + '</div></td>');
@@ -21,7 +21,7 @@ var AddTable = {
         
         // AT2
         var at2 = $('#Controls_AddTable_Fact2');
-        at2.clear();
+        at2.empty();
         at2.append('<td>AT2</td>');
         if (this.AT2 !== null) {
             at2.append('<td><div class="select-fact">' + this.AT2.toPrettyString() + '</div></td>');
@@ -32,7 +32,7 @@ var AddTable = {
         
         // AT3
         var at3 = $('#Controls_AddTable_Fact3');
-        at3.clear();
+        at3.empty();
         at3.append('<td>AT3</td>');
         if (this.AT3 !== null) {
             at3.append('<td><div class="select-fact">' + this.AT3.toPrettyString() + '</div></td>');
@@ -43,7 +43,7 @@ var AddTable = {
         
         // AT4
         var at4 = $('#Controls_AddTable_Fact4');
-        at4.clear();
+        at4.empty();
         at4.append('<td>AT4</td>');
         if (this.AT4 !== null) {
             at4.append('<td><div class="select-fact">' + this.AT4.toPrettyString() + '</div></td>');
@@ -54,7 +54,7 @@ var AddTable = {
         
         // AT5
         var at5 = $('#Controls_AddTable_Fact5');
-        at5.clear();
+        at5.empty();
         at5.append('<td>AT5</td>');
         if (this.AT5 !== null) {
             at5.append('<td><div class="select-fact">' + this.AT5.toPrettyString() + '</div></td>');

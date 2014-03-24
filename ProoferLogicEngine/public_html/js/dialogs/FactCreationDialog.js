@@ -11,8 +11,9 @@ $(document).ready(function() {
                 if (factStr.indexOf("?") >= 0) {
                     // TODO display error that says unspecified variable
                     return;
-                } else if (factStr.match(/\(/g) !== null
-                        && factStr.match(/\(/g).length !==
+                    // TODO bug
+                } else if (factStr.match(/\(/g) === null ||
+                        factStr.match(/\(/g).length !==
                         $('.creation-operator').length) {
                     // TODO display error that says not enough groups
                     return;
@@ -53,8 +54,9 @@ $(document).ready(function() {
 
                 // Exit and return
                 if (fact !== null) {
-                    var id; //TODO get id
+                    var id = $("#Dialogs_FactCreation").id;
                     AddTable[id] = fact;
+                    AddTable.updateHtml();
                     closeFactCreationDialog()
                 } else {
                     // TODO error message
@@ -94,7 +96,8 @@ function openFactCreationDialog(id, operation) {
             populateFactCreationAreaFromFact(fact);
             break;
     }
-
+    $("#Dialogs_FactCreation").id = id;
+    
     // Deselect the buttons
     // TODO deselect the buttons
 

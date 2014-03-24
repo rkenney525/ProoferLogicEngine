@@ -18,12 +18,13 @@ $(document).ready(function() {
 	    return val + this;
     };
 
-    /* Create buttons for the AddTable */
-    $('.add-fact, .edit-fact').button();
-
     /* Create buttons for the Fact Creator */
     $('#Dialogs_FactCreation_OpList_Clear').button();
     $('#Dialogs_FactCreation_OpList_Negate').button();
+
+    /* Initialize the AddTable */
+    AddTable.loadData();
+    AddTable.updateHtml();
 
     /* initialize the creation elements */
     updateCreationElements();
