@@ -6,6 +6,17 @@ $(document).ready(function() {
             "OK": function() {
 		// Get the fact String and make it parsable
 		var factStr = $('#Dialogs_FactCreation_Creation').text();
+                
+                // Look for a few obvious errors
+                if (factStr.indexOf("?") >= 0) {
+                    // TODO display error that says unspecified variable
+                    return;
+                } else if (factStr.match(/\(/g) !== null
+                        && factStr.match(/\(/g).length !== 
+                        $('.creation-operator').length) {
+                    // TODO display error that says not enough groups
+                    return;
+                }
 		
 		// Replace the actual operators
 		factStr = factStr.split('\u2192').join('>');
