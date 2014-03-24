@@ -77,8 +77,7 @@ function openFactCreationDialog(id, operation) {
     clearFactCreation();
     switch (operation) {
 	case "add":
-	    $('#Dialogs_FactCreation_Creation')
-	    .append('<span class="creation-element selected">?</span>');
+	    initializeFactCreation();
 	    break;
 	case "edit":
 	    // TODO load current fact

@@ -101,6 +101,12 @@ function clearFactCreation() {
     $('#Dialogs_FactCreation_Creation').empty();
 }
 
+function initializeFactCreation() {
+    clearFactCreation();
+    $('#Dialogs_FactCreation_Creation')
+	    .append('<span class="creation-element selected">?</span>');
+}
+
 /**
  * This function prepares the Level Cleared Dialog for display and then displays 
  * it.

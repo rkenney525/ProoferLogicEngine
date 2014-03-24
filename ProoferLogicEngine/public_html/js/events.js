@@ -140,13 +140,11 @@ $(document).ready(function() {
      * Clear the Fact Creator
      */
     $('#Dialogs_FactCreation_OpList_Clear').click(function() {
-	clearFactCreation();
-	$('#Dialogs_FactCreation_Creation')
-		.append('<span class="creation-element selected">?</span>');
+	initializeFactCreation();
     });
 
     /**
-     * 
+     * Negates the selected statement
      */
     $('#Dialogs_FactCreation_OpList_Negate').click(function() {
 	// Get the selected element
