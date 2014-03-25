@@ -188,17 +188,17 @@ function updateAddTableEvents() {
 	var id = $($(this).parent().siblings('td')[0]).text();
 	openFactCreationDialog(id, "edit");
     });
-    
+
     /**
      * Make Facts selectable
      */
     $('.select-fact').click(function() {
 	var id = $($(this).parent().siblings()[0]).text();
 	$('#Controls_Executor_Arg1').addClass('fact-filled');
-        $('#Controls_Executor_Arg1').text(id);
-        closeAddTable();
+	$('#Controls_Executor_Arg1').text(id);
+	closeAddTable();
     });
-    
+
     /* Create buttons for the AddTable */
     $('.add-fact, .edit-fact').button();
 }
@@ -224,11 +224,15 @@ function bindKeyPressEvents() {
 	} else if (keycode === 32) {
 	    // Get the target
 	    var target = $('.selected').parent();
+	    // See if target is empty (nothing is selected)
+	    if (target.length === 0) {
+		target = $('#Dialogs_FactCreation_Creation');
+	    }
 	    var close = target.children('span.close-paren');
 
 	    // Remove the selected tag
 	    $('.selected').removeClass('selected');
-	    
+
 	    // Add the tags
 	    var inGroup = close.length !== 0;
 	    if (inGroup) {
@@ -248,12 +252,21 @@ function bindKeyPressEvents() {
 }
 
 function updateCreationElements() {
+    $('.creation-element, .creation-operator').unbind('click');
     $('.creation-element, .creation-operator').click(function(event) {
-	// Deselct the old selected
-	$('.selected').removeClass("selected");
+	// Only add the class if we dont already have it. Otherwise you're
+	// toggling it off
+	if (!$(this).hasClass('selected')) {
+	    // Deselect the old selected
+	    $('.selected').removeClass("selected");
+	    // Select this one
+	    $(this).addClass("selected");
+	} else {
+	    // Deselect the old selected
+	    $('.selected').removeClass("selected");
+	}
 
-	// Select this one
-	$(this).addClass("selected");
+
     });
 
     $('.creation-operator').droppable({

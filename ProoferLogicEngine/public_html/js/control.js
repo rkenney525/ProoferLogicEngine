@@ -98,6 +98,8 @@ function clearExecutorResult() {
 }
 
 function clearFactCreation() {
+    $('#Dialogs_FactCreation_Error_NotEnoughGroups').hide();
+    $('#Dialogs_FactCreation_Error_ElementNotEntered').hide();
     $('#Dialogs_FactCreation_Creation').empty();
 }
 
