@@ -132,3 +132,8 @@
     background-color: #DFFFDF;
     border-radius: 5px;
 }
+
+.error-message {
+    padding: 5px;
+    margin-top: 15px;
+}
