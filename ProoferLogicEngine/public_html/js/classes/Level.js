@@ -26,7 +26,7 @@ var Levels = {
     data: [function() {
 	    return new Level(
 		    [
-			Rules.MP,Rules.Add
+			Rules.MP, Rules.Add
 		    ],
 		    [
 			getFactFromString("(r>s)"),
@@ -141,6 +141,27 @@ var Levels = {
 		    getFactFromString("((p>q)&(r>(r&s)))"),
 		    1,
 		    Tutorials.Abs_INTRO
+		    );
+	},
+	function() {
+	    return new Level(
+		    [
+			Rules.MP,
+			Rules.MT,
+			Rules.DS,
+			Rules.HS,
+			Rules.CD,
+			Rules.Conj,
+			Rules.Simp,
+			Rules.Abs,
+			Rules.Add
+		    ],
+		    [
+			getFactFromString("p")
+		    ],
+		    getFactFromString("(p|(r&~(s)))"),
+		    1,
+		    Tutorials.Add_INTRO
 		    );
 	}
     ],
