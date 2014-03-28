@@ -212,6 +212,51 @@ var Levels = {
                     5,
                     null
                     );
+        },
+        function() {
+            return new Level(
+                    [
+                        Rules.MP,
+                        Rules.MT,
+                        Rules.DS,
+                        Rules.HS,
+                        Rules.CD,
+                        Rules.Conj,
+                        Rules.Simp,
+                        Rules.Abs,
+                        Rules.Add
+                    ],
+                    [
+                        getFactFromString("(s>t)"),
+			getFactFromString("(t>w)")
+                    ],
+                    getFactFromString("(s>(t&w))"),
+                    2,
+                    null
+                    );
+        },
+        function() {
+            return new Level(
+                    [
+                        Rules.MP,
+                        Rules.MT,
+                        Rules.DS,
+                        Rules.HS,
+                        Rules.CD,
+                        Rules.Conj,
+                        Rules.Simp,
+                        Rules.Abs,
+                        Rules.Add
+                    ],
+                    [
+                        getFactFromString("((p>q)&(t>w))"),
+			getFactFromString("p"),
+			getFactFromString("~(q)")
+                    ],
+                    getFactFromString("w"),
+                    4,
+                    null
+                    );
         }
     ],
     /**
