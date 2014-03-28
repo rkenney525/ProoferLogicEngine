@@ -257,6 +257,52 @@ var Levels = {
                     4,
                     null
                     );
+        },
+        function() {
+            return new Level(
+                    [
+                        Rules.MP,
+                        Rules.MT,
+                        Rules.DS,
+                        Rules.HS,
+                        Rules.CD,
+                        Rules.Conj,
+                        Rules.Simp,
+                        Rules.Abs,
+                        Rules.Add
+                    ],
+                    [
+                        getFactFromString("((p>q)&(r>s))"),
+			getFactFromString("((r>s)&(w>x))"),
+			getFactFromString("p")
+                    ],
+                    getFactFromString("((p&q)|(r&s))"),
+                    4,
+                    null
+                    );
+        },
+        function() {
+            return new Level(
+                    [
+                        Rules.MP,
+                        Rules.MT,
+                        Rules.DS,
+                        Rules.HS,
+                        Rules.CD,
+                        Rules.Conj,
+                        Rules.Simp,
+                        Rules.Abs,
+                        Rules.Add
+                    ],
+                    [
+                        getFactFromString("(p|(r>s))"),
+			getFactFromString("r"),
+			getFactFromString("~(p)")
+                    ],
+                    getFactFromString("(s|~(s))"),
+                    3,
+                    null
+                    );
         }
     ],
     /**
