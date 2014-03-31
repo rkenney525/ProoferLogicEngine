@@ -22,7 +22,7 @@ var Tutorials = {
                 'The object of the game is to prove a statement to be true given limited ' +
                 'information and using some of the rules of logic.</p><br />' +
                 '<p>Soon you will be introduced to a set of rules. These rules allow you to ' +
-                'assert certain statements based on other statements that have been proven ' +
+                'show that certain statements are true based on other statements that have been proven ' +
                 '(or provided to you initially).</p><br /><p>Before we can begin, ' +
                 'we will first go over some of the basic types of statements you ' +
                 'will encounter, the symbols used in those facts, and what it ' +

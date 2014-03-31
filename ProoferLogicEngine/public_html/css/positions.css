@@ -33,7 +33,7 @@
 }
 
 #Controls_Executor_Rule {
-    top: 500px;
+    top: 502px;
     left: 450px;
     position: fixed;
 }
@@ -46,7 +46,7 @@
 
 #Controls_Facts {
     width: 224px;
-    height: 650px;
+    height: 652px;
     position: fixed;
     top: 0px;
     left: 800px;
@@ -58,8 +58,8 @@
 }
 
 #Controls_Rules {
-    width: 1024px;
-    height: 118px;
+    width: 1026px;
+    height: 120px;
     position: fixed;
     top: 650px;
     left: 0px;
@@ -68,4 +68,22 @@
 
     border-top: black solid 2px;
     background: -webkit-linear-gradient(#000000, #A0A0A0);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+::-webkit-scrollbar-track {
+	background-color: rgba(113,112,107,0.1);
+	-webkit-border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:vertical,
+::-webkit-scrollbar-thumb:horizontal {
+	background-color: rgba(192,0,0,0.8);
+	-webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+	background: rgba(160,0,0,0.9);
 }
