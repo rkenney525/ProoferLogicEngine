@@ -2,6 +2,10 @@ $(document).ready(function() {
     $('#MenuPlayGame').click(function() {
 	toGameScreen();
     });
+    
+    $('#MenuPickLevel').click(function() {
+        toPickLevel();
+    });
 
     $('#Controls_Executor_ClearResults').click(function() {
 	clearExecutorResult();
@@ -333,6 +337,7 @@ function displayNewFactSelector(event) {
  * box.
  */
 function bindRuleEvents() {
+    // TODO try jquery ui tooltip for hints
     $('#Controls_Executor_Rule').droppable({
 	tolerance: 'touch',
 	drop: function(event) {

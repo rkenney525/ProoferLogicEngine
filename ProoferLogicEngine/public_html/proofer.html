@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <link rel="stylesheet" type="text/css" href="css/positions.css" />
         <link rel="stylesheet" type="text/css" href="css/fact_creation.css" />
+        <link rel="stylesheet" type="text/css" href="css/level_selection.css" />
         <link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.10.4.custom.min.css" />
         <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
         <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
@@ -33,9 +34,16 @@
                     </canvas>
                 </div>
                 <ul id="MainMenuOptions" class="center">
-                    <li><input type="button" value="Play Game" id="MenuPlayGame" class="menu-item" /></li>
-                    <li><input type="button" value="Exit" class="menu-item" /></li>
+                    <li><input type="button" value="Continue" id="MenuPlayGame" class="menu-item" /></li>
+                    <li><input type="button" value="Pick Level" id="MenuPickLevel" class="menu-item" /></li>
+                    <li><input type="button" value="Exit" id="MenuExitGame" class="menu-item" /></li>
                 </ul>
+            </div>
+            <div id="PickLevel" style="display: none">
+                <p>You can play any level, regardless of your completion of previous levels. Simply select a level to view your stats and then play it.</p>
+                <div id="PickLevel_LevelContainer">
+                    <ul id="PickLevel_LevelContainer_List"></ul>
+                </div>
             </div>
             <div id="GameScreen" style="display: none;">
                 <canvas width="1024" height="768" id="MainGameCanvas">

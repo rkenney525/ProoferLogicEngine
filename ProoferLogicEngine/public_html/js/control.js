@@ -30,6 +30,42 @@ function toGameScreen() {
 }
 
 /**
+ * Navigate away and switch to viewing all levels and their current stats.
+ */
+function toPickLevel() {
+    // Clean up
+    navigateAway();
+
+    // Set up
+    $('body').addClass('menu-focused');
+    $('#PickLevel').show();
+
+    // Populate the selection screen
+    populateLevelSelectionScreen();
+}
+
+/**
+ * Populate the LevelSelection Screen with each level and its respective html.
+ */
+function populateLevelSelectionScreen() {
+    // Init
+    var levels = Levels.data;
+    $('#PickLevel_LevelContainer_List').empty();
+    
+    // Get each level
+    for (var i = 0; i < levels.length; i++) {
+        var level = levels[i]();
+        // Style all of these classes
+        $('#PickLevel_LevelContainer_List').append(
+                '<li><div class="select-level level boxed"><span class="level-id">' + (i + 1) + 
+                '</span><div class="level-details">' + level.getHtml() + '</div></div></li>');
+    }
+    // TODO some sort of pagination
+    // TODO indicate completed
+    // TODO indicate par or better
+}
+
+/**
  * Loads the Game screen with all assets per the level.
  * 
  * @param {Level} level The Level to load
@@ -160,6 +196,7 @@ function navigateAway() {
     // Hide other divs
     $('#MainMenu').hide();
     $('#GameScreen').hide();
+    $('#PickLevel').hide();
 
     // Remove location specific classes
     $('body').removeClass('menu-focused');

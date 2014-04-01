@@ -19,6 +19,22 @@ function Level(rules, facts, conclusion, par, tutorial) {
     this.startingFacts = facts.length;
 }
 
+Level.prototype.getHtml = function() {
+    // Init
+    var html = '';
+    
+    // Display the premises
+    for (var i = 0; i < this.facts.length; i++) {
+        html += String(i + 1)+ '. ' + this.facts[i].toPrettyString() + '<br />';
+    }
+    
+    // Display the conclusion
+    html += '<span>Therefore:  </span>' + this.conclusion.toPrettyString();
+    
+    // Return
+    return html;
+};
+
 
 var Levels = {
     currentIndex: 0,
