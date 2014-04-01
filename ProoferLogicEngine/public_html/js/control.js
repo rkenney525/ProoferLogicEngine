@@ -58,7 +58,7 @@ function populateLevelSelectionScreen() {
         // Style all of these classes
         $('#PickLevel_LevelContainer_List').append(
                 '<li><div class="select-level level boxed"><span class="level-id">' + (i + 1) + 
-                '</span><div class="level-details">' + level.getHtml() + '</div></div></li>');
+                '</span><div class="level-details" style="display: none;">' + level.getHtml() + '</div></div></li>');
     }
     // TODO some sort of pagination
     // TODO indicate completed
