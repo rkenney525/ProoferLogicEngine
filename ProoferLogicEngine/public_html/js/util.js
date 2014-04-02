@@ -4,8 +4,8 @@
 function closeWindow() {
     // TODO closeWindow() doesnt work in chrome app
     //if (chrome.app.window != null) {
-        chrome.app.window.close();
-        window.close();
+    chrome.app.window.close();
+    window.close();
     //} else {
     //    window.open('', '_self', '');
     //    window.close();
@@ -42,14 +42,14 @@ Pagination.prototype.getPage = function() {
     // Init
     var start = this.perPage * (this.page - 1);
     var ret = [];
-    
+
     // Build the return array
     var counter = 0;
     for (var i = start; i < this.items.length && counter < this.perPage; i++) {
         ret.push(this.items[i]);
         counter++;
     }
-    
+
     // Return
     return ret;
 };
@@ -101,3 +101,32 @@ Pagination.prototype.prevPage = function() {
 };
 
 /*** End Pagination ***/
+
+/*** Saving ***/
+/**
+ * Store data locally
+ * 
+ * @param {String} key The key to store value under
+ * @param {Object} value The value to store
+ */
+function saveData(key, value) {
+    chrome.storage.local.set({key: value});
+}
+
+/**
+ * Get saved data.
+ * 
+ * @param {String} key The key of the data to retrieve
+ * @returns {Object} The data stgored under key
+ */
+function getData(key) {
+    var value;
+    chrome.storage.local.get(key, function(items) {
+        value = items[key];
+    });
+    return value;
+}
+
+function clearData() {
+    // TODO implement
+}

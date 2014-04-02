@@ -4,8 +4,16 @@
     "version": "2.0",
     "app": {
         "background": {
-            "scripts": ["js/chromeapp/background.js"]
+            "scripts": [
+                "js/chromeapp/background.js"
+            ]
         }
     },
-    "icons": {"16": "img/proofer-ico-16.png", "128": "img/proofer-ico-128.png"}
+    "permissions": [
+        "storage"
+    ],
+    "icons": {
+        "16": "img/proofer-ico-16.png",
+        "128": "img/proofer-ico-128.png"
+    }
 }

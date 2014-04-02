@@ -226,6 +226,7 @@ function updateSelectLevelEvents() {
             populateLevelDetails(Number($(this).children('.level-id').text()) - 1);
         } else {
             $(this).children('.level-details').hide("blind", 250);
+            $('#PickLevel_MoreInfo').hide();
         }
     });
 }
