@@ -62,6 +62,7 @@ function checkTutorialButtons() {
     var tutorial = $("#Dialogs_Tutorial")[0].tutorial;
 
     // The previous button should be disabled on the first page
+    // TODO consider the enable/disable functions
     if (index === 0) {
         $(".ui-dialog-buttonpane button:contains('Previous')")
                 .attr("disabled", true)

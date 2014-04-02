@@ -49,20 +49,37 @@ function toPickLevel() {
  */
 function populateLevelSelectionScreen() {
     // Init
-    var levels = Levels.data;
+    var levels = LevelSelectionPagination.getPage();
     $('#PickLevel_LevelContainer_List').empty();
-    
+
     // Get each level
     for (var i = 0; i < levels.length; i++) {
         var level = levels[i]();
+        var id = levels[i].paginationId;
         // Style all of these classes
         $('#PickLevel_LevelContainer_List').append(
-                '<li><div class="select-level level boxed"><span class="level-id">' + (i + 1) + 
+                '<li><div class="select-level level boxed"><span class="level-id">' + id +
                 '</span><div class="level-details" style="display: none;">' + level.getHtml() + '</div></div></li>');
     }
-    // TODO some sort of pagination
+
+    // Handle the buttons
+    checkPaginationButtons();
+
     // TODO indicate completed
     // TODO indicate par or better
+}
+
+function checkPaginationButtons() {
+    if (LevelSelectionPagination.onFirstPage()) {
+        $('#PickLevel_PageControls_Prev').disable();
+    } else {
+        $('#PickLevel_PageControls_Prev').enable();
+    }
+    if (LevelSelectionPagination.onLastPage()) {
+        $('#PickLevel_PageControls_Next').disable();
+    } else {
+        $('#PickLevel_PageControls_Next').enable();
+    }
 }
 
 /**
@@ -75,10 +92,10 @@ function populateGameScreen(level) {
     var rules = level.rules;
     $('#Controls_Rules_List').empty();
     for (var index = 0; index < rules.length; index++) {
-	$('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
-		' rule-container">'
-		+ rules[index].getHTML() +
-		'</li>');
+        $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
+                ' rule-container">'
+                + rules[index].getHTML() +
+                '</li>');
     }
     bindRuleEvents();
 
@@ -86,7 +103,7 @@ function populateGameScreen(level) {
     var facts = level.facts;
     $('#Controls_Facts_Table').empty();
     for (var index in facts) {
-	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index].toPrettyString()));
+        $('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index].toPrettyString()));
     }
     bindFactEvents();
 
@@ -95,7 +112,7 @@ function populateGameScreen(level) {
 
     // Load tutorial
     if (level.tutorial !== null) {
-	openTutorial(level.tutorial);
+        openTutorial(level.tutorial);
     }
 }
 
@@ -108,10 +125,10 @@ function populateGameScreen(level) {
  */
 function generateFactRow(index, fact) {
     return '<tr>' +
-	    '<td>' + '<div class="fact ovaled" factId="'
-	    + index + '">' + (index + 1) + '</div>' + '</td>' +
-	    '<td>' + fact + '</td>' +
-	    '</tr>';
+            '<td>' + '<div class="fact ovaled" factId="'
+            + index + '">' + (index + 1) + '</div>' + '</td>' +
+            '<td>' + fact + '</td>' +
+            '</tr>';
 }
 
 /**
@@ -119,8 +136,8 @@ function generateFactRow(index, fact) {
  */
 function clearExecutorInputs() {
     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1, #Controls_Executor_Rule')
-	    .removeClass("rule-filled fact-filled")
-	    .html("");
+            .removeClass("rule-filled fact-filled")
+            .html("");
     $('#Controls_Executor_Arg1').droppable("enable");
     $('#Controls_Executor_Arg1').unbind("click");
 }
@@ -142,7 +159,7 @@ function clearFactCreation() {
 function initializeFactCreation() {
     clearFactCreation();
     $('#Dialogs_FactCreation_Creation')
-	    .append('<span class="creation-element selected">?</span>');
+            .append('<span class="creation-element selected">?</span>');
 }
 
 /**
@@ -166,20 +183,20 @@ function displayLevelClearedDialog() {
     $("#Dialogs_LevelCleared_Starting").html(starting);
     $("#Dialogs_LevelCleared_Established").html(established);
     if (metPar) {
-	$("#Dialogs_LevelCleared_Congrats").show();
+        $("#Dialogs_LevelCleared_Congrats").show();
     } else {
-	$("#Dialogs_LevelCleared_DoBetter").show();
+        $("#Dialogs_LevelCleared_DoBetter").show();
     }
     if (Levels.onLastLevel()) {
-	$(".ui-dialog-buttonpane button:contains('Next Level') span")
-		.filter(function(index) {
-		    return $(this).text() === "Next Level";
-		}).html("Main Menu");
+        $(".ui-dialog-buttonpane button:contains('Next Level') span")
+                .filter(function(index) {
+                    return $(this).text() === "Next Level";
+                }).html("Main Menu");
     } else {
-	$(".ui-dialog-buttonpane button:contains('Main Menu') span")
-		.filter(function(index) {
-		    return $(this).text() === "Main Menu";
-		}).html("Next Level");
+        $(".ui-dialog-buttonpane button:contains('Main Menu') span")
+                .filter(function(index) {
+                    return $(this).text() === "Main Menu";
+                }).html("Next Level");
     }
 
     // Display the dialog

@@ -1,20 +1,55 @@
 $(document).ready(function() {
+    /**
+     * Main Menu: The "Play Game" button is clicked, so go to the current level.
+     */
     $('#MenuPlayGame').click(function() {
 	toGameScreen();
     });
     
+    /**
+     * Main Menu: The "Pick Level" button is clicked, so go to the level selection
+     * view.
+     */
     $('#MenuPickLevel').click(function() {
         toPickLevel();
     });
+    
+    /**
+     * Level Selection: The "Next" button is clicked, so go to the next page of 
+     * levels.
+     */
+    $('#PickLevel_PageControls_Next').click(function() {
+        LevelSelectionPagination.nextPage();
+        populateLevelSelectionScreen();
+    });
+    
+    /**
+     * Level Selection: The "Prev" button is clicked, so go to the previous page 
+     * of levels.
+     */
+    $('#PickLevel_PageControls_Prev').click(function() {
+        LevelSelectionPagination.prevPage();
+        populateLevelSelectionScreen();
+    });
 
+    /**
+     * Game: The "Clear Results" button is clicked, so clear the results area.
+     */
     $('#Controls_Executor_ClearResults').click(function() {
 	clearExecutorResult();
     });
 
+    /**
+     * Game: The "Clear Input" button is clicked, so clear the input areas.
+     */
     $('#Controls_Executor_ClearInput').click(function() {
 	clearExecutorInputs();
     });
 
+    /**
+     * Game: The "Evaluate" button is clicked, so try to apply the selected rule 
+     * with the selected Fact(s) and display the result if there is one.
+     */
     $('#Controls_Executor_Evaluate').click(function() {
 	// TODO total rule attempt count??
 	// Get the level
@@ -117,6 +152,9 @@ $(document).ready(function() {
 
     });
 
+    /**
+     * Initial invocation of AddTable event setting.
+     */
     updateAddTableEvents();
 
     /**
@@ -172,10 +210,17 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Close the AddTable
+ */
 function closeAddTable() {
     $('#Controls_AddTable').hide(500);
 }
 
+/**
+ * Update the buttons relating to selecting a Fact from the table, editing an 
+ * existing Fact, and adding a new Fact.
+ */
 function updateAddTableEvents() {
     /**
      * Called when the plus sign in the Add Table is clicked.
