@@ -31,6 +31,7 @@ $(document).ready(function() {
     $('#Dialogs_FactCreation_OpList_Negate').button();
     $('#PickLevel_PageControls_Next').button();
     $('#PickLevel_PageControls_Prev').button();
+    $('#PickLevel_PageControls_Back').button();
 
     /* Initialize the AddTable */
     AddTable.loadData();
