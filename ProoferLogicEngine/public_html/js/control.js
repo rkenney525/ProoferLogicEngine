@@ -44,6 +44,18 @@ function toPickLevel() {
     populateLevelSelectionScreen();
 }
 
+function populateLevelDetails(id) {
+    // TODO load save data
+    
+    // Popualate
+    $('#PickLevel_MoreInfo').hide();
+    $('#PickLevel_MoreInfo_Best').text("2");
+    $('#PickLevel_MoreInfo_Par').text("2");
+    $('#PickLevel_MoreInfo_Completed').text("Yes");
+    $('#PickLevel_MoreInfo_OnPar').text("Yes");
+    $('#PickLevel_MoreInfo').show("slide", 500);
+}
+
 /**
  * Populate the LevelSelection Screen with each level and its respective html.
  */
@@ -51,6 +63,7 @@ function populateLevelSelectionScreen() {
     // Init
     var levels = LevelSelectionPagination.getPage();
     $('#PickLevel_LevelContainer_List').empty();
+    $('#PickLevel_MoreInfo').hide();
 
     // Get each level
     for (var i = 0; i < levels.length; i++) {

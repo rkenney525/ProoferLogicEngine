@@ -222,6 +222,8 @@ function updateSelectLevelEvents() {
         if ( $(this).children('.level-details').css('display') === 'none') {
             $('.level-details').hide("blind", 250);
             $(this).children('.level-details').show("blind", 250);
+            // Show the details
+            populateLevelDetails(Number($(this).children('.level-id').text()) - 1);
         } else {
             $(this).children('.level-details').hide("blind", 250);
         }

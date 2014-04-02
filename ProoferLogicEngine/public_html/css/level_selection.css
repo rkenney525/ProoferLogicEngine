@@ -43,3 +43,16 @@
     padding-right: 5px;
     padding-bottom: 10px;
 }
+
+.level-info-heading {
+    font-weight: bold;
+    font-size: 28pt;
+}
+
+.level-info-value {
+    font-size: 24pt;
+}
+
+.level-info-piece {
+    margin-right: 100px;
+}
