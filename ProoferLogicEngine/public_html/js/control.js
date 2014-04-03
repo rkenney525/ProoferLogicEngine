@@ -45,15 +45,24 @@ function toPickLevel() {
 }
 
 function populateLevelDetails(id) {
-    // TODO load save data
-    
+    var level = Levels.data[id]();
     // Popualate
-    $('#PickLevel_MoreInfo').hide();
-    $('#PickLevel_MoreInfo_Best').text("2");
-    $('#PickLevel_MoreInfo_Par').text("2");
-    $('#PickLevel_MoreInfo_Completed').text("Yes");
-    $('#PickLevel_MoreInfo_OnPar').text("Yes");
-    $('#PickLevel_MoreInfo').show("slide", 500);
+    getData(level.id, function(data) {
+	// Get values
+	var best = (data !== undefined && data.best !== undefined) ?
+		data.best : "N/A";
+	var par = level.par;
+	var completed = best !== "N/A" ? "Yes" : "No";
+	var onPar = (best !== "N/A" && best <= par) ? "Yes" : "No";
+
+	// Display
+	$('#PickLevel_MoreInfo').hide();
+	$('#PickLevel_MoreInfo_Best').text(best);
+	$('#PickLevel_MoreInfo_Par').text(par);
+	$('#PickLevel_MoreInfo_Completed').text(completed);
+	$('#PickLevel_MoreInfo_OnPar').text(onPar);
+	$('#PickLevel_MoreInfo').show("slide", 500);
+    });
 }
 
 /**
@@ -67,17 +76,17 @@ function populateLevelSelectionScreen() {
 
     // Get each level
     for (var i = 0; i < levels.length; i++) {
-        var level = levels[i]();
-        var id = levels[i].paginationId;
-        // Style all of these classes
-        $('#PickLevel_LevelContainer_List').append(
-                '<li><div class="select-level level boxed"><span class="level-id">' + id +
-                '</span><div class="level-details" style="display: none;">' + level.getHtml() + '</div></div></li>');
+	var level = levels[i]();
+	var id = levels[i].paginationId;
+	// Style all of these classes
+	$('#PickLevel_LevelContainer_List').append(
+		'<li><div class="select-level level boxed"><span class="level-id">' + id +
+		'</span><div class="level-details" style="display: none;">' + level.getHtml() + '</div></div></li>');
     }
 
     // Handle the buttons
     checkPaginationButtons();
-    
+
     // Update the events
     updateSelectLevelEvents();
 
@@ -87,14 +96,14 @@ function populateLevelSelectionScreen() {
 
 function checkPaginationButtons() {
     if (LevelSelectionPagination.onFirstPage()) {
-        $('#PickLevel_PageControls_Prev').disable();
+	$('#PickLevel_PageControls_Prev').disable();
     } else {
-        $('#PickLevel_PageControls_Prev').enable();
+	$('#PickLevel_PageControls_Prev').enable();
     }
     if (LevelSelectionPagination.onLastPage()) {
-        $('#PickLevel_PageControls_Next').disable();
+	$('#PickLevel_PageControls_Next').disable();
     } else {
-        $('#PickLevel_PageControls_Next').enable();
+	$('#PickLevel_PageControls_Next').enable();
     }
 }
 
@@ -108,10 +117,10 @@ function populateGameScreen(level) {
     var rules = level.rules;
     $('#Controls_Rules_List').empty();
     for (var index = 0; index < rules.length; index++) {
-        $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
-                ' rule-container">'
-                + rules[index].getHTML() +
-                '</li>');
+	$('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
+		' rule-container">'
+		+ rules[index].getHTML() +
+		'</li>');
     }
     bindRuleEvents();
 
@@ -119,7 +128,7 @@ function populateGameScreen(level) {
     var facts = level.facts;
     $('#Controls_Facts_Table').empty();
     for (var index in facts) {
-        $('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index].toPrettyString()));
+	$('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index].toPrettyString()));
     }
     bindFactEvents();
 
@@ -128,7 +137,7 @@ function populateGameScreen(level) {
 
     // Load tutorial
     if (level.tutorial !== null) {
-        openTutorial(level.tutorial);
+	openTutorial(level.tutorial);
     }
 }
 
@@ -141,10 +150,10 @@ function populateGameScreen(level) {
  */
 function generateFactRow(index, fact) {
     return '<tr>' +
-            '<td>' + '<div class="fact ovaled" factId="'
-            + index + '">' + (index + 1) + '</div>' + '</td>' +
-            '<td>' + fact + '</td>' +
-            '</tr>';
+	    '<td>' + '<div class="fact ovaled" factId="'
+	    + index + '">' + (index + 1) + '</div>' + '</td>' +
+	    '<td>' + fact + '</td>' +
+	    '</tr>';
 }
 
 /**
@@ -152,8 +161,8 @@ function generateFactRow(index, fact) {
  */
 function clearExecutorInputs() {
     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1, #Controls_Executor_Rule')
-            .removeClass("rule-filled fact-filled")
-            .html("");
+	    .removeClass("rule-filled fact-filled")
+	    .html("");
     $('#Controls_Executor_Arg1').droppable("enable");
     $('#Controls_Executor_Arg1').unbind("click");
 }
@@ -175,48 +184,7 @@ function clearFactCreation() {
 function initializeFactCreation() {
     clearFactCreation();
     $('#Dialogs_FactCreation_Creation')
-            .append('<span class="creation-element selected">?</span>');
-}
-
-/**
- * This function prepares the Level Cleared Dialog for display and then displays 
- * it.
- */
-function displayLevelClearedDialog() {
-    // Get info
-    var level = Levels.getCurrentLevel();
-    var par = level.par;
-    var starting = level.startingFacts;
-    var actual = level.facts.length;
-    var established = actual - starting;
-    var metPar = (established <= par);
-    var conclusion = level.conclusion;
-
-    // Prepare the dialog
-    $("#Dialogs_LevelCleared_Conclusion").html(conclusion.toPrettyString());
-    $("#Dialogs_LevelCleared_Par").html(par);
-    $("#Dialogs_LevelCleared_Actual").html(actual);
-    $("#Dialogs_LevelCleared_Starting").html(starting);
-    $("#Dialogs_LevelCleared_Established").html(established);
-    if (metPar) {
-        $("#Dialogs_LevelCleared_Congrats").show();
-    } else {
-        $("#Dialogs_LevelCleared_DoBetter").show();
-    }
-    if (Levels.onLastLevel()) {
-        $(".ui-dialog-buttonpane button:contains('Next Level') span")
-                .filter(function(index) {
-                    return $(this).text() === "Next Level";
-                }).html("Main Menu");
-    } else {
-        $(".ui-dialog-buttonpane button:contains('Main Menu') span")
-                .filter(function(index) {
-                    return $(this).text() === "Main Menu";
-                }).html("Next Level");
-    }
-
-    // Display the dialog
-    $("#Dialogs_LevelCleared").dialog("open");
+	    .append('<span class="creation-element selected">?</span>');
 }
 
 /**
