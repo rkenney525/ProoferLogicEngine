@@ -258,6 +258,7 @@ function updateSelectLevelEvents() {
  * @param {Number} id The id of the number to skip to
  */
 function updatePlayLevelEvent(id) {
+    $('#PickLevel_PageControls_Play').unbind("click");
     $('#PickLevel_PageControls_Play').click(function() {
 	Levels.goToLevel(id);
 	toGameScreen();
