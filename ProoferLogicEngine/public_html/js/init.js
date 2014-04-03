@@ -48,6 +48,18 @@ $(document).ready(function() {
 	    $('#MenuPlayGame').disable();
 	}
     });
+    
+    /* Set the current level */
+    getData("currentLevel", function(value) {
+	if (value !== undefined) {
+            if (value.index !== undefined) {
+                Levels.currentIndex = value.index;
+            }
+            if (value.progress !== undefined) {
+                Levels.current = value.progress;
+            }
+	}
+    });
 });
 
 /* Resizing */

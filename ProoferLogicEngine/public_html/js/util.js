@@ -2,14 +2,7 @@
  * Close the browser window
  */
 function closeWindow() {
-    // TODO closeWindow() doesnt work in chrome app
-    //if (chrome.app.window != null) {
-    chrome.app.window.close();
     window.close();
-    //} else {
-    //    window.open('', '_self', '');
-    //    window.close();
-    //}
 }
 
 /*** Pagination ***/
@@ -122,7 +115,6 @@ function saveData(key, value) {
  * @param {Function} context The code to execute that needs this data
  */
 function getData(key, context) {
-    var that = this;
     chrome.storage.local.get(key, function(items) {
         context(items[key]);
     });
@@ -130,4 +122,64 @@ function getData(key, context) {
 
 function clearData() {
     chrome.storage.local.clear();
+}
+
+
+/**
+ * Format a Level to save
+ * @param {Level} level The Level to save
+ * @returns {Object} The save object
+ */
+function getSaveLevelObj(level) {
+    var obj = {};
+    // Rules
+    obj.rules = [];
+    for (var i = 0; i < level.rules.length; i++) {
+        obj.rules.push(level.rules[i].displayName);
+    }
+    // ID
+    obj.id = level.id;
+    // Facts
+    obj.facts = [];
+    for (var i = 0; i < level.facts.length; i++) {
+        obj.facts.push(level.facts[i].toParsableString());
+    }
+    // Conclusion
+    obj.conclusion = level.conclusion.toParsableString();
+    // Par
+    obj.par = level.par;
+    // Tutorial
+    obj.tutorial = level.tutorial;
+    // Return
+    return obj;
+}
+
+function loadLevelObj(levelObj) {
+    // Rules
+    // TODO bug here
+    var rules = [];
+    for (var i = 0; i < levelObj.rules.length; i++) {
+        for (var rule in Rules) {
+            if (rule !== undefined &&
+                    levelObj.rules[i] === rule) {
+                rules.push(Rules[rule]);
+                break;
+            }
+        }
+    }
+    // ID
+    var id = levelObj.id;
+    // Facts
+    var facts = [];
+    for (var i = 0; i < levelObj.facts.length; i++) {
+        facts.push(getFactFromString(levelObj.facts[i]));
+    }
+    // Conclusion
+    var conclusion = getFactFromString(levelObj.conclusion);
+    // Par
+    var par = levelObj.par;
+    // Tutorial
+    var tutorial = levelObj.tutorial;
+    // Return
+    return new Level(id, rules, facts, conclusion, par, tutorial);
 }

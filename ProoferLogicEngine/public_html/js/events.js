@@ -3,7 +3,11 @@ $(document).ready(function() {
 	// Initialize some shit
 	$('#MenuPlayGame').enable();
 	saveData("hasGame", "true");
-
+        Levels.currentIndex = 0;
+        saveData("currentLevel", {
+            index: 0
+        });
+        // TODO put toGameScreen in a callback
 	// Begin
 	toGameScreen();
     });
@@ -21,6 +25,13 @@ $(document).ready(function() {
      */
     $('#MenuPickLevel').click(function() {
 	toPickLevel();
+    });
+    
+    /**
+     * Main Menu: The "close" button is clicked, so close the game.
+     */
+    $('#MenuExitGame').click(function() {
+	closeWindow();
     });
 
     /**
@@ -60,6 +71,14 @@ $(document).ready(function() {
      */
     $('#Controls_Executor_ClearInput').click(function() {
 	clearExecutorInputs();
+    });
+    
+    $('#Controls_Executor_Save').click(function() {
+        // TODO indicate that you're saving
+        getData("currentLevel", function(data) {
+            data.progress = getSaveLevelObj(Levels.current);
+            saveData("currentLevel", data);
+        });
     });
 
     /**
