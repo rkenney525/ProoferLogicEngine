@@ -226,17 +226,41 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Update the events for when a Level icon is clicked
+ */
 function updateSelectLevelEvents() {
     $('.select-level').click(function() {
 	if ($(this).children('.level-details').css('display') === 'none') {
+	    // Toggle on
+	    $('#PickLevel_PageControls_Play').enable();
 	    $('.level-details').hide("blind", 250);
 	    $(this).children('.level-details').show("blind", 250);
+	    
 	    // Show the details
-	    populateLevelDetails(Number($(this).children('.level-id').text()) - 1);
+	    var id = Number($(this).children('.level-id').text()) - 1;
+	    populateLevelDetails(id);
+	    
+	    // Update the player
+	    updatePlayLevelEvent(id);
 	} else {
+	    // Toggle off
+	    $('#PickLevel_PageControls_Play').disable();
 	    $(this).children('.level-details').hide("blind", 250);
 	    $('#PickLevel_MoreInfo').hide();
 	}
+    });
+}
+
+/**
+ * Update the play button with the current level
+ * 
+ * @param {Number} id The id of the number to skip to
+ */
+function updatePlayLevelEvent(id) {
+    $('#PickLevel_PageControls_Play').click(function() {
+	Levels.goToLevel(id);
+	toGameScreen();
     });
 }
 

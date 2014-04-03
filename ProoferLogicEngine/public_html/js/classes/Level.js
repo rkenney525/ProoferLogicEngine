@@ -378,5 +378,13 @@ var Levels = {
 
 	// Reset the level index
 	this.currentIndex = 0;
+    },
+    /**
+     * 
+     * @param {Number} index The index to go to
+     */
+    goToLevel: function(index) {
+	this.reset();
+	this.currentIndex = index;
     }
 };

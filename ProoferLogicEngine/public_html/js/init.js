@@ -32,7 +32,9 @@ $(document).ready(function() {
     $('#PickLevel_PageControls_Next').button();
     $('#PickLevel_PageControls_Prev').button();
     $('#PickLevel_PageControls_Back').button();
-
+    $('#PickLevel_PageControls_Play').button();
+    $('#PickLevel_PageControls_Play').disable();
+    
     /* Initialize the AddTable */
     AddTable.loadData();
     AddTable.updateHtml();
