@@ -29,7 +29,7 @@ Level.prototype.getHtml = function() {
     }
     
     // Display the conclusion
-    html += '<span>Therefore:  </span>' + this.conclusion.toPrettyString();
+    html += '<span style="font-weight: bold;">Therefore:  </span>' + this.conclusion.toPrettyString();
     
     // Return
     return html;

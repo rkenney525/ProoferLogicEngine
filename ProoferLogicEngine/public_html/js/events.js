@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    $('#MenuNewGame').click(function() {
+	// Initialize some shit
+	$('#MenuPlayGame').enable();
+	saveData("hasGame", "true");
+	
+	// Begin
+	toGameScreen();
+    });
+    
     /**
      * Main Menu: The "Play Game" button is clicked, so go to the current level.
      */
@@ -149,6 +158,7 @@ $(document).ready(function() {
                 // TODO sound effect like a pop or pow (think mario rpg pop)
                 if (result.equals(level.conclusion)) {
                     displayLevelClearedDialog();
+		    // TODO save score
                 }
             });
         } else {

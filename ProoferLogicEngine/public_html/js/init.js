@@ -12,18 +12,18 @@ $(document).ready(function() {
 
     /* Add additional prototypes */
     String.prototype.insert = function(index, val) {
-        if (index > 0)
-            return this.substring(0, index) + val + this.substring(index, this.length);
-        else
-            return val + this;
+	if (index > 0)
+	    return this.substring(0, index) + val + this.substring(index, this.length);
+	else
+	    return val + this;
     };
     $.prototype.disable = function() {
-        this.attr("disabled", true)
-                .addClass("ui-state-disabled");
+	this.attr("disabled", true)
+		.addClass("ui-state-disabled");
     };
     $.prototype.enable = function() {
-        this.attr("disabled", false)
-                .removeClass("ui-state-disabled");
+	this.attr("disabled", false)
+		.removeClass("ui-state-disabled");
     };
 
     /* Create buttons  */
@@ -39,10 +39,18 @@ $(document).ready(function() {
 
     /* initialize the creation elements */
     updateCreationElements();
+
+    /* Check for save data */
+    getData("hasGame", function(value) {
+	if (value !== "true") {
+	    $('#MenuPlayGame').disable();
+	}
+    });
 });
 
 /* Resizing */
 $('#Controls_Rules').width(window.innerWidth);
 
 /* Pagination */
+// TODO MAYBE fix the moving of the controls
 var LevelSelectionPagination = new Pagination(Levels.data, 15);

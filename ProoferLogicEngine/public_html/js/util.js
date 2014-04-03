@@ -110,23 +110,24 @@ Pagination.prototype.prevPage = function() {
  * @param {Object} value The value to store
  */
 function saveData(key, value) {
-    chrome.storage.local.set({key: value});
+    var obj = {};
+    obj[key] = value;
+    chrome.storage.local.set(obj);
 }
 
 /**
  * Get saved data.
  * 
  * @param {String} key The key of the data to retrieve
- * @returns {Object} The data stgored under key
+ * @param {Function} context The code to execute that needs this data
  */
-function getData(key) {
-    var value;
+function getData(key, context) {
+    var that = this;
     chrome.storage.local.get(key, function(items) {
-        value = items[key];
+        context(items[key]);
     });
-    return value;
 }
 
 function clearData() {
-    // TODO implement
+    chrome.storage.local.clear();
 }
