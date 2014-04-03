@@ -8,13 +8,14 @@ $(document).ready(function() {
 		    toMainMenu();
 		    closeLevelClearedDialog();
 		} else {
-		    populateGameScreen(Levels.nextLevel());
+                    Levels.nextLevel();
+                    toGameScreen();
 		    closeLevelClearedDialog();
 		}
 	    },
 	    "Retry": function() {
 		Levels.reset();
-		populateGameScreen(Levels.getCurrentLevel());
+		toGameScreen();
 		closeLevelClearedDialog();
 	    }
 	},

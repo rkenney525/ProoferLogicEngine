@@ -109,6 +109,19 @@ function saveData(key, value) {
 }
 
 /**
+ * Store data locally with code executed at the end
+ * 
+ * @param {String} key The key to store value under
+ * @param {Object} value The value to store
+ * @param {Function} callback the code to execute upon completion
+ */
+function saveDataSync(key, value, callback) {
+    var obj = {};
+    obj[key] = value;
+    chrome.storage.local.set(obj, callback);
+}
+
+/**
  * Get saved data.
  * 
  * @param {String} key The key of the data to retrieve
@@ -120,6 +133,9 @@ function getData(key, context) {
     });
 }
 
+/**
+ * Clear all saved data
+ */
 function clearData() {
     chrome.storage.local.clear();
 }
@@ -154,9 +170,13 @@ function getSaveLevelObj(level) {
     return obj;
 }
 
+/**
+ * Get a saved Level object
+ * @param {Object} levelObj The saved Object
+ * @returns {Level} The formatted Level
+ */
 function loadLevelObj(levelObj) {
     // Rules
-    // TODO bug here
     var rules = [];
     for (var i = 0; i < levelObj.rules.length; i++) {
         for (var rule in Rules) {

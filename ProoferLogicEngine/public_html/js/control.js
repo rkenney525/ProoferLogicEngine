@@ -20,13 +20,32 @@ function toGameScreen() {
     // Clean up
     navigateAway();
 
-    // Set up
-    $('body').addClass('machine-focused');
-    $('#GameScreen').show();
+    getData("currentLevel", function(data) {
+        // Set up
+        $('body').addClass('machine-focused');
+        $('#GameScreen').show();
 
-    // Load the level data
-    var info = Levels.getCurrentLevel();
-    populateGameScreen(info);
+        // Save the game
+        var level = Levels.getCurrentLevel();
+
+        // See if we have any saved data at all
+        if (data === undefined) {
+            data = {};
+        } else {
+            // Check for progress for this level
+            if (data.progress !== undefined &&
+                    data.index === Levels.currentIndex) {
+                level = loadLevelObj(data.progress);
+                Levels.current = level;
+            }
+        }
+        
+        // Save the current level as the most recently played
+        data.index = Levels.currentIndex;
+        saveData("currentLevel", data);
+
+        populateGameScreen(level);
+    });
 }
 
 /**
@@ -113,49 +132,33 @@ function checkPaginationButtons() {
  * @param {Level} level The Level to load
  */
 function populateGameScreen(level) {
-    // Save the game
-    getData("currentLevel", function(data) {
-        if (data === undefined) {
-            data = {};
-        }
+    // Rules
+    var rules = level.rules;
+    $('#Controls_Rules_List').empty();
+    for (var index = 0; index < rules.length; index++) {
+        $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
+                ' rule-container">'
+                + rules[index].getHTML() +
+                '</li>');
+    }
+    bindRuleEvents();
 
+    // Facts
+    var facts = level.facts;
+    $('#Controls_Facts_Table').empty();
+    for (var index in facts) {
+        $('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index].toPrettyString()));
+    }
+    bindFactEvents();
 
-        // Check for progress
-        if (data.progress !== undefined &&
-                data.index === Levels.currentIndex) {
-            level = loadLevelObj(data.progress);
-            Levels.current = level;
-        }
-        data.index = Levels.currentIndex;
-        saveData("currentLevel", data);
-        // Rules
-        var rules = level.rules;
-        $('#Controls_Rules_List').empty();
-        for (var index = 0; index < rules.length; index++) {
-            $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
-                    ' rule-container">'
-                    + rules[index].getHTML() +
-                    '</li>');
-        }
-        bindRuleEvents();
+    // Conclusion
+    $("#Controls_Display_Conclusion").html(level.conclusion.toPrettyString());
 
-        // Facts
-        var facts = level.facts;
-        $('#Controls_Facts_Table').empty();
-        for (var index in facts) {
-            $('#Controls_Facts_Table').append(generateFactRow(Number(index), facts[index].toPrettyString()));
-        }
-        bindFactEvents();
+    // Load tutorial
+    if (level.tutorial !== null) {
+        openTutorial(level.tutorial);
+    }
 
-        // Conclusion
-        $("#Controls_Display_Conclusion").html(level.conclusion.toPrettyString());
-
-        // Load tutorial
-        if (level.tutorial !== null) {
-            openTutorial(level.tutorial);
-        }
-
-    });
 }
 
 /**
