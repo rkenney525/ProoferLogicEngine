@@ -5,7 +5,37 @@ var AddTable = {
     AT4: null,
     AT5: null,
     loadData: function() {
+        getData("addTable", function(data) {
+            if (data !== undefined) {
+                // AT1
+                if (data.AT1 !== undefined) {
+                    AddTable.AT1 = getFactFromString(data.AT1);
+                }
 
+                // AT2
+                if (data.AT2 !== undefined) {
+                    AddTable.AT2 = getFactFromString(data.AT2);
+                }
+
+                // AT3
+                if (data.AT3 !== undefined) {
+                    AddTable.AT3 = getFactFromString(data.AT3);
+                }
+
+                // AT4
+                if (data.AT4 !== undefined) {
+                    AddTable.AT4 = getFactFromString(data.AT4);
+                }
+
+                // AT5
+                if (data.AT5 !== undefined) {
+                    AddTable.AT5 = getFactFromString(data.AT5);
+                }
+                
+                // Update
+                AddTable.updateHtml();
+            }
+        });
     },
     updateHtml: function() {
         // AT1
@@ -18,7 +48,7 @@ var AddTable = {
         } else {
             at1.append('<td colspan="2"><div class="add-fact">+</div></td>');
         }
-        
+
         // AT2
         var at2 = $('#Controls_AddTable_Fact2');
         at2.empty();
@@ -29,7 +59,7 @@ var AddTable = {
         } else {
             at2.append('<td colspan="2"><div class="add-fact">+</div></td>');
         }
-        
+
         // AT3
         var at3 = $('#Controls_AddTable_Fact3');
         at3.empty();
@@ -40,7 +70,7 @@ var AddTable = {
         } else {
             at3.append('<td colspan="2"><div class="add-fact">+</div></td>');
         }
-        
+
         // AT4
         var at4 = $('#Controls_AddTable_Fact4');
         at4.empty();
@@ -51,7 +81,7 @@ var AddTable = {
         } else {
             at4.append('<td colspan="2"><div class="add-fact">+</div></td>');
         }
-        
+
         // AT5
         var at5 = $('#Controls_AddTable_Fact5');
         at5.empty();
@@ -62,7 +92,7 @@ var AddTable = {
         } else {
             at5.append('<td colspan="2"><div class="add-fact">+</div></td>');
         }
-        
+
         // Update events
         updateAddTableEvents();
     }

@@ -80,6 +80,14 @@ $(document).ready(function() {
 		if (fact !== null) {
 		    var id = FactCreationDialog_id;
 		    AddTable[id] = fact;
+                    // Save to disk
+                    getData("addTable", function(data) {
+                        if (data === undefined) {
+                            data = {};
+                        }
+                        data[id] = fact.toParsableString();
+                        saveData("addTable", data);
+                    });
 		    AddTable.updateHtml();
 		    closeFactCreationDialog();
 		} else {

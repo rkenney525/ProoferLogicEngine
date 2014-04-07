@@ -38,7 +38,6 @@ $(document).ready(function() {
     
     /* Initialize the AddTable */
     AddTable.loadData();
-    AddTable.updateHtml();
 
     /* initialize the creation elements */
     updateCreationElements();
