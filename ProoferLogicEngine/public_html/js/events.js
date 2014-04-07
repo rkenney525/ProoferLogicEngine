@@ -312,7 +312,7 @@ function updateAddTableEvents() {
      * Called when the plus sign in the Add Table is clicked.
      */
     $('.add-fact').click(function() {
-        var id = $($(this).parent().siblings('td')[0]).text();
+        var id = $(this).attr("data");
         openFactCreationDialog(id, "add");
     });
 
@@ -320,7 +320,7 @@ function updateAddTableEvents() {
      * Open the Fact editor with the current Fact loaded
      */
     $('.edit-fact').click(function() {
-        var id = $($(this).parent().siblings('td')[0]).text();
+        var id = $(this).attr("data");
         openFactCreationDialog(id, "edit");
     });
 

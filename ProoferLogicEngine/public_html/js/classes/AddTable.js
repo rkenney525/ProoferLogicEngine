@@ -4,6 +4,46 @@ var AddTable = {
     AT3: null,
     AT4: null,
     AT5: null,
+    /**
+     * Add fact to the table and move everything down.
+     * 
+     * @param {Fact} fact The Fact to add
+     * @param {Function} callback Code to execute after fact has been added
+     * @returns {undefined}
+     */
+    addEntry: function(fact, callback) {
+        // Update Fact Table
+        this.AT5 = this.AT4;
+        this.AT4 = this.AT3;
+        this.AT3 = this.AT2;
+        this.AT2 = this.AT1;
+        this.AT1 = fact;
+
+        // Update the save data
+        getData("addTable", function(data) {
+            // AT5
+            data.AT5 = data.AT4;
+
+            // AT4
+            data.AT4 = data.AT3;
+
+            // AT3
+            data.AT3 = data.AT2;
+
+            // AT2
+            data.AT2 = data.AT1;
+
+            // AT1
+            data.AT1 = fact.toParsableString();
+
+            // Save
+            saveData("addTable", data);
+        });
+        
+        // Additional changes
+        callback();
+
+    },
     loadData: function() {
         getData("addTable", function(data) {
             if (data !== undefined) {
@@ -31,7 +71,7 @@ var AddTable = {
                 if (data.AT5 !== undefined) {
                     AddTable.AT5 = getFactFromString(data.AT5);
                 }
-                
+
                 // Update
                 AddTable.updateHtml();
             }
@@ -44,9 +84,9 @@ var AddTable = {
         at1.append('<td>AT1</td>');
         if (this.AT1 !== null) {
             at1.append('<td><div class="select-fact">' + this.AT1.toPrettyString() + '</div></td>');
-            at1.append('<td style="text-align: right;"><div class="edit-fact">..</div></td>');
+            at1.append('<td style="text-align: right;"><div class="edit-fact" data="AT1">..</div></td>');
         } else {
-            at1.append('<td colspan="2"><div class="add-fact">+</div></td>');
+            at1.append('<td colspan="2"></td>');
         }
 
         // AT2
@@ -55,9 +95,9 @@ var AddTable = {
         at2.append('<td>AT2</td>');
         if (this.AT2 !== null) {
             at2.append('<td><div class="select-fact">' + this.AT2.toPrettyString() + '</div></td>');
-            at2.append('<td style="text-align: right;"><div class="edit-fact">..</div></td>');
+            at2.append('<td style="text-align: right;"><div class="edit-fact" data="AT2">..</div></td>');
         } else {
-            at2.append('<td colspan="2"><div class="add-fact">+</div></td>');
+            at2.append('<td colspan="2"></td>');
         }
 
         // AT3
@@ -66,9 +106,9 @@ var AddTable = {
         at3.append('<td>AT3</td>');
         if (this.AT3 !== null) {
             at3.append('<td><div class="select-fact">' + this.AT3.toPrettyString() + '</div></td>');
-            at3.append('<td style="text-align: right;"><div class="edit-fact">..</div></td>');
+            at3.append('<td style="text-align: right;"><div class="edit-fact" data="AT3">..</div></td>');
         } else {
-            at3.append('<td colspan="2"><div class="add-fact">+</div></td>');
+            at3.append('<td colspan="2"></td>');
         }
 
         // AT4
@@ -77,9 +117,9 @@ var AddTable = {
         at4.append('<td>AT4</td>');
         if (this.AT4 !== null) {
             at4.append('<td><div class="select-fact">' + this.AT4.toPrettyString() + '</div></td>');
-            at4.append('<td style="text-align: right;"><div class="edit-fact">..</div></td>');
+            at4.append('<td style="text-align: right;"><div class="edit-fact" data="AT4">..</div></td>');
         } else {
-            at4.append('<td colspan="2"><div class="add-fact">+</div></td>');
+            at4.append('<td colspan="2"></td>');
         }
 
         // AT5
@@ -88,9 +128,9 @@ var AddTable = {
         at5.append('<td>AT5</td>');
         if (this.AT5 !== null) {
             at5.append('<td><div class="select-fact">' + this.AT5.toPrettyString() + '</div></td>');
-            at5.append('<td style="text-align: right;"><div class="edit-fact">..</div></td>');
+            at5.append('<td style="text-align: right;"><div class="edit-fact" data="AT5">..</div></td>');
         } else {
-            at5.append('<td colspan="2"><div class="add-fact">+</div></td>');
+            at5.append('<td colspan="2"></td>');
         }
 
         // Update events
