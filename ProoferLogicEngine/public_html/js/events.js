@@ -75,10 +75,19 @@ $(document).ready(function() {
     });
 
     $('#Controls_Executor_Save').click(function() {
-        // TODO indicate that you're saving
+        $.blockUI({
+            message: "<h1>Saving the game ...</h1>",
+            css: {
+                backgroundColor: 'rgba(205, 205, 205, 1);'
+            }
+        });
         getData("currentLevel", function(data) {
             data.progress = getSaveLevelObj(Levels.current);
-            saveData("currentLevel", data);
+            saveDataSync("currentLevel", data, function() {
+                // The save should be noticeable, so wait 1 sec before returning
+                // control back to the player
+                window.setTimeout($.unblockUI, 1000);
+            });
         });
     });
 
