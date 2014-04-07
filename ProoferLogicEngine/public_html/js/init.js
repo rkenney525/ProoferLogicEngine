@@ -34,6 +34,7 @@ $(document).ready(function() {
     $('#PickLevel_PageControls_Back').button();
     $('#PickLevel_PageControls_Play').button();
     $('#PickLevel_PageControls_Play').disable();
+    $('#MainMenuOptions li input').button();
     
     /* Initialize the AddTable */
     AddTable.loadData();
@@ -41,13 +42,6 @@ $(document).ready(function() {
 
     /* initialize the creation elements */
     updateCreationElements();
-
-    /* Check for save data */
-    getData("hasGame", function(value) {
-	if (value !== "true") {
-	    $('#MenuPlayGame').disable();
-	}
-    });
     
     /* Set the current level */
     getData("currentLevel", function(value) {

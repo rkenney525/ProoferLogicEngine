@@ -1,15 +1,17 @@
 $(document).ready(function() {
-    $('#MenuNewGame').click(function() {
-        // Initialize some shit
-        $('#MenuPlayGame').enable();
-        saveDataSync("hasGame", "true", function() {
-            Levels.clearState();
-            saveDataSync("currentLevel", {
-                index: 0
-            }, function() {
-                // Begin
-                toGameScreen();
-            });
+    $('#MenuReset').click(function() {
+        $.blockUI({
+            message: "<h1>Clearing Save data ...</h1>",
+            css: {
+                backgroundColor: 'rgba(205, 205, 205, 1);'
+            }
+        });
+        clearData();
+        Levels.clearState();
+        saveDataSync("currentLevel", {
+            index: 0
+        }, function() {
+            window.setTimeout($.unblockUI, 1000);
         });
     });
 

@@ -16,6 +16,10 @@ root {
     list-style-type: none;
 }
 
+#MainMenuOptions li {
+    margin-bottom: 10px;
+}
+
 #MainGameCanvas {
     position: fixed;
     top: 0px;
