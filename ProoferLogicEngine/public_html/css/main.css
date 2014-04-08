@@ -70,8 +70,10 @@ body {
 #Controls_Display {
     position:  fixed;
     font-size: 20px;
-    left: 0px;
-    top: 25px;
+    padding: 1%;
+    border-bottom-right-radius: 30px;
+    background: -webkit-linear-gradient(#A2A2A2, #A0A0A0);
+    width: 33%;
 }
 
 .fill {

@@ -200,6 +200,23 @@ $(document).ready(function() {
     });
 
     /**
+     * Pause button functionality
+     * 
+     * @param {Object} event The keypress event
+     */
+    $('body').keypress(function(event) {
+        // first make sure you are in game
+        if ($('body').hasClass('machine-focused')) {
+            // Next make sure the correct key was pressed
+            var keycode = event.which;
+            if (keycode === 13) {
+                console.log('togglololole');
+                // TODO toggle pause
+            }
+        }
+    });
+
+    /**
      * Initial invocation of AddTable event setting.
      */
     updateAddTableEvents();
