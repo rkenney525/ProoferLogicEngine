@@ -7,11 +7,9 @@
 */
 
 #Controls_Executor {
-    width: 800px;
-    height: 650px;
-    position: fixed;
-    top: 0px;
-    left: 0px;
+    width: 75%;
+    height: 80%;
+    float: left;
 }
 
 #Controls_Executor_Result {
@@ -45,28 +43,23 @@
 }
 
 #Controls_Facts {
-    width: 224px;
-    height: 652px;
-    position: fixed;
-    top: 0px;
-    left: 800px;
+    width: 25%;
+    height: 80%;
+    float: left;
     
     overflow: auto;
 
-    border-left: black solid 2px;
     background: -webkit-linear-gradient(#A2A2A2, #A0A0A0);
+    clear: right;
 }
 
 #Controls_Rules {
-    width: 1026px;
-    height: 120px;
-    position: fixed;
-    top: 650px;
-    left: 0px;
+    width: 100%;
+    height: 20%;
+    float: left;
     
     overflow: auto;
 
-    border-top: black solid 2px;
     background: -webkit-linear-gradient(#000000, #A0A0A0);
 }
 

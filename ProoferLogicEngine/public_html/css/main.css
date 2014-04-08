@@ -10,14 +10,28 @@ root {
     display: block;
 }
 
+body {
+    margin: 0px;
+}
+
+#OpeningGraphic {
+    text-align: center;
+}
+
+#OpeningGraphic p {
+    font-weight: bold;
+    font-size: 300%;
+}
+
 #MainMenuOptions {
-    margin-left: 380px;
+    margin-top: 15%;
+    margin-left: 35%;
     text-shadow:1px 1px 0px #ffffff;
     list-style-type: none;
 }
 
 #MainMenuOptions li {
-    margin-bottom: 10px;
+    margin-bottom: 2%;
 }
 
 #MainGameCanvas {
@@ -58,6 +72,11 @@ root {
     font-size: 20px;
     left: 0px;
     top: 25px;
+}
+
+.fill {
+    height: 100%;
+    width: 100%;
 }
 
 .menu-item {

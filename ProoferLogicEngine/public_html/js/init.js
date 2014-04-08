@@ -1,15 +1,6 @@
 $(document).ready(function() {
     /* Give the body the appropriate size */
-    chrome.app.window.current().fullscreen();
-    $('body').innerWidth(window.innerWidth);
-    $('body').innerHeight(window.innerHeight);
-
-    /* Opening Graphic */
-    // Draw some text
-    var can = $("#OpeningGraphicCanvas").get(0);
-    var ctx = can.getContext("2d");
-    ctx.font = "40px Arial";
-    ctx.fillText("Proofer - The Logic Engine", 20, 75);
+    //chrome.app.window.current().fullscreen();
 
     /* Add additional prototypes */
     String.prototype.insert = function(index, val) {

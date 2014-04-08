@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="etc/main.appcache">
+<html manifest="etc/main.appcache" class="fill">
     <head>
         <title>Proofer - The Logic Engine</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,7 +12,6 @@
         <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
         <script src="js/libs/jquery-blockui/jquery.blockUI.js"></script>
         <script src="js/util.js"></script>
-        <script src="js/classes/Engine.js"></script>
         <script src="js/classes/Operator.js"></script>
         <script src="js/classes/Fact.js"></script>
         <script src="js/classes/Rule.js"></script>
@@ -26,13 +25,11 @@
         <script src="js/control.js"></script>
         <script src="js/events.js"></script>
     </head>
-    <body class="menu-focused">
-        <div id="GameContent">
-            <div id="MainMenu">
+    <body class="menu-focused fill">
+        <div id="GameContent" class="fill">
+            <div id="MainMenu" class="fill">
                 <div id="OpeningGraphic">
-                    <canvas width="650" height="450" class="center" id="OpeningGraphicCanvas">
-                        Something went wrong when rendering the canvas.
-                    </canvas>
+                    <p>Proofer - Logic Engine</p>
                 </div>
                 <ul id="MainMenuOptions" class="center">
                     <li><input type="button" value="Play Game" id="MenuPlayGame" class="menu-item" /></li>
@@ -72,11 +69,11 @@
 		    <button type="button" id="PickLevel_PageControls_Play">Play Level</button>
                 </div>
             </div>
-            <div id="GameScreen" style="display: none;">
+            <div id="GameScreen" style="display: none;" class="fill">
                 <canvas width="1024" height="768" id="MainGameCanvas">
                     Something went wrong when rendering the canvas.
                 </canvas>
-                <div id="GameControls">
+                <div id="GameControls" class="fill">
                     <div id="Controls_Display">
                         <p>Prove:  <b><span id="Controls_Display_Conclusion"></span></b></p>
                     </div>
@@ -91,11 +88,11 @@
                         <button type="button" id="Controls_Executor_Save">Save</button>
                         <button type="button" id="Controls_Executor_Reset">Reset</button>
                     </div>
-                    <div id="Controls_Rules">
-                        <ul id="Controls_Rules_List"></ul>
-                    </div>
                     <div id="Controls_Facts">
                         <table id="Controls_Facts_Table"></table>
+                    </div>
+                    <div id="Controls_Rules">
+                        <ul id="Controls_Rules_List"></ul>
                     </div>
                     <div id="Controls_Tooltip" style="display: none;">
 
