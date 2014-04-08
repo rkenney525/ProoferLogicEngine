@@ -10,7 +10,8 @@
         }
     },
     "permissions": [
-        "storage"
+        "storage",
+	"fullscreen"
     ],
     "icons": {
         "16": "img/proofer-ico-16.png",

@@ -1,5 +1,6 @@
 $(document).ready(function() {
     /* Give the body the appropriate size */
+    chrome.app.window.current().fullscreen();
     $('body').innerWidth(window.innerWidth);
     $('body').innerHeight(window.innerHeight);
 
