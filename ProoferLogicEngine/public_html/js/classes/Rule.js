@@ -239,7 +239,6 @@ var Rules = {
 	}
     }),
     Add: new Rule("Addition", "Add", function(arg0, arg1) {
-	// TODO there is going to need to be an interface for this
 	/* For example:
 	 *  arg0 = p
 	 *  arg1 = [Something from the user] (q)

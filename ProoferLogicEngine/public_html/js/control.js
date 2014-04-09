@@ -108,9 +108,6 @@ function populateLevelSelectionScreen() {
 
     // Update the events
     updateSelectLevelEvents();
-
-    // TODO indicate completed
-    // TODO indicate par or better
 }
 
 function checkPaginationButtons() {

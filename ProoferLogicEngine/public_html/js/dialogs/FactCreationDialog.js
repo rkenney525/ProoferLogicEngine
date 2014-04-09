@@ -127,7 +127,7 @@ function openFactCreationDialog(id, operation) {
     }
 
     // Deselect the buttons
-    // TODO deselect the buttons
+    $('.ui-dialog-buttonset button').blur();
 
     // Set size
     $("#Dialogs_FactCreation").parent().css("min-width", 650);
