@@ -55,8 +55,8 @@ body {
 
 #Controls_Rules_List li {
     display: inline;
-    margin-left: 15px;
-    padding-right: 15px;
+    margin-left: .6826vw;
+    padding-right: .6826vw;
     border-right: #ffffff solid 2px;
     float: left;
 }
@@ -90,10 +90,11 @@ body {
 }
 
 .rule {
-    width: 100px;
-    height: 75px;
+    width: 10.26vw;
+    /* non aspect-ratio preserved height is 10.24vh */
+    height: calc(10.26vw * 0.75);
     text-align: center;
-    font-size: 35px;
+    font-size: calc(10.24vh * 0.21 + 10px);
     background: 
 	radial-gradient(rgba(255, 32, 32, 0.8), rgba(255, 32, 32, 0.6));
 }
