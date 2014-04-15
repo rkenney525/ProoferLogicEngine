@@ -21,6 +21,7 @@
         <script src="js/dialogs/LevelClearedDialog.js"></script>
         <script src="js/dialogs/TutorialDialog.js"></script>
         <script src="js/dialogs/FactCreationDialog.js"></script>
+        <script src="js/dialogs/PauseMenuDialog.js"></script>
         <script src="js/init.js"></script>
 	<script src="js/canvas.js"></script>
         <script src="js/control.js"></script>
@@ -189,10 +190,14 @@
                     </div>
                 </div>
             </div>
-            <div id="PauseMenu">
+            <div id="PauseMenu" style="display: none;">
                 <h1>The game is PAUSED</h1>
                 <h3>Press ENTER to unpause.</h3>
                 <ul id="PauseMenu_Options">
+                    <li>Resume</li>
+                    <li>Options</li>
+                    <li>Main Menu</li>
+                    <li>Exit Game</li>
                 </ul>
             </div>
         </div>

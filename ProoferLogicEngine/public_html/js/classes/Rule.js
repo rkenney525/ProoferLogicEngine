@@ -249,6 +249,29 @@ var Rules = {
 	var q = getFactFromString(arg1.toParsableString());
 	return new Fact(p, q, Operators.OR);
     }),
+    Neg: new Rule("Negation", "Neg", function(arg0) {
+        /* For example type #1:
+         *  arg0 = ~(~p)
+         * Then:
+         *  arg0.arg0.arg0 = p
+         * So return:
+         *  arg0.argo.arg0 (p)
+         */
+        if (arg0.op === Operators.NEG &&
+                arg0.arg0.op === Operators.NEG) {
+            return getFactFromString(arg0.arg0.arg0.toParsableString());
+        }
+        /* For example type #2:
+         *  arg0 = p
+         * Then:
+         *  neg(neg(arg0)) = ~(~(p))
+         * So return:
+         *  neg(neg(arg0)) ( ~(~(p)) )
+         */
+        else {
+            return getFactFromString("~(~(" + arg0.toParsableString() + "))");
+        }
+    }),
     POE: new Rule("Process of Elimination", "POE", function(arg0, arg1) {
 	// Sanity check arg0
 	if (arg0.op !== Operators.XOR) {

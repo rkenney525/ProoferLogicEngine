@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#Dialogs_FactCreation").dialog({
+    $("#PauseMenu").dialog({
         modal: true,
         autoOpen: false,
         show: {
@@ -14,10 +14,10 @@ $(document).ready(function() {
 });
 
 
-function openFactCreationDialog() {
+function openPauseMenu() {
     $("#PauseMenu").dialog("open");
 }
 
-function closeFactCreationDialog() {
+function closePauseMenu() {
     $("#PauseMenu").dialog("close");
 }
