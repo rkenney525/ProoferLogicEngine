@@ -34,6 +34,7 @@
     top: 66%;
     left: 44%;
     position: fixed;
+    line-height: 200%;
 }
 
 #Controls_Executor_Evaluate {

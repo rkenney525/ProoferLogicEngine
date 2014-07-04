@@ -107,6 +107,13 @@ body {
 	!important;
 }
 
+.rule-text {
+    margin-top: -0.5em;
+    top: 40%;
+    height: inherit;
+    position: relative;
+}
+
 .fact {
     width: 40px;
     height: 40px;

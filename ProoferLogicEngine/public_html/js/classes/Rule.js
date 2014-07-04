@@ -15,7 +15,6 @@ function Rule(ruleName, displayName, ruleFunction) {
     this.displayName = displayName;
     this.applyRule = ruleFunction;
 }
-;
 
 /**
  * Generate HTML for this Rule.
@@ -24,7 +23,9 @@ function Rule(ruleName, displayName, ruleFunction) {
  */
 Rule.prototype.getHTML = function() {
     return '<div id="Rule_' + this.displayName + '" class="rule boxed"'
-	    + ' ruleid="' + this.displayName + '">' + this.displayName +
+	    + ' ruleid="' + this.displayName + '">' 
+            + '<div class="center rule-text" ruleid="' + this.displayName + '">' 
+            + this.displayName + '</div>' +
 	    '</div>';
 };
 
