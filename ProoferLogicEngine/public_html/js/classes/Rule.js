@@ -273,6 +273,53 @@ var Rules = {
             return getFactFromString("~(~(" + arg0.toParsableString() + "))");
         }
     }),
+    DeM: new Rule("De Morgan's Law", "DeM", function(arg0) {
+        /* For example type #1
+         *  arg0 = p | (q & r)
+         * Then:
+         *  arg0.arg0 = p
+         *  arg0.arg1.arg0 = q
+         *  arg0.arg1.arg1 = r
+         * And since:
+         *  arg0.op = OR
+         *  arg0.arg1.op = AND
+         * So return:
+         *  ((arg0.arg0 OR arg0.arg1.arg0) AND (arg0.arg0 OR arg0.arg1.arg1)) 
+         *  ((p | q) & (p | r))
+         */
+        if (arg0.op === Operators.OR &&
+                arg0.arg1.op === Operators.AND) {
+            return getFactFromString(new Fact(
+                    new Fact(arg0.arg0, arg0.arg1.arg0, Operators.OR),
+                    new Fact(arg0.arg0, arg0.arg1.arg1, Operators.OR),
+                    Operators.AND).toParsableString());
+        }
+        
+        /* For example type #2
+         *  arg0 = p & (q | r)
+         * Then:
+         *  arg0.arg0 = p
+         *  arg0.arg1.arg0 = q
+         *  arg0.arg1.arg1 = r
+         * And since:
+         *  arg0.op = AND
+         *  arg0.arg1.op = OR
+         * So return:
+         *  ((arg0.arg0 AND arg0.arg1.arg0) OR (arg0.arg0 AND arg0.arg1.arg1)) 
+         *  ((p & q) | (p & r))
+         */
+        else if (arg0.op === Operators.AND &&
+                arg0.arg1.op === Operators.OR) {
+            return getFactFromString(new Fact(
+                    new Fact(arg0.arg0, arg0.arg1.arg0, Operators.AND),
+                    new Fact(arg0.arg0, arg0.arg1.arg1, Operators.AND),
+                    Operators.OR).toParsableString());
+        
+        // The rule cannot be applied
+        } else {
+            return null;
+        }
+    }),
     POE: new Rule("Process of Elimination", "POE", function(arg0, arg1) {
 	// Sanity check arg0
 	if (arg0.op !== Operators.XOR) {
