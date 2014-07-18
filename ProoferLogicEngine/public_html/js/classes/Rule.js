@@ -320,6 +320,13 @@ var Rules = {
             return null;
         }
     }),
+    Impl: new Rule("Material Implication", "Impl", function(arg0) {
+        // TODO implement rule
+    }),
+    Equiv: new Rule("Material Equivalence", "Equiv", function(arg0) {
+        // TODO implement rule
+    }),
+    // TODO implement remianing rules
     POE: new Rule("Process of Elimination", "POE", function(arg0, arg1) {
 	// Sanity check arg0
 	if (arg0.op !== Operators.XOR) {
@@ -375,7 +382,23 @@ var Rules = {
  * @returns {boolean} True if rule takes only one operand, false otherwise
  */
 function isUnaryRule(rule) {
-    // TODO probably have to add rules of replacement
+    // TODO continue adding
     return (rule === Rules.Simp) ||
-	    (rule === Rules.Abs);
+	    (rule === Rules.Abs) ||
+            (rule === Rules.Neg) ||
+            (rule === Rules.DeM) ||
+            (rule === Rules.Impl) ||
+            (rule === Rules.Equiv);
+}
+
+/**
+ * Check if a Rule has multiple possible applications, in which case the rule 
+ * should return an array of all possible results (typically 2)
+ * 
+ * @param {Rule} rule The Rule to check
+ * @returns {boolean} True if the Rule can return more than one result, false otherwise
+ */
+function isAmbiguousRule(rule) {
+    // TODO continue adding
+    return (rule === Rules.Equiv);
 }
