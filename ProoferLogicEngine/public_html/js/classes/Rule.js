@@ -384,7 +384,17 @@ var Rules = {
     Exp: new Rule("Exportation", "Exp", function(arg0) {
         // TODO implement Exportation
     }),
-    Taut: new Rule(),
+    Taut: new Rule("Tautology", "Taut", function(arg0) {
+        /* Rule:
+         *  (p|p) <-> p
+         */
+        if (arg0.op === Operators.OR &&
+                arg0.arg0.equals(arg0.arg1)) {
+            return getFactFromString(arg0.arg0.toParsableString());
+        } else {
+            return createFactFromComponents(arg0, arg0, Operators.OR);
+        }
+    }),
     POE: new Rule("Process of Elimination", "POE", function(arg0, arg1) {
         // Sanity check arg0
         if (arg0.op !== Operators.XOR) {
