@@ -315,7 +315,36 @@ var Rules = {
         }
     }),
     Assoc: new Rule("Association", "Assoc", function(arg0) {
-        // TODO implement Association
+        // Init
+        var results = [];
+        var op = arg0.op;
+
+        /* In the interest of space, I'm going to avoid my verbose comment style
+         * Association can be ambiguous, so first here's an unambiguous case
+         *  p|(q|r) -> returns (p|q)|r
+         * Note this applies only to & and | and the op has to be the op in all 
+         * parties. Now the ambiguous case
+         *  (p|q)|(r|s) -> returns p|(q|(r|s)) AND ((p|q)|r)|s
+         * So we return both. We accomplish this by checking operator of arg0 
+         * and arg1 independently, and if they match then add the result
+         */
+        // Check arg0.arg0
+        if (op === arg0.arg0.op) {
+            results.push(createFactFromComponents(arg0.arg0.arg0,
+                    new Fact(arg0.arg0.arg1, arg0.arg1, op), op));
+        }
+
+        // Check arg0.arg1
+        if (op === arg0.arg1.op) {
+            results.push(createFactFromComponents(
+                    new Fact(arg0.arg0, arg0.arg1.arg0, op),
+                    arg0.arg1.arg1,
+                    op));
+        }
+
+        // Return the result
+        return results;
+
     }),
     Dist: new Rule("Distribution", "Dist", function(arg0) {
         // TODO implement Distribution
@@ -429,5 +458,6 @@ function isUnaryRule(rule) {
  */
 function isAmbiguousRule(rule) {
     // TODO continue adding
-    return (rule === Rules.Equiv);
+    return (rule === Rules.Equiv ||
+            Rules.Assoc);
 }
