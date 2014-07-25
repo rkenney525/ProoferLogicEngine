@@ -1,5 +1,7 @@
 /**
- * Creates a logical statement with the specified operands and operator.
+ * Creates a logical statement with the specified operands and operator. Note this
+ * creates a shallow copy and should only be used when parsing. Use factory methods 
+ * instead.
  * 
  * @param {Fact|String} arg0 The first operand.  Either a Fact or a String.
  * @param {Fact|String} arg1 The second operand.  Either a Fact or a String.
@@ -30,12 +32,12 @@ Fact.prototype.equals = function(otherFact) {
  */
 Fact.prototype.toString = function() {
     if (this.op === null) {
-	return this.arg0.toString();
+        return this.arg0.toString();
     } else if (this.arg1 === null) {
-	return this.op.toString() + "" + this.arg0.toString() + "";
+        return this.op.toString() + "" + this.arg0.toString() + "";
     } else {
-	return "(" + this.arg0.toString() + this.op.toString() +
-		this.arg1.toString() + ")";
+        return "(" + this.arg0.toString() + this.op.toString() +
+                this.arg1.toString() + ")";
     }
 };
 
@@ -49,13 +51,13 @@ Fact.prototype.toPrettyString = function() {
     // Init
     var str = this.toString();
     var len = str.length;
-    
+
     // Check for outer parens
     if (str[0] === '(' &&
-	str[len - 1] === ')') {
-	return str.substring(1, len - 1);
+            str[len - 1] === ')') {
+        return str.substring(1, len - 1);
     } else {
-	return str;
+        return str;
     }
 };
 
@@ -66,14 +68,32 @@ Fact.prototype.toPrettyString = function() {
  */
 Fact.prototype.toParsableString = function() {
     if (this.op === null) {
-	return this.arg0.toString();
+        return this.arg0.toString();
     } else if (this.arg1 === null) {
-	return this.op.id + "(" + this.arg0.toParsableString() + ")";
+        return this.op.id + "(" + this.arg0.toParsableString() + ")";
     } else {
-	return "(" + this.arg0.toParsableString() + this.op.id +
-		this.arg1.toParsableString() + ")";
+        return "(" + this.arg0.toParsableString() + this.op.id +
+                this.arg1.toParsableString() + ")";
     }
 };
+
+/**
+ * Factory method to create a new Fact from existing Fact. Entire Fact is new, no
+ * references to the inputs within the new Fact.
+ * 
+ * @param {Fact} arg0 The first argument
+ * @param {Fact} arg1 The second argument
+ * @param {Operator} op The Operator to use
+ * @returns {Fact} The new Fact
+ */
+function createFactFromComponents(arg0, arg1, op) {
+    // Get a deep copy of arg0 and arg1 and create the Fact from that
+    var newArg0 = (arg0 !== null) ? getFactFromString(arg0.toParsableString()) : null;
+    var newArg1 = (arg1 !== null) ? getFactFromString(arg1.toParsableString()) : null;
+    
+    // Create the Fact
+    return new Fact(newArg0, newArg1, op);
+}
 
 /**
  * Create a Fact from a String.  The grammatical structure of a Fact can be seen 
@@ -101,64 +121,64 @@ function getFactFromString(data) {
 
     // Case 1: [a-z]
     if (current.match(/[a-z]/i) !== null) {
-	return new Fact(current, null, null);
+        return new Fact(current, null, null);
     }
     // Case 2: (FACT OP FACT)
     else if (current === "(") {
-	// Skip the paren
-	index++;
+        // Skip the paren
+        index++;
 
-	// Find the midpoint
-	// The midpoint is the operator that splits arg0 from arg1
-	// Since arg0 and arg1 are Facts, they may have Operators of their own, 
-	// so we can't simply get the next Operator.
-	var midpoint = index;
-	var parenCount = 0;
-	for (var search = index; search <= endex; search++) {
-	    // Reset current
-	    current = data[search];
+        // Find the midpoint
+        // The midpoint is the operator that splits arg0 from arg1
+        // Since arg0 and arg1 are Facts, they may have Operators of their own, 
+        // so we can't simply get the next Operator.
+        var midpoint = index;
+        var parenCount = 0;
+        for (var search = index; search <= endex; search++) {
+            // Reset current
+            current = data[search];
 
-	    // Check if current is a paren
-	    var tryOp = getOperatorFromString(current);
-	    if (current === "(") {
-		parenCount++;
-	    } else if (current === ")") {
-		parenCount--;
-	    } else if (parenCount === 0 &&
-		    tryOp !== null &&
-		    !tryOp.equals(Operators.NEG)) {
-		midpoint = search;
-		break;
-	    }
-	}
+            // Check if current is a paren
+            var tryOp = getOperatorFromString(current);
+            if (current === "(") {
+                parenCount++;
+            } else if (current === ")") {
+                parenCount--;
+            } else if (parenCount === 0 &&
+                    tryOp !== null &&
+                    !tryOp.equals(Operators.NEG)) {
+                midpoint = search;
+                break;
+            }
+        }
 
-	// Get arg0
-	var arg0;
-	subFactString = data.substring(index, midpoint);
-	arg0 = getFactFromString(subFactString);
+        // Get arg0
+        var arg0;
+        subFactString = data.substring(index, midpoint);
+        arg0 = getFactFromString(subFactString);
 
-	// Get the Operator
-	var op = getOperatorFromString(data[midpoint]);
+        // Get the Operator
+        var op = getOperatorFromString(data[midpoint]);
 
-	// Get arg1
-	var arg1;
-	subFactString = data.substring(midpoint + 1, endex);
-	arg1 = getFactFromString(subFactString);
+        // Get arg1
+        var arg1;
+        subFactString = data.substring(midpoint + 1, endex);
+        arg1 = getFactFromString(subFactString);
 
-	// Create the Fact
-	return new Fact(arg0, arg1, op);
+        // Create the Fact
+        return new Fact(arg0, arg1, op);
     }
     // Case 3: ~(FACT)
     else if (getOperatorFromString(current).equals(Operators.NEG) &&
-	    data[index + 1] === "(") {
-	// Move up a char
-	index++;
+            data[index + 1] === "(") {
+        // Move up a char
+        index++;
 
-	// Get the inner Fact
-	subFactString = data.substring(index + 1, data.lastIndexOf(")"));
+        // Get the inner Fact
+        subFactString = data.substring(index + 1, data.lastIndexOf(")"));
 
-	// Negate the inner fact
-	return new Fact(getFactFromString(subFactString), null, Operators.NEG);
+        // Negate the inner fact
+        return new Fact(getFactFromString(subFactString), null, Operators.NEG);
 
     }
 
