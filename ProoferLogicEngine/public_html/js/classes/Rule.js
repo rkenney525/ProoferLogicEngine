@@ -385,15 +385,20 @@ var Rules = {
         // TODO implement Exportation
     }),
     Taut: new Rule("Tautology", "Taut", function(arg0) {
+        var results = [];
         /* Rule:
          *  (p|p) <-> p
          */
+        // If you can do the shortening version, do it
         if (arg0.op === Operators.OR &&
                 arg0.arg0.equals(arg0.arg1)) {
-            return getFactFromString(arg0.arg0.toParsableString());
-        } else {
-            return createFactFromComponents(arg0, arg0, Operators.OR);
+            results.push(getFactFromString(arg0.arg0.toParsableString()));
         }
+        // This version can always be applied, but isn't always useful
+        results.push(createFactFromComponents(arg0, arg0, Operators.OR));
+        
+        // Returnt he results
+        return results;
     }),
     POE: new Rule("Process of Elimination", "POE", function(arg0, arg1) {
         // Sanity check arg0
@@ -444,19 +449,24 @@ var Rules = {
 };
 
 /**
- * Check if rule is unary, which is to say it takes only one operand.
+ * Check if rule is unary.
  * 
  * @param {Rule} rule The Rule to check
  * @returns {boolean} True if rule takes only one operand, false otherwise
  */
 function isUnaryRule(rule) {
-    // TODO continue adding
     return (rule === Rules.Simp) ||
             (rule === Rules.Abs) ||
-            (rule === Rules.Neg) ||
             (rule === Rules.DeM) ||
+            (rule === Rules.Com) ||
+            (rule === Rules.Assoc) ||
+            (rule === Rules.Dist) ||
+            (rule === Rules.DN) ||
+            (rule === Rules.Trans) ||
             (rule === Rules.Impl) ||
-            (rule === Rules.Equiv);
+            (rule === Rules.Equiv) ||
+            (rule === Rules.Exp) ||
+            (rule === Rules.Taut);
 }
 
 /**
@@ -468,6 +478,8 @@ function isUnaryRule(rule) {
  */
 function isAmbiguousRule(rule) {
     // TODO continue adding
-    return (rule === Rules.Equiv ||
-            Rules.Assoc);
+    return (rule === Rules.Assoc ||
+            rule === Rules.Equiv ||
+            rule === Rules.Exp ||
+            rule === Rules.Taut);
 }
