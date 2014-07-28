@@ -318,6 +318,12 @@ var Rules = {
         // Init
         var results = [];
         var op = arg0.op;
+        
+        // Sanity check
+        if (op !== Operators.OR && 
+                op !== Operators.AND) {
+            return results;
+        }
 
         /* In the interest of space, I'm going to avoid my verbose comment style
          * Association can be ambiguous, so first here's an unambiguous case
@@ -347,7 +353,57 @@ var Rules = {
 
     }),
     Dist: new Rule("Distribution", "Dist", function(arg0) {
-        // TODO implement Distribution
+        var results = [];
+        var o1 = arg0.op;
+        var o2;
+        
+        // Sanity check
+        if (arg0.op !== Operators.OR && 
+                arg0.op !== Operators.AND) {
+            return results;
+        }
+        
+        /* Case 1
+         *  o1, o2 = | or & but both cant be the same
+         *  arg0 = (p o1 (q o2 r))
+         * Return
+         *  ((p o1 q) o2 (p o1 r))
+         */
+        // Make sure o2 is a valid operator and that it isnt the same as o1
+        if (arg0.op !== arg0.arg1.op &&
+                (arg0.arg1.op === Operators.OR ||
+                        arg0.arg1.op === Operators.AND)) {
+            o2 = arg0.arg1.op;
+            results.push(createFactFromComponents(
+                    new Fact(arg0.arg0, arg0.arg1.arg0, o1),
+                    new Fact(arg0.arg0, arg0.arg1.arg1, o1),
+                    o2
+                    ));
+        }
+        /* Case 2
+         *  o1, o2 = | or & but both cant be the same
+         *  arg0 = ((p o2 q) o1 (p o2 r))
+         * Return
+         *  (p o2 (q o1 r))
+         */
+        // Make sure o2 is a valid operator, it isnt the same as o1, both 
+        // arg0.arg0 AND arg0.arg1 are using o2, and that the first arg is the 
+        // same for arg0.arg0 and arg0.arg1
+        if (arg0.op !== arg0.arg0.op &&
+                (arg0.arg0.op === Operators.OR ||
+                        arg0.arg0.op === Operators.AND) &&
+                arg0.arg0.op === arg0.arg1.op &&
+                arg0.arg0.arg0.equals(arg0.arg1.arg0)) {
+            o2 = arg0.arg0.op;
+            results.push(createFactFromComponents(
+                    arg0.arg0.arg0,
+                    new Fact(arg0.arg0.arg1, arg0.arg1.arg1, o1),
+                    o2
+                    ));
+        }
+        
+        // Return the results
+        return results;
     }),
     DN: new Rule("Double Negation", "DN", function(arg0) {
         /* For example type #1:
