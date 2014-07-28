@@ -406,6 +406,7 @@ var Rules = {
         return results;
     }),
     DN: new Rule("Double Negation", "DN", function(arg0) {
+        // TODO refactor to be a multi return. uncomment line in isAmbiguousRule when done
         /* For example type #1:
          *  arg0 = ~(~p)
          * Then:
@@ -533,8 +534,9 @@ function isUnaryRule(rule) {
  * @returns {boolean} True if the Rule can return more than one result, false otherwise
  */
 function isAmbiguousRule(rule) {
-    // TODO continue adding
     return (rule === Rules.Assoc ||
+            rule === Rules.Dist ||
+            // rule === Rules.DN
             rule === Rules.Equiv ||
             rule === Rules.Exp ||
             rule === Rules.Taut);
