@@ -77,6 +77,10 @@ Fact.prototype.toParsableString = function() {
     }
 };
 
+Fact.prototype.getCopy = function() {
+    return getFactFromString(this.toParsableString());
+};
+
 /**
  * Factory method to create a new Fact from existing Fact. Entire Fact is new, no
  * references to the inputs within the new Fact.
@@ -90,9 +94,21 @@ function createFactFromComponents(arg0, arg1, op) {
     // Get a deep copy of arg0 and arg1 and create the Fact from that
     var newArg0 = (arg0 !== null) ? getFactFromString(arg0.toParsableString()) : null;
     var newArg1 = (arg1 !== null) ? getFactFromString(arg1.toParsableString()) : null;
-    
+
     // Create the Fact
     return new Fact(newArg0, newArg1, op);
+}
+
+/**
+ * Returns the negated form of Fact
+ *   p yields ~p
+ *  ~p yields ~~p
+ * 
+ * @param {Fact} fact The Fact to negate
+ * @returns {Fact} The negated Fact
+ */
+function getNegatedFact(fact) {
+    return createFactFromComponents(fact, null, Operators.NEG);
 }
 
 /**

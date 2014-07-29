@@ -49,7 +49,7 @@ var Rules = {
          *  arg0.arg1 (q)
          */
         if (arg0.arg0.equals(arg1)) {
-            return getFactFromString(arg0.arg1.toParsableString());
+            return arg0.arg1.getCopy();
         } else {
             return null;
         }
@@ -76,9 +76,9 @@ var Rules = {
          * Return:
          *  arg0.arg1 ~(p)
          */
-        var negQ = new Fact(arg0.arg1, null, Operators.NEG);
+        var negQ = getNegatedFact(arg0.arg1);
         if (negQ.equals(arg1)) {
-            return new Fact(getFactFromString(arg0.arg0.toParsableString()), null, Operators.NEG);
+            return getNegatedFact(arg0.arg0);
         } else {
             return null;
         }
@@ -104,9 +104,9 @@ var Rules = {
          * Return:
          *  arg0.arg1
          */
-        var negP = new Fact(arg0.arg0, null, Operators.NEG);
+        var negP = getNegatedFact(arg0.arg0);
         if (negP.equals(arg1)) {
-            return getFactFromString(arg0.arg1.toParsableString());
+            return arg0.arg1.getCopy();
         } else {
             return null;
         }
@@ -144,9 +144,7 @@ var Rules = {
          */
         if (arg0.arg0.arg0.equals(arg1.arg0) &&
                 arg0.arg1.arg0.equals(arg1.arg1)) {
-            var firstDisjunctArg1 = getFactFromString(arg0.arg0.arg1.toParsableString());
-            var secondDisjunctArg1 = getFactFromString(arg0.arg1.arg1.toParsableString());
-            return new Fact(firstDisjunctArg1, secondDisjunctArg1, Operators.OR);
+            return createFactFromComponents(arg0.arg0.arg1, arg0.arg1.arg1, Operators.OR);
         }
     }),
     HS: new Rule("Hypothetical Syllogism", "HS", function(arg0, arg1) {
@@ -174,9 +172,7 @@ var Rules = {
          *  (arg0.arg0 > arg1.arg1)
          */
         if (arg0.arg1.equals(arg1.arg0)) {
-            var antecedent = getFactFromString(arg0.arg0.toParsableString());
-            var consequent = getFactFromString(arg1.arg1.toParsableString());
-            return new Fact(antecedent, consequent, Operators.COND);
+            return createFactFromComponents(arg0.arg0, arg1.arg1, Operators.COND);
         }
     }),
     Simp: new Rule("Simplification", "Simp", function(arg0) {
@@ -192,7 +188,7 @@ var Rules = {
          * So return:
          *  arg0.arg0 (p)
          */
-        return getFactFromString(arg0.arg0.toParsableString());
+        return arg0.arg0.getCopy();
     }),
     Conj: new Rule("Conjunction", "Conj", function(arg0, arg1) {
         /* For example:
@@ -201,9 +197,7 @@ var Rules = {
          * So return:
          *  (arg0 & arg1) (p&q)
          */
-        var p = getFactFromString(arg0.toParsableString());
-        var q = getFactFromString(arg1.toParsableString());
-        return new Fact(p, q, Operators.AND);
+        return createFactFromComponents(arg0, arg1, Operators.AND);
     }),
     Abs: new Rule("Absorption", "Abs", function(arg0) {
         // arg0 must be a conditional.  If it is, then the rule can be either 
@@ -220,8 +214,7 @@ var Rules = {
              *  (arg0.arg0 > arg0.arg1.arg1)
              */
             if (arg0.arg0.equals(arg0.arg1.arg0)) {
-                return new Fact(getFactFromString(arg0.arg0.toParsableString()),
-                        getFactFromString(arg0.arg1.arg1.toParsableString()), Operators.COND);
+                return createFactFromComponents(arg0.arg0, arg0.arg1.arg1, Operators.COND);
             }
             /* For example (reverse application):
              *  arg0 = (p>q)
@@ -233,9 +226,8 @@ var Rules = {
              * So return:
              *  (arg0.arg0 > (arg0.arg0 & arg0.arg1))
              */
-            var conj = new Fact(getFactFromString(arg0.arg0.toParsableString()),
-                    getFactFromString(arg0.arg1.toParsableString()), Operators.AND);
-            return new Fact(getFactFromString(arg0.arg0.toParsableString()), conj, Operators.COND);
+            var conj = createFactFromComponents(arg0.arg0, arg0.arg1, Operators.AND);
+            return createFactFromComponents(arg0.arg0, conj, Operators.COND);
         } else {
             return null;
         }
@@ -247,9 +239,7 @@ var Rules = {
          * So return:
          *  (arg0 | arg1) (p | q)
          */
-        var p = getFactFromString(arg0.toParsableString());
-        var q = getFactFromString(arg1.toParsableString());
-        return new Fact(p, q, Operators.OR);
+        return createFactFromComponents(arg0, arg1, Operators.OR);
     }),
     DeM: new Rule("De Morgan's Law", "DeM", function(arg0) {
         /* For example type #1
@@ -267,10 +257,10 @@ var Rules = {
          */
         if (arg0.op === Operators.OR &&
                 arg0.arg1.op === Operators.AND) {
-            return getFactFromString(new Fact(
+            return createFactFromComponents(
                     new Fact(arg0.arg0, arg0.arg1.arg0, Operators.OR),
                     new Fact(arg0.arg0, arg0.arg1.arg1, Operators.OR),
-                    Operators.AND).toParsableString());
+                    Operators.AND);
         }
 
         /* For example type #2
@@ -288,10 +278,10 @@ var Rules = {
          */
         else if (arg0.op === Operators.AND &&
                 arg0.arg1.op === Operators.OR) {
-            return getFactFromString(new Fact(
+            return createFactFromComponents(
                     new Fact(arg0.arg0, arg0.arg1.arg0, Operators.AND),
                     new Fact(arg0.arg0, arg0.arg1.arg1, Operators.AND),
-                    Operators.OR).toParsableString());
+                    Operators.OR);
 
             // The rule cannot be applied
         } else {
@@ -406,7 +396,7 @@ var Rules = {
         return results;
     }),
     DN: new Rule("Double Negation", "DN", function(arg0) {
-        // TODO refactor to be a multi return. uncomment line in isAmbiguousRule when done
+        var results = [];
         /* For example type #1:
          *  arg0 = ~(~p)
          * Then:
@@ -416,7 +406,7 @@ var Rules = {
          */
         if (arg0.op === Operators.NEG &&
                 arg0.arg0.op === Operators.NEG) {
-            return getFactFromString(arg0.arg0.arg0.toParsableString());
+            results.push(arg0.arg0.arg0.getCopy());
         }
         /* For example type #2:
          *  arg0 = p
@@ -425,9 +415,11 @@ var Rules = {
          * So return:
          *  neg(neg(arg0)) ( ~(~(p)) )
          */
-        else {
-            return getFactFromString("~(~(" + arg0.toParsableString() + "))");
-        }
+        // Always do this one
+        results.push(getNegatedFact(getNegatedFact(arg0)));
+        
+        // Return the results
+        return results;
     }),
     Trans: new Rule("Transposition", "Trans", function(arg0) {
         // TODO implement Transposition
@@ -449,7 +441,7 @@ var Rules = {
         // If you can do the shortening version, do it
         if (arg0.op === Operators.OR &&
                 arg0.arg0.equals(arg0.arg1)) {
-            results.push(getFactFromString(arg0.arg0.toParsableString()));
+            results.push(arg0.arg0.getCopy());
         }
         // This version can always be applied, but isn't always useful
         results.push(createFactFromComponents(arg0, arg0, Operators.OR));
@@ -476,9 +468,9 @@ var Rules = {
          *  arg0.arg1 (q)
          */
         if (arg1.op === Operators.NEG) {
-            var negp = new Fact(arg0.arg0, null, Operators.NEG);
+            var negp = getNegatedFact(arg0.arg0);
             if (negp.equals(arg1)) {
-                return getFactFromString(arg0.arg1.toParsableString());
+                return arg0.arg1.getCopy();
             } else {
                 return null;
             }
@@ -496,8 +488,7 @@ var Rules = {
              *  neg(arg0.arg1) (~(q))
              */
             if (arg0.arg0.equals(arg1)) {
-                var negq = getFactFromString(arg0.arg1.toParsableString());
-                return new Fact(negq, null, Operators.NEG);
+                return getNegatedFact(arg0.arg1);
             } else {
                 return null;
             }
@@ -536,7 +527,7 @@ function isUnaryRule(rule) {
 function isAmbiguousRule(rule) {
     return (rule === Rules.Assoc ||
             rule === Rules.Dist ||
-            // rule === Rules.DN
+            rule === Rules.DN ||
             rule === Rules.Equiv ||
             rule === Rules.Exp ||
             rule === Rules.Taut);
