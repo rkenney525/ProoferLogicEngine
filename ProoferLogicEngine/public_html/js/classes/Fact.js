@@ -77,8 +77,38 @@ Fact.prototype.toParsableString = function() {
     }
 };
 
+/**
+ * Gets a copy of the invoking Fact, rather than a reference to it.
+ * 
+ * @returns {Fact} A copy of the invoking Fact
+ */
 Fact.prototype.getCopy = function() {
     return getFactFromString(this.toParsableString());
+};
+
+/**
+ * Returns the negation of a positive Fact or, if already a negation, the Fact that
+ * is being negated.
+ * 
+ * @returns {Fact} The inverse of the Fact
+ */
+Fact.prototype.getInverse = function() {
+    if (this.op === Operators.NEG) {
+        return this.arg0.getCopy();
+    } else {
+        return this.getNegation();
+    }
+};
+
+/**
+ * Returns the negated form of the Fact
+ *   p yields ~p
+ *  ~p yields ~~p
+ * 
+ * @returns {Fact} The negated Fact
+ */
+Fact.prototype.getNegation = function() {
+    return createFactFromComponents(this, null, Operators.NEG);
 };
 
 /**
@@ -97,18 +127,6 @@ function createFactFromComponents(arg0, arg1, op) {
 
     // Create the Fact
     return new Fact(newArg0, newArg1, op);
-}
-
-/**
- * Returns the negated form of Fact
- *   p yields ~p
- *  ~p yields ~~p
- * 
- * @param {Fact} fact The Fact to negate
- * @returns {Fact} The negated Fact
- */
-function getNegatedFact(fact) {
-    return createFactFromComponents(fact, null, Operators.NEG);
 }
 
 /**

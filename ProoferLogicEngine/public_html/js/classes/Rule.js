@@ -30,7 +30,6 @@ Rule.prototype.getHTML = function() {
 };
 
 /* Create the list of Rules */
-// TODO refactor to use createFactFromComponents
 var Rules = {
     MP: new Rule("Modus Ponens", "MP", function(arg0, arg1) {
         // Sanity check arg0
@@ -76,9 +75,9 @@ var Rules = {
          * Return:
          *  arg0.arg1 ~(p)
          */
-        var negQ = getNegatedFact(arg0.arg1);
+        var negQ = arg0.arg1.getNegation();
         if (negQ.equals(arg1)) {
-            return getNegatedFact(arg0.arg0);
+            return arg0.arg0.getNegation();
         } else {
             return null;
         }
@@ -104,7 +103,7 @@ var Rules = {
          * Return:
          *  arg0.arg1
          */
-        var negP = getNegatedFact(arg0.arg0);
+        var negP = arg0.arg0.getNegation();
         if (negP.equals(arg1)) {
             return arg0.arg1.getCopy();
         } else {
@@ -416,13 +415,23 @@ var Rules = {
          *  neg(neg(arg0)) ( ~(~(p)) )
          */
         // Always do this one
-        results.push(getNegatedFact(getNegatedFact(arg0)));
+        results.push(arg0.getNegation().getNegation());
         
         // Return the results
         return results;
     }),
     Trans: new Rule("Transposition", "Trans", function(arg0) {
-        // TODO implement Transposition
+        // Sanity check
+        if (arg0.op !== Operators.COND) {
+            return null;
+        }
+        
+        /**
+         * The rule:
+         *  p -> q  <-> ~q -> ~p
+         *  ~p -> q <-> ~q -> p
+         */
+        return createFactFromComponents(arg0.arg1.getInverse(), arg0.arg0.getInverse(), Operators.COND);
     }),
     Impl: new Rule("Material Implication", "Impl", function(arg0) {
         // TODO implement Material Implication
@@ -468,7 +477,7 @@ var Rules = {
          *  arg0.arg1 (q)
          */
         if (arg1.op === Operators.NEG) {
-            var negp = getNegatedFact(arg0.arg0);
+            var negp = arg0.arg0.getNegation();
             if (negp.equals(arg1)) {
                 return arg0.arg1.getCopy();
             } else {
@@ -488,7 +497,7 @@ var Rules = {
              *  neg(arg0.arg1) (~(q))
              */
             if (arg0.arg0.equals(arg1)) {
-                return getNegatedFact(arg0.arg1);
+                return arg0.arg1.getNegation();
             } else {
                 return null;
             }
