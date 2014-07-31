@@ -2,6 +2,23 @@
  * Tests for the Fact class
  */
 
+
+
+// Utility functions
+/**
+ * Test toString, toParsableString, and toPrettyString
+ * 
+ * @param {String} factString The String to generate the Fact you are testing
+ * @param {String} expectedString What the result of the operation should yield
+ * @param {String} functionString String name of the function to test
+ * @returns {undefined}
+ */
+function testToStringFamily(factString, expectedString, functionString) {
+    var fact = getFactFromString(factString);
+    var result = fact[functionString]();
+    assert.strictEqual(result, expectedString, result + " should be " + expectedString);
+}
+
 /*
  * Test a Fact of a simple statement
  */
@@ -33,11 +50,11 @@ QUnit.test("Fact parsing - Complex", function(assert) {
     var complex = getFactFromString("(~(p)>(q#(r&~(s))))");
     // Check the operator
     assert.strictEqual(complex.op, Operators.COND, "Verify the conditional in " + fact);
-    
+
     // Check the first argument
     assert.strictEqual(complex.arg0.op, Operators.NEG, "Verify the negation of p " + fact);
     assert.strictEqual(complex.arg0.arg0.arg0, "p", "Verify 'p' in " + fact);
-    
+
     // Check the second argument
     assert.strictEqual(complex.arg1.op, Operators.XOR, "Verify the exclusive or in " + fact);
     assert.strictEqual(complex.arg1.arg0.arg0, "q", "Verify the q in " + fact);
@@ -53,21 +70,21 @@ QUnit.test("Fact parsing - Complex", function(assert) {
 QUnit.test("Fact.equals", function(assert) {
     // Init
     var fact1, fact2;
-    
+
     // The no shit equality
     fact1 = getFactFromString("a");
     assert.ok(fact1.equals(fact1), "A Fact should equal itself");
-    
+
     // Identical Instantiation
     fact1 = getFactFromString("p");
     fact2 = getFactFromString("p");
     assert.ok(fact1.equals(fact2), "Two identical instatiations should equal");
-    
+
     // Partial equal
     fact1 = getFactFromString("p");
     fact2 = getFactFromString("(p&q)");
     assert.ok(!fact1.equals(fact2), "Equality is not containment");
-    
+
     // Clearly different
     fact1 = getFactFromString("(r&s)");
     fact2 = getFactFromString("~(a)");
@@ -78,5 +95,43 @@ QUnit.test("Fact.equals", function(assert) {
  * Test the toString method of Fact
  */
 QUnit.test("Fact.toString", function(assert) {
-    // TODO implement
+    // Simple
+    testToStringFamily("a", "a", "toString");
+
+    // Basic
+    testToStringFamily("(p|q)", "(p&or;q)", "toString");
+
+    // Complex
+    testToStringFamily("((~(s)|b)#~((a&(c>b))))", 
+    "((&tilde;s&or;b)&oplus;&tilde;(a&and;(c&rarr;b)))", 
+    "toString");
+});
+
+/*
+ * Test the toParsableString method of Fact
+ */
+QUnit.test("Fact.toParsableString", function(assert) {
+    // Reflective test
+    var fact = getFactFromString("((~(s)|b)#~((a&(c>b))))");
+    var reflect = getFactFromString(fact.toParsableString());
+    assert.deepEqual(fact, reflect, "Generating a Fact from fact.toParsableString should create an identical Fact");
+
+    // Some generic tests
+    testToStringFamily("a", "a", "toParsableString");
+    testToStringFamily("(a>q)", "(a>q)", "toParsableString");
+    testToStringFamily("~((a|c))", "~((a|c))", "toParsableString");
+    testToStringFamily("(a|(b|(c&~(d))))", "(a|(b|(c&~(d))))", "toParsableString");
+    testToStringFamily("((((x|a)>s)&p)|s)", "((((x|a)>s)&p)|s)", "toParsableString");
+});
+
+/*
+ * Test the toPrettyString method of Fact
+ */
+QUnit.test("Fact.toPrettyString", function(assert) {
+    // Some generic tests
+    testToStringFamily("a", "a", "toPrettyString");
+    testToStringFamily("(a>q)", "a&rarr;q", "toPrettyString");
+    testToStringFamily("~((a|c))", "&tilde;(a&or;c)", "toPrettyString");
+    testToStringFamily("(a|(b|(c&~(d))))", "a&or;(b&or;(c&and;&tilde;d))", "toPrettyString");
+    testToStringFamily("((((x|a)>s)&p)|s)", "(((x&or;a)&rarr;s)&and;p)&or;s", "toPrettyString");
 });
