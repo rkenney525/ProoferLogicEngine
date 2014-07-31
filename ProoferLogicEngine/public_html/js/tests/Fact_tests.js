@@ -206,3 +206,19 @@ QUnit.test("Fact.getNegation", function(assert) {
     manipulated = fact.getNegation();
     assert.deepEqual(manipulated, expecting, "The negation of ~p is ~~p");
 });
+
+QUnit.test("createFactFromComponents", function(assert) {
+    // Init
+    var fact, arg0, arg1, op;
+    
+    // Do the test
+    arg0 = getFactFromString("(a|b)");
+    arg1 = getFactFromString("(a|c)");
+    op = Operators.AND;
+    fact = createFactFromComponents(arg0, arg1, op);
+    assert.deepEqual(fact.arg0, arg0, "The contents of the first component should be what we provided");
+    assert.notStrictEqual(fact.arg0, arg0, "However the first component shouldn't be a reference to what was provided");
+    assert.deepEqual(fact.arg1, arg1, "The contents of the second component should be what we provided");
+    assert.notStrictEqual(fact.arg1, arg1, "However the second component shouldn't be a reference to what was provided");
+    assert.strictEqual(fact.op, op, "The operator should be the same as the one provided");
+});
