@@ -166,10 +166,10 @@ function populateGameScreen(level) {
  * @returns {String} The HTML for a row int he Fact table
  */
 function generateFactRow(index, fact) {
-    return '<tr>' +
+    return '<tr factid="' + index + '">' +
             '<td>' + '<div class="fact ovaled" factId="'
             + index + '">' + (index + 1) + '</div>' + '</td>' +
-            '<td>' + fact + '</td>' +
+            '<td class="fact-edit">' + fact + '</td>' +
             '</tr>';
 }
 

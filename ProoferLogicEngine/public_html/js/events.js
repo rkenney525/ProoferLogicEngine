@@ -618,4 +618,16 @@ function bindFactEvents() {
     $(".fact").mouseout(function() {
 	$(this).removeClass("lifted");
     });
+    
+    $(".fact-edit").unbind('click');
+    $(".fact-edit").click(function(event) {
+        // Get the fact to supply
+        var factId = $(this).parent().attr("factid");
+        var facts = Levels.getCurrentLevel().facts;
+        var fact = facts[factId];
+        
+        // Load the FactDetails
+        $('#Controls_FactDetails');
+        // open Fact details
+    });
 }
