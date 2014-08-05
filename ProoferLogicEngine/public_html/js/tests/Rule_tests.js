@@ -180,39 +180,39 @@ QUnit.test("Rules - Add", function(assert) {
 //QUnit.test("Rules - DeM", function(assert) {
 //    testRule(Rules.DeM, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - Com", function(assert) {
 //    testRule(Rules.Com, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - Assoc", function(assert) {
 //    testRule(Rules.Assoc, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - Dist", function(assert) {
 //    testRule(Rules.Dist, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - DN", function(assert) {
 //    testRule(Rules.DN, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - Trans", function(assert) {
 //    testRule(Rules.Trans, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - Impl", function(assert) {
 //    testRule(Rules.Impl, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - Equiv", function(assert) {
 //    testRule(Rules.Equiv, "", null, "", assert);
 //});
-//
+
 //QUnit.test("Rules - Exp", function(assert) {
 //    testRule(Rules.Exp, "", null, "", assert);
 //});
-//
+
 QUnit.test("Rules - Taut", function(assert) {
     testMultiReturnRule(Rules.Taut, "(p|p)", null, ["p", "((p|p)|(p|p))"], assert);
     testMultiReturnRule(Rules.Taut, "~((p|q))", null, ["(~((p|q))|~((p|q)))"], assert);
@@ -220,10 +220,19 @@ QUnit.test("Rules - Taut", function(assert) {
     testMultiReturnRule(Rules.Taut, "~((p>q))", null, ["(~((p>q))|~((p>q)))"], assert);
     testMultiReturnRule(Rules.Taut, "((p|p)|(p|p))", null, ["(p|p)", "(((p|p)|(p|p))|((p|p)|(p|p)))"], assert);
 });
-//
-//QUnit.test("Rules - POE", function(assert) {
-//    testRule(Rules.POE, "", "", "", assert);
-//});
+
+/*
+ * Tests for Process of Elimination
+ */
+QUnit.test("Rules - POE", function(assert) {
+    testRule(Rules.POE, "(p#q)", "p", "~(q)", assert);
+    testRule(Rules.POE, "(p#q)", "~(p)", "q", assert);
+    testRule(Rules.POE, "((p|z)#q)", "~(p)", null, assert);
+    testRule(Rules.POE, "(p|q)", "~(p)", null, assert);
+    testRule(Rules.POE, "(p#q)", "r", null, assert);
+    testRule(Rules.POE, "((p|z)#q)", "~((p|z))", "q", assert);
+    testRule(Rules.POE, "((p|z)#q)", "(p|z)", "~(q)", assert);
+});
 
 /*
  * Exhaustively test isAmbiguousRule
