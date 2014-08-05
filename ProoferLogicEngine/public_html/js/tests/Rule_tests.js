@@ -28,6 +28,46 @@ function testRule(rule, arg0String, arg1String, expectedString, assert) {
                     arg0Display + " and " + arg1Display);
 }
 
+function testMultiReturnRule(rule, arg0String, arg1String, expectedArrayOfStrings, assert) {
+    // Init
+    var arg0 = (arg0String !== null) ? getFactFromString(arg0String) : null;
+    var arg1 = (arg1String !== null) ? getFactFromString(arg1String) : null;
+    var expected = [];
+    var result;
+    for (var i = 0; i < expectedArrayOfStrings.length; i++) {
+        expected.push(getFactFromString(expectedArrayOfStrings[i]));
+    }
+    var arg0Display, arg1Display, expectedDisplay;
+
+    // Apply
+    result = rule.applyRule(arg0, arg1);
+
+    // Get display Strings for arg0 and arg1
+    arg0Display = (arg0 !== null) ? arg0.toParsableString() : "null";
+    arg1Display = (arg1 !== null) ? arg1.toParsableString() : "null";
+    
+    // Verify the number of results
+    assert.strictEqual(expected.length, result.length, rule.name + " with " + arg0Display + 
+            " and " + arg1Display + " should have " + expected.length + " results.");
+    
+    // Verify the results individually
+    for (var i = 0; i < expected.length; i++) {
+        var inResults = false;
+        expectedDisplay = expected[i].toParsableString();
+        
+        // Check this particular expected value against all the results for a match
+        for (var j = 0; j < result.length; j++) {
+            if (result[j].equals(expected[i])) {
+                inResults = true;
+                break;
+            }
+        }
+        
+        // If we found a match, all is well
+        assert.ok(inResults, expectedDisplay + " should be a result.");
+    }
+}
+
 /*
  * Tests for Modus Ponens
  */
@@ -173,9 +213,13 @@ QUnit.test("Rules - Add", function(assert) {
 //    testRule(Rules.Exp, "", null, "", assert);
 //});
 //
-//QUnit.test("Rules - Taut", function(assert) {
-//    testRule(Rules.Taut, "", null, "", assert);
-//});
+QUnit.test("Rules - Taut", function(assert) {
+    testMultiReturnRule(Rules.Taut, "(p|p)", null, ["p", "((p|p)|(p|p))"], assert);
+    testMultiReturnRule(Rules.Taut, "~((p|q))", null, ["(~((p|q))|~((p|q)))"], assert);
+    testMultiReturnRule(Rules.Taut, "p", null, ["(p|p)"], assert);
+    testMultiReturnRule(Rules.Taut, "~((p>q))", null, ["(~((p>q))|~((p>q)))"], assert);
+    testMultiReturnRule(Rules.Taut, "((p|p)|(p|p))", null, ["(p|p)", "(((p|p)|(p|p))|((p|p)|(p|p)))"], assert);
+});
 //
 //QUnit.test("Rules - POE", function(assert) {
 //    testRule(Rules.POE, "", "", "", assert);
