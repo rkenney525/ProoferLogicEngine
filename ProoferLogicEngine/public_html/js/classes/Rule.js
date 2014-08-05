@@ -144,6 +144,8 @@ var Rules = {
         if (arg0.arg0.arg0.equals(arg1.arg0) &&
                 arg0.arg1.arg0.equals(arg1.arg1)) {
             return createFactFromComponents(arg0.arg0.arg1, arg0.arg1.arg1, Operators.OR);
+        } else {
+            return null;
         }
     }),
     HS: new Rule("Hypothetical Syllogism", "HS", function(arg0, arg1) {

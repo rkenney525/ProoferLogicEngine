@@ -56,3 +56,29 @@ QUnit.test("Rules - MT", function(assert) {
     testRule(Rules.MT, "((p|~(s))>~(q))", "~(~(q))", "~((p|~(s)))", assert);
     testRule(Rules.MT, "(~((p|~(s)))>~(q))", "~(~(q))", "~(~((p|~(s))))", assert);
 });
+
+/*
+ * Tests for Disjunctive Syllogism
+ */
+QUnit.test("Rules - DS", function(assert) {
+    testRule(Rules.DS, "(p|q)", "~(p)", "q", assert);
+    testRule(Rules.DS, "(p|q)", "~(q)", null, assert);
+    testRule(Rules.DS, "((p&q)|r)", "~(p)", null, assert);
+    testRule(Rules.DS, "((p&q)|r)", "~((p&q))", "r", assert);
+    testRule(Rules.DS, "((p&q)|~((s&p)))", "~((p&q))", "~((s&p))", assert);
+    testRule(Rules.DS, "(~((p&q))|r)", "(p&q)", null, assert);
+    testRule(Rules.DS, "(~((p&q))|r)", "~(~((p&q)))", "r", assert);
+});
+
+/*
+ * Rules for Constructive Dilemma
+ */
+QUnit.test("Rules - CD", function(assert) {
+    testRule(Rules.CD, "((p>r)&(q>s))", "(p|q)", "(r|s)", assert);
+    testRule(Rules.CD, "((p>~(r))&(q>s))", "(p|q)", "(~(r)|s)", assert);
+    testRule(Rules.CD, "((p>~(r))|(q>s))", "(p|q)", null, assert);
+    testRule(Rules.CD, "((p>~(r))&(q>s))", "(p&q)", null, assert);
+    testRule(Rules.CD, "(((a#c)>~(r))&(q>s))", "((a#c)|q)", "(~(r)|s)", assert);
+    testRule(Rules.CD, "(((a#c)>~(r))&(~((a&~(c)))>s))", "((a#c)|~((a&~(c))))", "(~(r)|s)", assert);
+    testRule(Rules.CD, "((p>r)&(q>s))", "(p|r)", null, assert);
+});
