@@ -11,7 +11,7 @@
 function testRule(rule, arg0String, arg1String, expectedString, assert) {
     // Init
     var arg0 = (arg0String !== null) ? getFactFromString(arg0String) : null;
-    var arg1 = (arg0String !== null) ? getFactFromString(arg1String) : null;
+    var arg1 = (arg1String !== null) ? getFactFromString(arg1String) : null;
     var expected = (expectedString !== null) ? getFactFromString(expectedString) : null;
     var result;
     var arg0Display, arg1Display, expectedDisplay;
@@ -71,7 +71,7 @@ QUnit.test("Rules - DS", function(assert) {
 });
 
 /*
- * Rules for Constructive Dilemma
+ * Tests for Constructive Dilemma
  */
 QUnit.test("Rules - CD", function(assert) {
     testRule(Rules.CD, "((p>r)&(q>s))", "(p|q)", "(r|s)", assert);
@@ -82,3 +82,101 @@ QUnit.test("Rules - CD", function(assert) {
     testRule(Rules.CD, "(((a#c)>~(r))&(~((a&~(c)))>s))", "((a#c)|~((a&~(c))))", "(~(r)|s)", assert);
     testRule(Rules.CD, "((p>r)&(q>s))", "(p|r)", null, assert);
 });
+
+/*
+ * Tests for Hypothetical Syllogism
+ */
+QUnit.test("Rules - HS", function(assert) {
+    testRule(Rules.HS, "(p>q)", "(q>r)", "(p>r)", assert);
+    testRule(Rules.HS, "((p|~(c))>q)", "(q>r)", "((p|~(c))>r)", assert);
+    testRule(Rules.HS, "((p|~(c))>r)", "(q>r)", null, assert);
+    testRule(Rules.HS, "((p|~(c))|q)", "(q>r)", null, assert);
+    testRule(Rules.HS, "((p|~(c))>q)", "(q|r)", null, assert);
+});
+
+/*
+ * Tests for Simplification
+ */
+QUnit.test("Rules - Simp", function(assert) {
+    testRule(Rules.Simp, "(a&b)", null, "a", assert);
+    testRule(Rules.Simp, "(a&b)", "(l|(o|l))", "a", assert);
+    testRule(Rules.Simp, "(a|b)", null, null, assert);
+    testRule(Rules.Simp, "((p#~(q))&b)", null, "(p#~(q))", assert);
+    testRule(Rules.Simp, "((p>~(q))&(l|(o|l)))", null, "(p>~(q))", assert);
+});
+
+/*
+ * Tests for Conjunction
+ */
+QUnit.test("Rules - Conj", function(assert) {
+    testRule(Rules.Conj, "p", "q", "(p&q)", assert);
+    testRule(Rules.Conj, "(a#c)", "q", "((a#c)&q)", assert);
+    testRule(Rules.Conj, "p", "~((a>~(~((c|d)))))", "(p&~((a>~(~((c|d))))))", assert);
+    testRule(Rules.Conj, "(b|~(c))", "(p&~(q))", "((b|~(c))&(p&~(q)))", assert);
+});
+
+/*
+ * Tests for Absorption
+ */
+QUnit.test("Rules - Abs", function(assert) {
+    testRule(Rules.Abs, "(p>q)", null, "(p>(p&q))", assert);
+    testRule(Rules.Abs, "(p>(p&q))", null, "(p>q)", assert);
+    testRule(Rules.Abs, "(p&(p&q))", null, null, assert);
+    testRule(Rules.Abs, "(p>(r&s))", null, "(p>(p&(r&s)))", assert);
+    testRule(Rules.Abs, "((a|b)>(r&s))", null, "((a|b)>((a|b)&(r&s)))", assert);
+    testRule(Rules.Abs, "(~((a|b))>(r&s))", null, "(~((a|b))>(~((a|b))&(r&s)))", assert);
+});
+
+/*
+ * Tests for Addition
+ */
+QUnit.test("Rules - Add", function(assert) {
+    testRule(Rules.Add, "p", "q", "(p|q)", assert);
+    testRule(Rules.Add, "p", "~((q|r))", "(p|~((q|r)))", assert);
+    testRule(Rules.Add, "(p&~((s|d)))", "q", "((p&~((s|d)))|q)", assert);
+    testRule(Rules.Add, "(h|(e&(l#(l%o))))", "(t|(h>(e%(r&e))))", "((h|(e&(l#(l%o))))|(t|(h>(e%(r&e)))))", assert);
+});
+
+//QUnit.test("Rules - DeM", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Com", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Assoc", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Dist", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - DN", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Trans", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Impl", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Equiv", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Exp", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - Taut", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});
+//
+//QUnit.test("Rules - POE", function(assert) {
+//    testRule(Rules.HS, "", "", "", assert);
+//});

@@ -174,6 +174,8 @@ var Rules = {
          */
         if (arg0.arg1.equals(arg1.arg0)) {
             return createFactFromComponents(arg0.arg0, arg1.arg1, Operators.COND);
+        } else {
+            return null;
         }
     }),
     Simp: new Rule("Simplification", "Simp", function(arg0) {
