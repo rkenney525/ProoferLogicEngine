@@ -203,6 +203,7 @@ var Rules = {
         return createFactFromComponents(arg0, arg1, Operators.AND);
     }),
     Abs: new Rule("Absorption", "Abs", function(arg0) {
+        // TODO this is ambiguous - modify to be ambiguous
         // arg0 must be a conditional.  If it is, then the rule can be either 
         // applied or reversed, both will be shown.
         if (arg0.op === Operators.COND) {

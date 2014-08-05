@@ -138,45 +138,97 @@ QUnit.test("Rules - Add", function(assert) {
 });
 
 //QUnit.test("Rules - DeM", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.DeM, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Com", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Com, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Assoc", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Assoc, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Dist", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Dist, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - DN", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.DN, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Trans", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Trans, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Impl", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Impl, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Equiv", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Equiv, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Exp", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Exp, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - Taut", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.Taut, "", null, "", assert);
 //});
 //
 //QUnit.test("Rules - POE", function(assert) {
-//    testRule(Rules.HS, "", "", "", assert);
+//    testRule(Rules.POE, "", "", "", assert);
 //});
+
+/*
+ * Exhaustively test isAmbiguousRule
+ */
+QUnit.test("isAmbiguousRule", function(assert) {
+    assert.ok(!isAmbiguousRule(Rules.Abs), "Absorption is not ambiguous"); // ehhh
+    assert.ok(!isAmbiguousRule(Rules.Add), "Addition is not ambiguous");
+    assert.ok(isAmbiguousRule(Rules.Assoc), "Association is ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.CD), "Constructive Dilemma is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.Com), "Commutation is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.Conj), "Conjunction is not ambiguous");
+    assert.ok(isAmbiguousRule(Rules.DN), "Double Negation is ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.DS), "Disjunctive Syllogism is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.DeM), "DeMorgans is not ambiguous");
+    assert.ok(isAmbiguousRule(Rules.Dist), "Distribution is ambiguous");
+    assert.ok(isAmbiguousRule(Rules.Equiv), "Material Equivalence is ambiguous");
+    assert.ok(isAmbiguousRule(Rules.Exp), "Exportation is ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.HS), "Hypothetical Syllogism is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.Impl), "Material Implication is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.MP), "Modus Ponens is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.MT), "Modus Tollens is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.POE), "Process of Elimination is not ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.Simp), "Simplification is not ambiguous");
+    assert.ok(isAmbiguousRule(Rules.Taut), "Tautology is ambiguous");
+    assert.ok(!isAmbiguousRule(Rules.Trans), "Transposition is not ambiguous");
+});
+
+/*
+ * Exhaustively test isUnaryRule
+ */
+QUnit.test("isUnaryRule", function(assert) {
+    assert.ok(isUnaryRule(Rules.Abs), "Absorption is unary");
+    assert.ok(!isUnaryRule(Rules.Add), "Addition is not unary");
+    assert.ok(isUnaryRule(Rules.Assoc), "Association is unary");
+    assert.ok(!isUnaryRule(Rules.CD), "Constructive Dilemma is not unary");
+    assert.ok(isUnaryRule(Rules.Com), "Commutation is unary");
+    assert.ok(!isUnaryRule(Rules.Conj), "Conjunction is not unary");
+    assert.ok(isUnaryRule(Rules.DN), "Double Negation is unary");
+    assert.ok(!isUnaryRule(Rules.DS), "Disjunctive Syllogism is not unary");
+    assert.ok(isUnaryRule(Rules.DeM), "DeMorgans is unary");
+    assert.ok(isUnaryRule(Rules.Dist), "Distribution is unary");
+    assert.ok(isUnaryRule(Rules.Equiv), "Material Equivalence is unary");
+    assert.ok(isUnaryRule(Rules.Exp), "Exportation is unary");
+    assert.ok(!isUnaryRule(Rules.HS), "Hypothetical Syllogism is not unary");
+    assert.ok(isUnaryRule(Rules.Impl), "Material Implication is unary");
+    assert.ok(!isUnaryRule(Rules.MP), "Modus Ponens is not unary");
+    assert.ok(!isUnaryRule(Rules.MT), "Modus Tollens is not unary");
+    assert.ok(!isUnaryRule(Rules.POE), "Process of Elimination is not unary");
+    assert.ok(isUnaryRule(Rules.Simp), "Simplification is unary");
+    assert.ok(isUnaryRule(Rules.Taut), "Tautology is unary");
+    assert.ok(isUnaryRule(Rules.Trans), "Transposition is unary");
+});
