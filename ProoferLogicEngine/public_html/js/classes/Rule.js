@@ -3,6 +3,7 @@
  * 
  * @param {String} ruleName The full name of the rule
  * @param {String} displayName The abbreviation of the rule
+ * @param {RuleType} ruleType The RuleType 
  * @param {function} ruleFunction The logic for the rule.  The function parameters will
  * be 1-2 Facts, depending on the Rule. Specs:
  * 
@@ -10,9 +11,10 @@
  * 
  * @returns {Rule} The newly created Rule
  */
-function Rule(ruleName, displayName, ruleFunction) {
+function Rule(ruleName, displayName, ruleType, ruleFunction) {
     this.name = ruleName;
     this.displayName = displayName;
+    this.type = ruleType;
     this.applyRule = ruleFunction;
 }
 
@@ -28,10 +30,10 @@ Rule.prototype.getHTML = function() {
             + this.displayName + '</div>' +
             '</div>';
 };
-
+var RuleType = Object.freeze({REPLACEMENT: "Replacement", INFERENCE: "Inference"});
 /* Create the list of Rules */
 var Rules = {
-    MP: new Rule("Modus Ponens", "MP", function(arg0, arg1) {
+    MP: new Rule("Modus Ponens", "MP", RuleType.INFERENCE, function(arg0, arg1) {
         // Sanity check arg0
         if (arg0.op !== Operators.COND) {
             return null;
@@ -53,7 +55,7 @@ var Rules = {
             return null;
         }
     }),
-    MT: new Rule("Modus Tollens", "MT", function(arg0, arg1) {
+    MT: new Rule("Modus Tollens", "MT", RuleType.INFERENCE, function(arg0, arg1) {
         // Sanity check arg0
         if (arg0.op !== Operators.COND) {
             return null;
@@ -82,7 +84,7 @@ var Rules = {
             return null;
         }
     }),
-    DS: new Rule("Disjunctive Syllogism", "DS", function(arg0, arg1) {
+    DS: new Rule("Disjunctive Syllogism", "DS", RuleType.INFERENCE, function(arg0, arg1) {
         // Sanity check arg0
         if (arg0.op !== Operators.OR) {
             return null;
@@ -110,7 +112,7 @@ var Rules = {
             return null;
         }
     }),
-    CD: new Rule("Constructive Dilemma", "CD", function(arg0, arg1) {
+    CD: new Rule("Constructive Dilemma", "CD", RuleType.INFERENCE, function(arg0, arg1) {
         // Sanity check arg0
         if (arg0.op !== Operators.AND ||
                 arg0.arg0.op !== Operators.COND ||
@@ -148,7 +150,7 @@ var Rules = {
             return null;
         }
     }),
-    HS: new Rule("Hypothetical Syllogism", "HS", function(arg0, arg1) {
+    HS: new Rule("Hypothetical Syllogism", "HS", RuleType.INFERENCE, function(arg0, arg1) {
         // Sanity check arg0
         if (arg0.op !== Operators.COND) {
             return null;
@@ -178,7 +180,7 @@ var Rules = {
             return null;
         }
     }),
-    Simp: new Rule("Simplification", "Simp", function(arg0) {
+    Simp: new Rule("Simplification", "Simp", RuleType.INFERENCE, function(arg0) {
         // Sanity check arg0
         if (arg0.op !== Operators.AND) {
             return null;
@@ -193,7 +195,7 @@ var Rules = {
          */
         return arg0.arg0.getCopy();
     }),
-    Conj: new Rule("Conjunction", "Conj", function(arg0, arg1) {
+    Conj: new Rule("Conjunction", "Conj", RuleType.INFERENCE, function(arg0, arg1) {
         /* For example:
          *  arg0 = p
          *  arg1 = q
@@ -202,7 +204,7 @@ var Rules = {
          */
         return createFactFromComponents(arg0, arg1, Operators.AND);
     }),
-    Abs: new Rule("Absorption", "Abs", function(arg0) {
+    Abs: new Rule("Absorption", "Abs", RuleType.INFERENCE, function(arg0) {
         // TODO this is ambiguous - modify to be ambiguous
         // arg0 must be a conditional.  If it is, then the rule can be either 
         // applied or reversed, both will be shown.
@@ -236,7 +238,7 @@ var Rules = {
             return null;
         }
     }),
-    Add: new Rule("Addition", "Add", function(arg0, arg1) {
+    Add: new Rule("Addition", "Add", RuleType.INFERENCE, function(arg0, arg1) {
         /* For example:
          *  arg0 = p
          *  arg1 = [Something from the user] (q)
@@ -245,7 +247,7 @@ var Rules = {
          */
         return createFactFromComponents(arg0, arg1, Operators.OR);
     }),
-    DeM: new Rule("De Morgan's Law", "DeM", function(arg0) {
+    DeM: new Rule("De Morgan's Law", "DeM", RuleType.REPLACEMENT, function(arg0) {
         /* For example type #1
          *  arg0 = p | (q & r)
          * Then:
@@ -292,7 +294,7 @@ var Rules = {
             return null;
         }
     }),
-    Com: new Rule("Commutation", "Com", function(arg0) {
+    Com: new Rule("Commutation", "Com", RuleType.REPLACEMENT, function(arg0) {
         /* For example (same logic for &)
          *  arg0 = (p | q)
          * Then
@@ -308,7 +310,7 @@ var Rules = {
             return null;
         }
     }),
-    Assoc: new Rule("Association", "Assoc", function(arg0) {
+    Assoc: new Rule("Association", "Assoc", RuleType.REPLACEMENT, function(arg0) {
         // Init
         var results = [];
         var op = arg0.op;
@@ -346,7 +348,7 @@ var Rules = {
         return results;
 
     }),
-    Dist: new Rule("Distribution", "Dist", function(arg0) {
+    Dist: new Rule("Distribution", "Dist", RuleType.REPLACEMENT, function(arg0) {
         var results = [];
         var o1 = arg0.op;
         var o2;
@@ -399,7 +401,7 @@ var Rules = {
         // Return the results
         return results;
     }),
-    DN: new Rule("Double Negation", "DN", function(arg0) {
+    DN: new Rule("Double Negation", "DN", RuleType.REPLACEMENT, function(arg0) {
         var results = [];
         /* For example type #1:
          *  arg0 = ~(~p)
@@ -425,7 +427,7 @@ var Rules = {
         // Return the results
         return results;
     }),
-    Trans: new Rule("Transposition", "Trans", function(arg0) {
+    Trans: new Rule("Transposition", "Trans", RuleType.REPLACEMENT, function(arg0) {
         // Sanity check
         if (arg0.op !== Operators.COND) {
             return null;
@@ -438,16 +440,16 @@ var Rules = {
          */
         return createFactFromComponents(arg0.arg1.getInverse(), arg0.arg0.getInverse(), Operators.COND);
     }),
-    Impl: new Rule("Material Implication", "Impl", function(arg0) {
+    Impl: new Rule("Material Implication", "Impl", RuleType.REPLACEMENT, function(arg0) {
         // TODO implement Material Implication
     }),
-    Equiv: new Rule("Material Equivalence", "Equiv", function(arg0) {
+    Equiv: new Rule("Material Equivalence", "Equiv", RuleType.REPLACEMENT, function(arg0) {
         // TODO implement Material Equivalence
     }),
-    Exp: new Rule("Exportation", "Exp", function(arg0) {
+    Exp: new Rule("Exportation", "Exp", RuleType.REPLACEMENT, function(arg0) {
         // TODO implement Exportation
     }),
-    Taut: new Rule("Tautology", "Taut", function(arg0) {
+    Taut: new Rule("Tautology", "Taut", RuleType.REPLACEMENT, function(arg0) {
         var results = [];
         /* Rule:
          *  (p|p) <-> p
@@ -463,7 +465,7 @@ var Rules = {
         // Returnt he results
         return results;
     }),
-    POE: new Rule("Process of Elimination", "POE", function(arg0, arg1) {
+    POE: new Rule("Process of Elimination", "POE", RuleType.INFERENCE, function(arg0, arg1) {
         // Sanity check arg0
         if (arg0.op !== Operators.XOR) {
             return null;

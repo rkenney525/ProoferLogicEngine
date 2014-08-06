@@ -49,6 +49,88 @@ function toGameScreen() {
 }
 
 /**
+ * Swap the screen to the rules of replacement view
+ * 
+ * @returns {undefined}
+ */
+function toReplacementScreen() {
+    // Hide Executor
+    $('#Controls_Executor').hide();
+    $('#Controls_Executor').removeClass('executor-modifier-active');
+    
+    // Show Modifier
+    $('#Controls_Modifier').show();
+    $('#Controls_Modifier').addClass('executor-modifier-active');
+    
+    // Display the level's Rules of Replacement
+    var rules = Levels.getCurrentLevel().rules;
+    populateRules(getRulesByType(rules, RuleType.REPLACEMENT));
+}
+
+/**
+ * Swap the screen back to the rules of inference view. No need to reload page, 
+ * except for the Rules.
+ * 
+ * @returns {undefined}
+ */
+function toExecutorScreen() {
+    // Show Executor
+    $('#Controls_Executor').show();
+    $('#Controls_Executor').addClass('executor-modifier-active');
+    
+    // Hide Modifier
+    $('#Controls_Modifier').hide();
+    $('#Controls_Modifier').removeClass('executor-modifier-active');
+    
+    // Display the level's Rules of Inference
+    var rules = Levels.getCurrentLevel().rules;
+    populateRules(getRulesByType(rules, RuleType.INFERENCE));
+}
+
+/*
+ * Display all the Rules in the provided list of Rules.
+ * 
+ * @param {Rule[]} rules The Rules to display
+ * @returns {undefined}
+ */
+function populateRules(rules) {
+    // Empty the existing Rules (if any)
+    $('#Controls_Rules_List').empty();
+    
+    // Populate from the list
+    for (var index = 0; index < rules.length; index++) {
+        $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
+                ' rule-container">'
+                + rules[index].getHTML() +
+                '</li>');
+    }
+    
+    // Bind the events
+    bindRuleEvents();
+}
+
+/**
+ * Get Rules of a particular type from a provided list of Rules.
+ * 
+ * @param {Rule[]} ruleList The list of Rules
+ * @param {RuleType} type The RuleType to filter by
+ * @returns {Rule[]} Rules from ruleList of RuleType type
+ */
+function getRulesByType(ruleList, type) {
+    // Init
+    var rules = [];
+    
+    // Get the rules
+    for (var i = 0; i < ruleList.length; i++) {
+        if (ruleList[i].type === type) {
+            rules.push(ruleList[i]);
+        }
+    }
+    
+    // Return the Rules
+    return rules;
+}
+/**
  * Navigate away and switch to viewing all levels and their current stats.
  */
 function toPickLevel() {
@@ -130,15 +212,8 @@ function checkPaginationButtons() {
  */
 function populateGameScreen(level) {
     // Rules
-    var rules = level.rules;
-    $('#Controls_Rules_List').empty();
-    for (var index = 0; index < rules.length; index++) {
-        $('#Controls_Rules_List').append('<li class="' + ((index === (rules.length - 1)) ? 'last-item' : '') +
-                ' rule-container">'
-                + rules[index].getHTML() +
-                '</li>');
-    }
-    bindRuleEvents();
+    var rules = getRulesByType(level.rules, RuleType.INFERENCE);
+    populateRules(rules);
 
     // Facts
     var facts = level.facts;

@@ -62,17 +62,24 @@
                 <div id="GameControls" class="fill">
                     <div id="Controls_Display">
                         <p>Prove:  <b><span id="Controls_Display_Conclusion"></span></b></p>
-                        <button type="button" id="Controls_Executor_Evaluate">Evaluate</button>
                         <button type="button" id="Controls_Executor_ClearResults">Clear Results</button>
                         <button type="button" id="Controls_Executor_ClearInput">Clear Input</button>
                         <button type="button" id="Controls_Executor_Save">Save</button>
                         <button type="button" id="Controls_Executor_Reset">Reset</button>
                     </div>
-                    <div id="Controls_Executor">
+                    <div id="Controls_Modifier" style="dislay: none;">
+                        <div id="Controls_Modifier_Error">
+                            <div class="ui-state-error error-message" id="Controls_Modifier_Error_NoRules" style="display: none;">
+                                TODO enter description
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Controls_Executor" class="executor-modifier-active">
                         <div id="Controls_Executor_Result" class="executor-box boxed"></div>
                         <div id="Controls_Executor_Arg0" class="executor-box boxed"></div>
                         <div id="Controls_Executor_Arg1" class="executor-box boxed"></div>
                         <div id="Controls_Executor_Rule" class="executor-box boxed"></div>
+                        <button type="button" id="Controls_Executor_Evaluate">Evaluate</button>
                     </div>
                     <div id="Controls_Facts">
                         <table id="Controls_Facts_Table"></table>
@@ -81,9 +88,6 @@
                         <ul id="Controls_Rules_List"></ul>
                     </div>
                     <div id="Controls_Tooltip" style="display: none;">
-
-                    </div>
-                    <div id="Controls_FactDetails" style="display: none;">
 
                     </div>
                     <div id="Controls_AddTable" style="display: none;">

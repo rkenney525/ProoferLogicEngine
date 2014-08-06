@@ -6,7 +6,7 @@
         Define the layout and positions for specific control elements
 */
 
-#Controls_Executor {
+.executor-modifier-active {
     width: 75%;
     height: 80%;
     float: left;

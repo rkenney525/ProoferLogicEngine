@@ -628,6 +628,6 @@ function bindFactEvents() {
         
         // Load the FactDetails
         $('#Controls_FactDetails');
-        // open Fact details
+        
     });
 }
