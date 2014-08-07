@@ -32,7 +32,7 @@
 
 #Controls_Executor_Rule {
     top: 66%;
-    left: 44%;
+    left: 31vw;
     position: fixed;
     line-height: 200%;
 }
@@ -41,6 +41,28 @@
     top: 30%;
     left: 46%;
     position: fixed;
+}
+
+#Controls_Modifier_SelectionArea {
+    top: 45%;
+    position: fixed;
+    height: 10%;
+    width: 73%;
+    margin-left: 1%;
+    background: rgba(128,128,128,0.3);
+    font-size: -webkit-xxx-large;
+    text-align: center;
+}
+
+#Controls_Modifier_Rule {
+    top: 66%;
+    left: 31vw;
+    position: fixed;
+    line-height: 200%;
+}
+
+#Controls_Modifier_Addit {
+    
 }
 
 #Controls_Facts {

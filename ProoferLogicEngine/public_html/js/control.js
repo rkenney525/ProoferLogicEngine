@@ -67,6 +67,10 @@ function toReplacementScreen(fact) {
     var rules = Levels.getCurrentLevel().rules;
     populateRules(getRulesByType(rules, RuleType.REPLACEMENT));
     
+    // Clear Executor fields
+    clearExecutorInputs();
+    clearExecutorResult();
+    
     // Display Fact information
     $('#Controls_Modifier_SelectionArea').empty();
     $('#Controls_Modifier_SelectionArea').html(fact.toPrettyString());
@@ -87,6 +91,9 @@ function toExecutorScreen() {
     // Hide Modifier
     $('#Controls_Modifier').hide();
     $('#Controls_Modifier').removeClass('executor-modifier-active');
+    
+    // Clear Modifier 
+    clearModifierFields();
     
     // Display the level's Rules of Inference
     var rules = Levels.getCurrentLevel().rules;
@@ -258,6 +265,18 @@ function generateFactRow(index, fact) {
             + index + '">' + (index + 1) + '</div>' + '</td>' +
             '<td class="fact-edit">' + fact + '</td>' +
             '</tr>';
+}
+
+/**
+ * Clear all fields for the modifier
+ * 
+ * @returns {undefined}
+ */
+function clearModifierFields() {
+    $("#Controls_Modifier_SelectionArea").empty();
+    $("#Controls_Modifier_Results").empty();
+    $("#Controls_Modifier_Rule").empty();
+    $("#Controls_Modifier_Rule").removeClass("rule-filled");
 }
 
 /**

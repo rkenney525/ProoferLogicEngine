@@ -486,7 +486,7 @@ function displayNewFactSelector(event) {
  */
 function bindRuleEvents() {
     // TODO try jquery ui tooltip for hints
-    $('#Controls_Executor_Rule').droppable({
+    $('#Controls_Executor_Rule, #Controls_Modifier_Rule').droppable({
 	tolerance: 'touch',
 	drop: function(event) {
 	    var target = $('#' + event.target.id);

@@ -310,7 +310,8 @@ var Levels = {
 			Rules.Conj,
 			Rules.Simp,
 			Rules.Abs,
-			Rules.Add
+			Rules.Add,
+                        Rules.DN
 		    ],
 		    [
 			getFactFromString("(p|(r>s))"),
