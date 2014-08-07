@@ -358,6 +358,18 @@ function updateAddTableEvents() {
 function updateFactDetailEvents() {
     // TODO implement selection class adding and result populating
     // need to come up with good logic for handling the order of input
+    $('.replacement-control').mouseover(function(event) {
+        event.stopPropagation();
+        // TODO switch to be parent
+        $(this).addClass("replacement-control-hover");
+        $(this).mouseout(function() {
+            $(this).removeClass("replacement-control-hover");
+        });
+    });
+    // TODO click event, need seperate class and event handlers for updating result
+    $('.replacement-control').click(function(event) {
+        // TODO logic here
+    });
 }
 
 function bindKeyPressEvents() {

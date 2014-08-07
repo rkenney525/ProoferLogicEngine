@@ -186,6 +186,15 @@ body {
     margin-right: auto;
 }
 
+.replacement-control-hover {
+    /* TODO switch to be nicer color */
+    background-color: red;
+}
+
+.replacement-control-selected {
+    background-color: blue !important;
+}
+
 .tutorial-table table { 
     border-collapse: collapse; 
     text-align: left; 

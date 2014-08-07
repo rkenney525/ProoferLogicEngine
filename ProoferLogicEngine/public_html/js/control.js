@@ -344,20 +344,20 @@ function generateFactHTML(fact, root, source, eventUpdate) {
      */
     var populate = function(root, fact) {
         if (fact.op === null) {
-            root.append('<span class="' + source + '-element">' + fact.arg0.toString() + '</span>');
+            root.append('<span class="' + source + '-element ' + source + '-control">' + fact.arg0.toString() + '</span>');
         } else if (fact.arg1 === null) {
-            root.append('<span class="' + source + '-negation"></span>');
+            root.append('<span class="' + source + '-negation ' + source + '-control"></span>');
             var negation = root.children().last();
-            negation.append('<span class="negation">˜</span>');
+            negation.append('<span class="negation ' + source + '-control">˜</span>');
             populate(negation, fact.arg0);
         } else {
-            root.append('<span class="group"></span>');
+            root.append('<span class="group ' + source + '-control"></span>');
             var group = root.children().last();
-            group.append('<span class="open-paren">(</span>');
+            group.append('<span class="open-paren ' + source + '-control">(</span>');
             populate(group, fact.arg0);
-            group.append('<span class="' + source + '-operator">' + fact.op.toString() + '</span>');
+            group.append('<span class="' + source + '-operator ' + source + '-control">' + fact.op.toString() + '</span>');
             populate(group, fact.arg1);
-            group.append('<span class="close-paren">)</span>');
+            group.append('<span class="close-paren ' + source + '-control">)</span>');
         }
     };
     root.empty();
