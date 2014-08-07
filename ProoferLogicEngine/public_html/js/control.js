@@ -51,9 +51,10 @@ function toGameScreen() {
 /**
  * Swap the screen to the rules of replacement view
  * 
+ * @param {Fact} fact The Fact to populate the screen with
  * @returns {undefined}
  */
-function toReplacementScreen() {
+function toReplacementScreen(fact) {
     // Hide Executor
     $('#Controls_Executor').hide();
     $('#Controls_Executor').removeClass('executor-modifier-active');
@@ -65,6 +66,11 @@ function toReplacementScreen() {
     // Display the level's Rules of Replacement
     var rules = Levels.getCurrentLevel().rules;
     populateRules(getRulesByType(rules, RuleType.REPLACEMENT));
+    
+    // Display Fact information
+    $('#Controls_Modifier_SelectionArea').empty();
+    $('#Controls_Modifier_SelectionArea').html(fact.toPrettyString());
+    // TODO put fact editor html here
 }
 
 /**
@@ -192,6 +198,12 @@ function populateLevelSelectionScreen() {
     updateSelectLevelEvents();
 }
 
+/**
+ * Disable Next button if on the last page and disable the prev button if on the 
+ * first page.
+ * 
+ * @returns {undefined}
+ */
 function checkPaginationButtons() {
     if (LevelSelectionPagination.onFirstPage()) {
         $('#PickLevel_PageControls_Prev').disable();

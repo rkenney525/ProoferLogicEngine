@@ -45,6 +45,7 @@ body {
     width: 100%;
     font-size: 16pt;
     vertical-align: baseline;
+    border-collapse: collapse;
 }
 
 #Controls_Rules_List {
@@ -131,6 +132,11 @@ body {
     background: 
 	radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4)) 
 	!important;
+}
+
+.fact-row-selected {
+    background-color: rgba(255, 255, 0, 0.8);
+    transition: all .5s linear;
 }
 
 .boxed {

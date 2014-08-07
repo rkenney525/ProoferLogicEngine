@@ -620,14 +620,29 @@ function bindFactEvents() {
     });
     
     $(".fact-edit").unbind('click');
-    $(".fact-edit").click(function(event) {
+    $(".fact-edit").click(function() {
         // Get the fact to supply
         var factId = $(this).parent().attr("factid");
         var facts = Levels.getCurrentLevel().facts;
         var fact = facts[factId];
         
-        // Load the FactDetails
-        $('#Controls_FactDetails');
-        
+	// Handle navigation 
+	var row = $(this).parent();
+	if (row.hasClass("fact-row-selected")) {
+	    // Remove the class
+	    row.removeClass("fact-row-selected");
+	    
+	    // Navigate back to Executor
+	    toExecutorScreen();
+	} else {
+	    // If another Row was selected, remove it
+	    $(".fact-row-selected").removeClass("fact-row-selected");
+	    
+	    // Add the class
+	    row.addClass("fact-row-selected");
+	    
+	    // Swap screens
+	    toReplacementScreen(fact);
+	}
     });
 }
