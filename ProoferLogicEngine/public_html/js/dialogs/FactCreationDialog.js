@@ -151,31 +151,5 @@ function closeFactCreationDialog() {
  * @param {Fact} fact The Fact to populate.
  */
 function populateFactCreationAreaFromFact(fact) {
-    /**
-     * Populate the Fact Creation area with fact
-     * @param {jQuery Object} root The element to append fact to.
-     * @param {Fact} fact The Fact to apply
-     */
-    var populate = function(root, fact) {
-        if (fact.op === null) {
-            root.append('<span class="creation-element">' + fact.arg0.toString() + '</span>');
-        } else if (fact.arg1 === null) {
-            root.append('<span class="creation-negation"></span>');
-            var negation = root.children().last();
-            negation.append('<span class="negation">˜</span>');
-            populate(negation, fact.arg0);
-        } else {
-            root.append('<span class="group"></span>');
-            var group = root.children().last();
-            group.append('<span class="open-paren">(</span>');
-            populate(group, fact.arg0);
-            group.append('<span class="creation-operator">' + fact.op.toString() + '</span>');
-            populate(group, fact.arg1);
-            group.append('<span class="close-paren">)</span>');
-        }
-    };
-    var root = $('#Dialogs_FactCreation_Creation');
-    root.empty();
-    populate(root, fact);
-    updateCreationElements();
+    generateFactHTML(fact, $('#Dialogs_FactCreation_Creation'), 'creation', updateCreationElements);
 }

@@ -74,7 +74,7 @@ function toReplacementScreen(fact) {
     // Display Fact information
     $('#Controls_Modifier_SelectionArea').empty();
     $('#Controls_Modifier_SelectionArea').html(fact.toPrettyString());
-    // TODO put fact editor html here
+    generateFactHTML(fact, $('#Controls_Modifier_SelectionArea'), 'replacement', updateFactDetailEvents);
 }
 
 /**
@@ -325,4 +325,42 @@ function navigateAway() {
     // Remove location specific classes
     $('body').removeClass('menu-focused');
     $('body').removeClass('machine-focused');
+}
+
+/**
+ * Generate HTML from the supplied Fact and place it in the supplied div.
+ * 
+ * @param {Fact} fact The Fact to genreate HTML from
+ * @param {JQuery} root The root element to generate the HTML to.
+ * @param {String} source The source of the call, either creation or replacement
+ * @param {Function} eventUpdate Function called to update any events.
+ * @returns {undefined}
+ */
+function generateFactHTML(fact, root, source, eventUpdate) {
+    /**
+     * Populate the Fact Creation area with fact
+     * @param {jQuery Object} root The element to append fact to.
+     * @param {Fact} fact The Fact to apply
+     */
+    var populate = function(root, fact) {
+        if (fact.op === null) {
+            root.append('<span class="' + source + '-element">' + fact.arg0.toString() + '</span>');
+        } else if (fact.arg1 === null) {
+            root.append('<span class="' + source + '-negation"></span>');
+            var negation = root.children().last();
+            negation.append('<span class="negation">˜</span>');
+            populate(negation, fact.arg0);
+        } else {
+            root.append('<span class="group"></span>');
+            var group = root.children().last();
+            group.append('<span class="open-paren">(</span>');
+            populate(group, fact.arg0);
+            group.append('<span class="' + source + '-operator">' + fact.op.toString() + '</span>');
+            populate(group, fact.arg1);
+            group.append('<span class="close-paren">)</span>');
+        }
+    };
+    root.empty();
+    populate(root, fact);
+    eventUpdate();
 }

@@ -355,6 +355,11 @@ function updateAddTableEvents() {
     $('.add-fact, .edit-fact').button();
 }
 
+function updateFactDetailEvents() {
+    // TODO implement selection class adding and result populating
+    // need to come up with good logic for handling the order of input
+}
+
 function bindKeyPressEvents() {
     // Base key event handler
     $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.' +
