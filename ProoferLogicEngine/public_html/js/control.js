@@ -74,7 +74,7 @@ function toReplacementScreen(fact) {
     // Display Fact information
     $('#Controls_Modifier_SelectionArea').empty();
     $('#Controls_Modifier_SelectionArea').html(fact.toPrettyString());
-    generateFactHTML(fact, $('#Controls_Modifier_SelectionArea'), 'replacement', updateFactDetailEvents);
+    generateFactHTML(fact, $('#Controls_Modifier_SelectionArea'), 'replacement', bindFactDetailEvents);
 }
 
 /**

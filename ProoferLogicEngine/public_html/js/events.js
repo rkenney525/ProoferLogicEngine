@@ -355,20 +355,75 @@ function updateAddTableEvents() {
     $('.add-fact, .edit-fact').button();
 }
 
-function updateFactDetailEvents() {
+/**
+ * Called whenever a (replacement) input field is modified. Applies the rule and 
+ * updates the results. If no rule, erase. Otherwise, show the results and bind 
+ * click events to them.
+ * 
+ * @returns {undefined}
+ */
+function updateReplacementResults() {
+    // TODO logic here
+}
+
+/**
+ * Bind the events to each element in the replacement rules results section
+ * 
+ * @returns {undefined}
+ */
+function bindFactDetailResultEvents() {
+    // TODO logic here
+}
+
+/**
+ * Bind the click and mouseover events to each element in the Fact detail section.
+ * 
+ * @returns {undefined}
+ */
+function bindFactDetailEvents() {
     // TODO implement selection class adding and result populating
     // need to come up with good logic for handling the order of input
+    
+    /**
+     * Take in the target of an event and return the jqQuery object that should
+     * be modified.
+     * 
+     * @param {jQuery} $el The element from the event
+     * @returns {jQuery} The elemnt to be manipulated
+     */
+    function getMasterElement($el) {
+	return ($el.hasClass("replacement-operator") ||
+		$el.hasClass("open-paren") ||
+		$el.hasClass("close-paren")) ?
+		$el.parent() : $el;
+    }
+    
     $('.replacement-control').mouseover(function(event) {
-        event.stopPropagation();
-        // TODO switch to be parent
-        $(this).addClass("replacement-control-hover");
-        $(this).mouseout(function() {
-            $(this).removeClass("replacement-control-hover");
-        });
+	// Only handle event at inner most level
+	event.stopPropagation();
+
+	// Get the parent if on an operator or paren
+	var toModify = getMasterElement($(this));
+
+	toModify.addClass("replacement-control-hover");
+	toModify.mouseout(function() {
+	    $(this).removeClass("replacement-control-hover");
+	});
     });
     // TODO click event, need seperate class and event handlers for updating result
     $('.replacement-control').click(function(event) {
-        // TODO logic here
+	// Remove any other selected section
+	$('.replacement-control-selected').removeClass('replacement-control-selected');
+	
+	// Only handle event at inner most level
+	event.stopPropagation();
+
+	// Get the parent if on an operator or paren
+	var toModify = getMasterElement($(this));
+	toModify.addClass("replacement-control-selected");
+	
+	// Update the results
+	updateReplacementResults();
     });
 }
 
@@ -635,29 +690,29 @@ function bindFactEvents() {
     $(".fact").mouseout(function() {
 	$(this).removeClass("lifted");
     });
-    
+
     $(".fact-edit").unbind('click');
     $(".fact-edit").click(function() {
-        // Get the fact to supply
-        var factId = $(this).parent().attr("factid");
-        var facts = Levels.getCurrentLevel().facts;
-        var fact = facts[factId];
-        
+	// Get the fact to supply
+	var factId = $(this).parent().attr("factid");
+	var facts = Levels.getCurrentLevel().facts;
+	var fact = facts[factId];
+
 	// Handle navigation 
 	var row = $(this).parent();
 	if (row.hasClass("fact-row-selected")) {
 	    // Remove the class
 	    row.removeClass("fact-row-selected");
-	    
+
 	    // Navigate back to Executor
 	    toExecutorScreen();
 	} else {
 	    // If another Row was selected, remove it
 	    $(".fact-row-selected").removeClass("fact-row-selected");
-	    
+
 	    // Add the class
 	    row.addClass("fact-row-selected");
-	    
+
 	    // Swap screens
 	    toReplacementScreen(fact);
 	}
