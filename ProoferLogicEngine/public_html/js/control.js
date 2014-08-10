@@ -63,6 +63,9 @@ function toReplacementScreen(fact) {
     $('#Controls_Modifier').show();
     $('#Controls_Modifier').addClass('executor-modifier-active');
     
+    // Clear any existing data
+    clearModifierFields();
+    
     // Display the level's Rules of Replacement
     var rules = Levels.getCurrentLevel().rules;
     populateRules(getRulesByType(rules, RuleType.REPLACEMENT));
@@ -274,9 +277,10 @@ function generateFactRow(index, fact) {
  */
 function clearModifierFields() {
     $("#Controls_Modifier_SelectionArea").empty();
-    $("#Controls_Modifier_Results").empty();
     $("#Controls_Modifier_Rule").empty();
     $("#Controls_Modifier_Rule").removeClass("rule-filled");
+    $('#Controls_Modifier_Results_Container').hide();
+    $('#Controls_Modifier_Results_Container').empty();
 }
 
 /**

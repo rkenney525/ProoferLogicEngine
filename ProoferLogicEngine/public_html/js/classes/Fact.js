@@ -226,11 +226,6 @@ function getFactFromString(data) {
  * @returns {Fact} The resulting Fact
  */
 function getFactFromHTMLString(displayString) {
-    // Possibly add parens
-    if (displayString.length > 1) {
-	displayString = '(' + displayString + ')';
-    }
-    
     // Replace the actual operators
     displayString = displayString.split('\u2192').join('>');
     displayString = displayString.split('\u2295').join('#');
@@ -238,6 +233,14 @@ function getFactFromHTMLString(displayString) {
     displayString = displayString.split('\u2227').join('&');
     displayString = displayString.split('\u2228').join('|');
     displayString = displayString.split('\u02DC').join('~');
+    
+    // Possibly add parens
+    if (displayString.length > 1 &&
+	    displayString[0] !== '(' &&
+	    displayString[0] !== '~' &&
+	    displayString[displayString.length - 1] !== ')') {
+	displayString = '(' + displayString + ')';
+    }
 
     // Handle the lazy way we display negations
     for (var i = 0; i < displayString.length; i++) {

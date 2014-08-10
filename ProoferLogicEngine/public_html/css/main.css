@@ -195,6 +195,12 @@ body {
     background-color: blue !important;
 }
 
+.replacement-result {
+    margin: 1%;
+    width: auto;
+    padding: 0.5%;
+}
+
 .tutorial-table table { 
     border-collapse: collapse; 
     text-align: left; 

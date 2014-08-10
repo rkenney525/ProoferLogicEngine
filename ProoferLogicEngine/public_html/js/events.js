@@ -383,9 +383,9 @@ function updateReplacementResults() {
     // Init
     var level = Levels.getCurrentLevel();
     var rule = getRuleFromContainer($("#Controls_Modifier_Rule"), level);
-    var fact = ($('.replacement-control-selected').length === 0) ? 
+    var factString = ($('.replacement-control-selected').length === 0) ? 
     $('#Controls_Modifier_SelectionArea').text() : $('.replacement-control-selected').text();
-    var results;
+    var fact, results;
     
     // If the Rule is null or the Fact is null, then there is nothing to do.
     if (rule === null || fact === null) {
@@ -394,17 +394,44 @@ function updateReplacementResults() {
     }
     
     // Now, get the Fact object from the String
-    fact = getFactFromHTMLString(fact);
+    fact = getFactFromHTMLString(factString);
     
     // Now compute the results
     results = rule.applyRule(fact);
     
+    // Empty the existing results
+    $("#Controls_Modifier_Results_Container").empty();
+    
     // Check the results
     if (results.length === 0) {
-	$("#Controls_Modifier_Results_Container").empty();
 	$("#Controls_Modifier_Results_Container").hide();
     } else {
-	// TODO generate HTML for each result and show
+	// Generate HTML for each result
+	var html, newFact;
+	for (var i = 0; i < results.length; i++) {
+	    // Create the new fact by getting the html for the original fact and 
+	    // replacing the selection with the 
+	    newFact = $('#Controls_Modifier_SelectionArea').clone();
+	    if (newFact.find(".replacement-control-selected").length === 0) {
+		// newFact is the result
+		newFact = results[i];
+	    } else {
+		// Replace the selected with the result and new Fact is the whole thing
+		generateFactHTML(results[i], newFact.find(".replacement-control-selected"), 'replacement', function() {});
+		newFact.find(".replacement-control-selected").children().unwrap();
+		newFact = getFactFromHTMLString(newFact.text());
+	    }
+	    
+	    html = '<div class="replacement-result boxed">' + newFact.toPrettyString() + '</div>';
+	    $("#Controls_Modifier_Results_Container").append(html);
+	}
+	
+	// Bind the events to the new HTML
+	bindFactDetailResultEvents();
+	
+	// Show the results
+	$("#Controls_Modifier_Results_Container").hide();
+	$("#Controls_Modifier_Results_Container").show("slide", 250);
     }
 }
 
@@ -433,7 +460,8 @@ function bindFactDetailEvents() {
     function getMasterElement($el) {
 	return ($el.hasClass("replacement-operator") ||
 		$el.hasClass("open-paren") ||
-		$el.hasClass("close-paren")) ?
+		$el.hasClass("close-paren") ||
+		$el.hasClass("negation")) ?
 		$el.parent() : $el;
     }
 
