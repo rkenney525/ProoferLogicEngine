@@ -3,20 +3,7 @@ $(document).ready(function() {
     //chrome.app.window.current().fullscreen();
 
     /* Add additional prototypes */
-    String.prototype.insert = function(index, val) {
-	if (index > 0)
-	    return this.substring(0, index) + val + this.substring(index, this.length);
-	else
-	    return val + this;
-    };
-    $.prototype.disable = function() {
-	this.attr("disabled", true)
-		.addClass("ui-state-disabled");
-    };
-    $.prototype.enable = function() {
-	this.attr("disabled", false)
-		.removeClass("ui-state-disabled");
-    };
+    addPrototypes();
 
     /* Create buttons  */
     $('#Dialogs_FactCreation_OpList_Clear').button();

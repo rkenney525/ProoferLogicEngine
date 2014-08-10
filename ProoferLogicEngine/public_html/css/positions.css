@@ -43,6 +43,15 @@
     position: fixed;
 }
 
+#Controls_Modifier_Results {
+    top: 30%;
+    position: fixed;
+    height: 10%;
+    width: 73%;
+    margin-left: 1%;
+    background: rgba(128,128,128,0.3);
+}
+
 #Controls_Modifier_SelectionArea {
     top: 45%;
     position: fixed;

@@ -103,13 +103,7 @@ $(document).ready(function() {
 	var level = Levels.getCurrentLevel();
 
 	// Get the rule
-	var rule = null;
-	for (var index = 0; index < level.rules.length; index++) {
-	    if (level.rules[index].displayName === $('#Controls_Executor_Rule').text()) {
-		rule = level.rules[index];
-		break;
-	    }
-	}
+	var rule = getRuleFromContainer($('#Controls_Executor_Rule'), level);
 	if (rule === null) {
 	    // TODO The Rule wasn't valid, find a good way to show it in the UI
 	    // NOTE this isnt possible through the games mechanics, but it should be
@@ -275,6 +269,29 @@ $(document).ready(function() {
 });
 
 /**
+ * Gets the Rule thats in either the executor or Modifier Rule slot
+ * 
+ * @param {jQuery} $container jQuery object for the Rule container
+ * @param {Level} level The current Level
+ * @returns {Rule} The Rule that was dropped in $container
+ */
+function getRuleFromContainer($container, level) {
+    // Init
+    var rule = null;
+    
+    // Loop through possible Rules
+    for (var index = 0; index < level.rules.length; index++) {
+	if (level.rules[index].displayName === $container.text()) {
+	    rule = level.rules[index];
+	    break;
+	}
+    }
+    
+    // Return the Rule
+    return rule;
+}
+
+/**
  * Update the events for when a Level icon is clicked
  */
 function updateSelectLevelEvents() {
@@ -363,7 +380,32 @@ function updateAddTableEvents() {
  * @returns {undefined}
  */
 function updateReplacementResults() {
-    // TODO logic here
+    // Init
+    var level = Levels.getCurrentLevel();
+    var rule = getRuleFromContainer($("#Controls_Modifier_Rule"), level);
+    var fact = ($('.replacement-control-selected').length === 0) ? 
+    $('#Controls_Modifier_SelectionArea').text() : $('.replacement-control-selected').text();
+    var results;
+    
+    // If the Rule is null or the Fact is null, then there is nothing to do.
+    if (rule === null || fact === null) {
+	$("#Controls_Modifier_Results_Container").empty();
+	return;
+    }
+    
+    // Now, get the Fact object from the String
+    fact = getFactFromHTMLString(fact);
+    
+    // Now compute the results
+    results = rule.applyRule(fact);
+    
+    // Check the results
+    if (results.length === 0) {
+	$("#Controls_Modifier_Results_Container").empty();
+	$("#Controls_Modifier_Results_Container").hide();
+    } else {
+	// TODO generate HTML for each result and show
+    }
 }
 
 /**
@@ -381,9 +423,6 @@ function bindFactDetailResultEvents() {
  * @returns {undefined}
  */
 function bindFactDetailEvents() {
-    // TODO implement selection class adding and result populating
-    // need to come up with good logic for handling the order of input
-    
     /**
      * Take in the target of an event and return the jqQuery object that should
      * be modified.
@@ -397,7 +436,10 @@ function bindFactDetailEvents() {
 		$el.hasClass("close-paren")) ?
 		$el.parent() : $el;
     }
-    
+
+    /**
+     * Handle the highlighting of the different parts of the Fact
+     */
     $('.replacement-control').mouseover(function(event) {
 	// Only handle event at inner most level
 	event.stopPropagation();
@@ -410,18 +452,21 @@ function bindFactDetailEvents() {
 	    $(this).removeClass("replacement-control-hover");
 	});
     });
-    // TODO click event, need seperate class and event handlers for updating result
+
+    /**
+     * Handle the selecting of particular parts of the fact
+     */
     $('.replacement-control').click(function(event) {
 	// Remove any other selected section
 	$('.replacement-control-selected').removeClass('replacement-control-selected');
-	
+
 	// Only handle event at inner most level
 	event.stopPropagation();
 
 	// Get the parent if on an operator or paren
 	var toModify = getMasterElement($(this));
 	toModify.addClass("replacement-control-selected");
-	
+
 	// Update the results
 	updateReplacementResults();
     });
@@ -561,7 +606,7 @@ function bindRuleEvents() {
     $('#Controls_Executor_Rule, #Controls_Modifier_Rule').droppable({
 	tolerance: 'touch',
 	drop: function(event) {
-	    var target = $('#' + event.target.id);
+	    var target = $(this);
 	    // Remove the class that gives the glow
 	    target.removeClass("hover-glowing");
 	    var droppedItem = event.toElement;
@@ -570,20 +615,27 @@ function bindRuleEvents() {
 	    if (droppedItem.getAttribute('ruleId') !== null) {
 		target.text(droppedItem.getAttribute('ruleId'));
 		target.addClass("rule-filled");
-		if (isUnaryRule(Rules[droppedItem.getAttribute('ruleId')])) {
-		    $('#Controls_Executor_Arg1').droppable("disable");
-		    $('#Controls_Executor_Arg1').html('<img src="img/no.png" />');
-		} else if (Rules[droppedItem.getAttribute('ruleId')] === Rules.Add) {
-		    $('#Controls_Executor_Arg1').html('<img src="img/ellipse.png" />');
-		    $('#Controls_Executor_Arg1').droppable("disable");
-		    $('#Controls_Executor_Arg1').click(displayNewFactSelector);
-		} else {
-		    $('#Controls_Executor_Arg1').droppable("enable");
-		    $('#Controls_Executor_Arg1').unbind("click");
-		    if ($('#Controls_Executor_Arg1').children().length > 0) {
-			$('#Controls_Executor_Arg1').html("");
-			$('#Controls_Executor_Arg1').removeClass('fact-filled');
+
+		// Distinction between replacement and inference
+		if (target.attr("id") === "Controls_Executor_Rule") {
+		    if (isUnaryRule(Rules[droppedItem.getAttribute('ruleId')])) {
+			$('#Controls_Executor_Arg1').droppable("disable");
+			$('#Controls_Executor_Arg1').html('<img src="img/no.png" />');
+		    } else if (Rules[droppedItem.getAttribute('ruleId')] === Rules.Add) {
+			$('#Controls_Executor_Arg1').html('<img src="img/ellipse.png" />');
+			$('#Controls_Executor_Arg1').droppable("disable");
+			$('#Controls_Executor_Arg1').click(displayNewFactSelector);
+		    } else {
+			$('#Controls_Executor_Arg1').droppable("enable");
+			$('#Controls_Executor_Arg1').unbind("click");
+			if ($('#Controls_Executor_Arg1').children().length > 0) {
+			    $('#Controls_Executor_Arg1').html("");
+			    $('#Controls_Executor_Arg1').removeClass('fact-filled');
+			}
 		    }
+		} else {
+		    // target is Controls_Modifier_Rule
+		    updateReplacementResults();
 		}
 	    }
 	},

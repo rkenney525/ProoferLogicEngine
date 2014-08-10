@@ -105,10 +105,10 @@ QUnit.test("Fact.toString", function(assert) {
     testToStringFamily("(p|q)", "(p&or;q)", "toString", assert);
 
     // Complex
-    testToStringFamily("((~(s)|b)#~((a&(c>b))))", 
-    "((&tilde;s&or;b)&oplus;&tilde;(a&and;(c&rarr;b)))", 
-    "toString", 
-    assert);
+    testToStringFamily("((~(s)|b)#~((a&(c>b))))",
+	    "((&tilde;s&or;b)&oplus;&tilde;(a&and;(c&rarr;b)))",
+	    "toString",
+	    assert);
 });
 
 /*
@@ -146,20 +146,20 @@ QUnit.test("Fact.toPrettyString", function(assert) {
 QUnit.test("Fact.getCopy", function(assert) {
     // Init
     var ref1, ref2;
-    
+
     // Verify that identical references return true but copies return false
     ref1 = getFactFromString("(a|b)");
     ref2 = ref1;
     assert.strictEqual(ref1, ref2, "References to the same object are equal");
     ref2 = ref1.getCopy();
     assert.notStrictEqual(ref1, ref2, "But a call to getCopy doesn't return a reference to the same object");
-    
+
     // Manipulation test without copy
     ref1 = getFactFromString("(p&q)");
     ref2 = ref1;
     ref1.op = Operators.COND;
     assert.strictEqual(ref1.op, ref2.op, "With a reference copy, manipulating the original manipulates the copy");
-    
+
     // Manipulation test with copy
     ref1 = getFactFromString("(p&q)");
     ref2 = ref1.getCopy();
@@ -173,13 +173,13 @@ QUnit.test("Fact.getCopy", function(assert) {
 QUnit.test("Fact.getInverse", function(assert) {
     // Init
     var fact, manipulated, expecting;
-    
+
     // The p scenario
     fact = getFactFromString("(a|~(c))");
     expecting = getFactFromString("~((a|~(c)))");
     manipulated = fact.getInverse();
     assert.deepEqual(manipulated, expecting, "The inverse of p is ~p");
-    
+
     // The ~p scenario
     fact = getFactFromString("~((a&(c|d)))");
     expecting = getFactFromString("(a&(c|d))");
@@ -193,13 +193,13 @@ QUnit.test("Fact.getInverse", function(assert) {
 QUnit.test("Fact.getNegation", function(assert) {
     // Init
     var fact, manipulated, expecting;
-    
+
     // The p scenario
     fact = getFactFromString("(a|b)");
     expecting = getFactFromString("~((a|b))");
     manipulated = fact.getNegation();
     assert.deepEqual(manipulated, expecting, "The negation of p is ~p");
-    
+
     // The ~p scenario
     fact = getFactFromString("~((a&(c|d)))");
     expecting = getFactFromString("~(~((a&(c|d))))");
@@ -207,10 +207,13 @@ QUnit.test("Fact.getNegation", function(assert) {
     assert.deepEqual(manipulated, expecting, "The negation of ~p is ~~p");
 });
 
+/*
+ * Test the createFactFromComponents factory function
+ */
 QUnit.test("createFactFromComponents", function(assert) {
     // Init
     var fact, arg0, arg1, op;
-    
+
     // Do the test
     arg0 = getFactFromString("(a|b)");
     arg1 = getFactFromString("(a|c)");
@@ -221,4 +224,31 @@ QUnit.test("createFactFromComponents", function(assert) {
     assert.deepEqual(fact.arg1, arg1, "The contents of the second component should be what we provided");
     assert.notStrictEqual(fact.arg1, arg1, "However the second component shouldn't be a reference to what was provided");
     assert.strictEqual(fact.op, op, "The operator should be the same as the one provided");
+});
+
+/**
+ * Test the getFactFromPrettyString utility function
+ */
+QUnit.test("getFactFromHTMLString", function(assert) {
+    /**
+     * Test getFactFromPrettyString by comparing it to the original.
+     * 
+     * @param {String} factString The String to test with 
+     */
+    function test(factString) {
+	// Create the fact
+	var expectedFact = getFactFromString(factString);
+	
+	// Get the Html Fact
+	$('#util').html(expectedFact.toPrettyString());
+	var actualFact = getFactFromHTMLString($('#util').text());
+	assert.deepEqual(expectedFact, actualFact,
+		actualFact.toParsableString() + " should be " + expectedFact.toParsableString());
+    }
+    
+    // The tests
+    test("a");
+    test("(p>q)");
+    test("(p&~(q))");
+    test("((~(s)>~(q))|~((p%~(r))))");
 });

@@ -5,6 +5,26 @@ function closeWindow() {
     window.close();
 }
 
+/**
+ * Add any custom prototypes to third party objects
+ */
+function addPrototypes() {
+    String.prototype.insert = function(index, val) {
+	if (index > 0)
+	    return this.substring(0, index) + val + this.substring(index, this.length);
+	else
+	    return val + this;
+    };
+    $.prototype.disable = function() {
+	this.attr("disabled", true)
+		.addClass("ui-state-disabled");
+    };
+    $.prototype.enable = function() {
+	this.attr("disabled", false)
+		.removeClass("ui-state-disabled");
+    };
+}
+
 /*** Pagination ***/
 
 /**
@@ -19,7 +39,7 @@ function closeWindow() {
 function Pagination(items, perPage) {
     this.items = items;
     for (var i = 0; i < this.items.length; i++) {
-        this.items[i].paginationId = i + 1;
+	this.items[i].paginationId = i + 1;
     }
     this.perPage = perPage;
     this.page = 1;
@@ -39,8 +59,8 @@ Pagination.prototype.getPage = function() {
     // Build the return array
     var counter = 0;
     for (var i = start; i < this.items.length && counter < this.perPage; i++) {
-        ret.push(this.items[i]);
-        counter++;
+	ret.push(this.items[i]);
+	counter++;
     }
 
     // Return
@@ -72,10 +92,10 @@ Pagination.prototype.onLastPage = function() {
  */
 Pagination.prototype.nextPage = function() {
     if (!this.onLastPage()) {
-        this.page++;
-        return true;
+	this.page++;
+	return true;
     } else {
-        return false;
+	return false;
     }
 };
 
@@ -86,10 +106,10 @@ Pagination.prototype.nextPage = function() {
  */
 Pagination.prototype.prevPage = function() {
     if (!this.onFirstPage()) {
-        this.page--;
-        return true;
+	this.page--;
+	return true;
     } else {
-        return false;
+	return false;
     }
 };
 
@@ -129,7 +149,7 @@ function saveDataSync(key, value, callback) {
  */
 function getData(key, context) {
     chrome.storage.local.get(key, function(items) {
-        context(items[key]);
+	context(items[key]);
     });
 }
 
@@ -151,14 +171,14 @@ function getSaveLevelObj(level) {
     // Rules
     obj.rules = [];
     for (var i = 0; i < level.rules.length; i++) {
-        obj.rules.push(level.rules[i].displayName);
+	obj.rules.push(level.rules[i].displayName);
     }
     // ID
     obj.id = level.id;
     // Facts
     obj.facts = [];
     for (var i = 0; i < level.facts.length; i++) {
-        obj.facts.push(level.facts[i].toParsableString());
+	obj.facts.push(level.facts[i].toParsableString());
     }
     // Conclusion
     obj.conclusion = level.conclusion.toParsableString();
@@ -179,20 +199,20 @@ function loadLevelObj(levelObj) {
     // Rules
     var rules = [];
     for (var i = 0; i < levelObj.rules.length; i++) {
-        for (var rule in Rules) {
-            if (rule !== undefined &&
-                    levelObj.rules[i] === rule) {
-                rules.push(Rules[rule]);
-                break;
-            }
-        }
+	for (var rule in Rules) {
+	    if (rule !== undefined &&
+		    levelObj.rules[i] === rule) {
+		rules.push(Rules[rule]);
+		break;
+	    }
+	}
     }
     // ID
     var id = levelObj.id;
     // Facts
     var facts = [];
     for (var i = 0; i < levelObj.facts.length; i++) {
-        facts.push(getFactFromString(levelObj.facts[i]));
+	facts.push(getFactFromString(levelObj.facts[i]));
     }
     // Conclusion
     var conclusion = getFactFromString(levelObj.conclusion);

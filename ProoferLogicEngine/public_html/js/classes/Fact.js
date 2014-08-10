@@ -32,12 +32,12 @@ Fact.prototype.equals = function(otherFact) {
  */
 Fact.prototype.toString = function() {
     if (this.op === null) {
-        return this.arg0.toString();
+	return this.arg0.toString();
     } else if (this.arg1 === null) {
-        return this.op.toString() + "" + this.arg0.toString() + "";
+	return this.op.toString() + "" + this.arg0.toString() + "";
     } else {
-        return "(" + this.arg0.toString() + this.op.toString() +
-                this.arg1.toString() + ")";
+	return "(" + this.arg0.toString() + this.op.toString() +
+		this.arg1.toString() + ")";
     }
 };
 
@@ -54,10 +54,10 @@ Fact.prototype.toPrettyString = function() {
 
     // Check for outer parens
     if (str[0] === '(' &&
-            str[len - 1] === ')') {
-        return str.substring(1, len - 1);
+	    str[len - 1] === ')') {
+	return str.substring(1, len - 1);
     } else {
-        return str;
+	return str;
     }
 };
 
@@ -68,12 +68,12 @@ Fact.prototype.toPrettyString = function() {
  */
 Fact.prototype.toParsableString = function() {
     if (this.op === null) {
-        return this.arg0.toString();
+	return this.arg0.toString();
     } else if (this.arg1 === null) {
-        return this.op.id + "(" + this.arg0.toParsableString() + ")";
+	return this.op.id + "(" + this.arg0.toParsableString() + ")";
     } else {
-        return "(" + this.arg0.toParsableString() + this.op.id +
-                this.arg1.toParsableString() + ")";
+	return "(" + this.arg0.toParsableString() + this.op.id +
+		this.arg1.toParsableString() + ")";
     }
 };
 
@@ -94,9 +94,9 @@ Fact.prototype.getCopy = function() {
  */
 Fact.prototype.getInverse = function() {
     if (this.op === Operators.NEG) {
-        return this.arg0.getCopy();
+	return this.arg0.getCopy();
     } else {
-        return this.getNegation();
+	return this.getNegation();
     }
 };
 
@@ -155,65 +155,112 @@ function getFactFromString(data) {
 
     // Case 1: [a-z]
     if (current.match(/[a-z]/i) !== null) {
-        return new Fact(current, null, null);
+	return new Fact(current, null, null);
     }
     // Case 2: (FACT OP FACT)
     else if (current === "(") {
-        // Skip the paren
-        index++;
+	// Skip the paren
+	index++;
 
-        // Find the midpoint
-        // The midpoint is the operator that splits arg0 from arg1
-        // Since arg0 and arg1 are Facts, they may have Operators of their own, 
-        // so we can't simply get the next Operator.
-        var midpoint = index;
-        var parenCount = 0;
-        for (var search = index; search <= endex; search++) {
-            // Reset current
-            current = data[search];
+	// Find the midpoint
+	// The midpoint is the operator that splits arg0 from arg1
+	// Since arg0 and arg1 are Facts, they may have Operators of their own, 
+	// so we can't simply get the next Operator.
+	var midpoint = index;
+	var parenCount = 0;
+	for (var search = index; search <= endex; search++) {
+	    // Reset current
+	    current = data[search];
 
-            // Check if current is a paren
-            var tryOp = getOperatorFromString(current);
-            if (current === "(") {
-                parenCount++;
-            } else if (current === ")") {
-                parenCount--;
-            } else if (parenCount === 0 &&
-                    tryOp !== null &&
-                    !tryOp.equals(Operators.NEG)) {
-                midpoint = search;
-                break;
-            }
-        }
+	    // Check if current is a paren
+	    var tryOp = getOperatorFromString(current);
+	    if (current === "(") {
+		parenCount++;
+	    } else if (current === ")") {
+		parenCount--;
+	    } else if (parenCount === 0 &&
+		    tryOp !== null &&
+		    !tryOp.equals(Operators.NEG)) {
+		midpoint = search;
+		break;
+	    }
+	}
 
-        // Get arg0
-        var arg0;
-        subFactString = data.substring(index, midpoint);
-        arg0 = getFactFromString(subFactString);
+	// Get arg0
+	var arg0;
+	subFactString = data.substring(index, midpoint);
+	arg0 = getFactFromString(subFactString);
 
-        // Get the Operator
-        var op = getOperatorFromString(data[midpoint]);
+	// Get the Operator
+	var op = getOperatorFromString(data[midpoint]);
 
-        // Get arg1
-        var arg1;
-        subFactString = data.substring(midpoint + 1, endex);
-        arg1 = getFactFromString(subFactString);
+	// Get arg1
+	var arg1;
+	subFactString = data.substring(midpoint + 1, endex);
+	arg1 = getFactFromString(subFactString);
 
-        // Create the Fact
-        return new Fact(arg0, arg1, op);
+	// Create the Fact
+	return new Fact(arg0, arg1, op);
     }
     // Case 3: ~(FACT)
     else if (getOperatorFromString(current).equals(Operators.NEG) &&
-            data[index + 1] === "(") {
-        // Move up a char
-        index++;
+	    data[index + 1] === "(") {
+	// Move up a char
+	index++;
 
-        // Get the inner Fact
-        subFactString = data.substring(index + 1, data.lastIndexOf(")"));
+	// Get the inner Fact
+	subFactString = data.substring(index + 1, data.lastIndexOf(")"));
 
-        // Negate the inner fact
-        return new Fact(getFactFromString(subFactString), null, Operators.NEG);
+	// Negate the inner fact
+	return new Fact(getFactFromString(subFactString), null, Operators.NEG);
 
     }
 
+}
+
+/**
+ * Create a Fact from a Fact's HTML String. Useful for Fact creation or rules 
+ * of replacement.
+ * 
+ * @param {String} displayString The HTML String to create a Fact from
+ * @returns {Fact} The resulting Fact
+ */
+function getFactFromHTMLString(displayString) {
+    // Possibly add parens
+    if (displayString.length > 1) {
+	displayString = '(' + displayString + ')';
+    }
+    
+    // Replace the actual operators
+    displayString = displayString.split('\u2192').join('>');
+    displayString = displayString.split('\u2295').join('#');
+    displayString = displayString.split('\u2194').join('%');
+    displayString = displayString.split('\u2227').join('&');
+    displayString = displayString.split('\u2228').join('|');
+    displayString = displayString.split('\u02DC').join('~');
+
+    // Handle the lazy way we display negations
+    for (var i = 0; i < displayString.length; i++) {
+	if (displayString[i] === '~') {
+	    var parenCount = 0;
+	    for (var j = i + 1; j < displayString.length; j++) {
+		if (displayString[j] === '(') {
+		    parenCount++;
+		} else if (displayString[j] === ')') {
+		    parenCount--;
+		} else if (displayString[j] === '~') {
+		    continue;
+		}
+
+		if (parenCount === 0) {
+		    displayString = displayString.insert(j + 1, ')');
+		    break;
+		}
+	    }
+	    displayString = displayString.insert(i + 1, '(');
+	}
+    }
+    
+    // Return
+    return getFactFromString(displayString);
 }
