@@ -44,7 +44,7 @@ $(document).ready(function() {
                 }
 
                 // Get the fact
-                var fact = getFactFromHTMLString(factStr);
+                var fact = getFactFromHTMLString(factStr, true);
 
                 // Exit and return
                 if (fact !== null) {

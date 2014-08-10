@@ -98,6 +98,9 @@ function toExecutorScreen() {
     // Clear Modifier 
     clearModifierFields();
     
+    // Clear the selected Fact
+    $(".fact-row-selected").removeClass("fact-row-selected");
+    
     // Display the level's Rules of Inference
     var rules = Levels.getCurrentLevel().rules;
     populateRules(getRulesByType(rules, RuleType.INFERENCE));
@@ -279,8 +282,9 @@ function clearModifierFields() {
     $("#Controls_Modifier_SelectionArea").empty();
     $("#Controls_Modifier_Rule").empty();
     $("#Controls_Modifier_Rule").removeClass("rule-filled");
-    $('#Controls_Modifier_Results_Container').hide();
-    $('#Controls_Modifier_Results_Container').empty();
+    $("#Controls_Modifier_Results_Container").hide();
+    $("#Controls_Modifier_Results_Container").empty();
+    $("#Controls_Modifier_AddIt").disable();
 }
 
 /**

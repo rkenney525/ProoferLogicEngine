@@ -63,6 +63,12 @@
     text-align: center;
 }
 
+#Controls_Modifier_AddIt {
+    top: 20%;
+    left: 35%;
+    position: fixed;
+}
+
 #Controls_Modifier_Rule {
     top: 66%;
     left: 31vw;

@@ -241,7 +241,7 @@ QUnit.test("getFactFromHTMLString", function(assert) {
 	
 	// Get the Html Fact
 	generateFactHTML(expectedFact, $('#util'), 'test', function() {});
-	var actualFact = getFactFromHTMLString($('#util').text());
+	var actualFact = getFactFromHTMLString($('#util').text(), false);
 	assert.deepEqual(expectedFact, actualFact,
 		actualFact.toParsableString() + " should be " + expectedFact.toParsableString());
     }
@@ -252,5 +252,6 @@ QUnit.test("getFactFromHTMLString", function(assert) {
     test("(p>q)");
     test("(p&~(q))");
     test("~((p&~(q)))");
+    test("(p|(q>r))");
     test("((~(s)>~(q))|~((p%~(r))))");
 });

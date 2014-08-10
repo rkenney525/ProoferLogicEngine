@@ -249,6 +249,40 @@ $(document).ready(function() {
 	}
     });
 
+    $('#Controls_Modifier_AddIt').click(function() {
+	// Init
+	var facts = Levels.getCurrentLevel().facts;
+	var fact = getFactFromHTMLString($(".glowing").text(), true);
+
+	// Add the Fact
+	// Check if the proposed Fact exists
+	var factExists = false;
+	for (var index = 0; index < facts.length; index++) {
+	    if (fact.equals(facts[index])) {
+		factExists = true;
+		break;
+	    }
+	}
+
+	// If the fact doesnt exist, add it to the list and table
+	if (!factExists) {
+	    // The new index will always be the current length of the array
+	    var index = facts.length;
+
+	    // Add the fact
+	    facts.push(fact);
+
+	    // Update the table
+	    $('#Controls_Facts_Table').append(generateFactRow(index, fact.toPrettyString()));
+
+	    // Make it draggable
+	    bindFactEvents();
+	}
+
+	// Go back to the executor
+	toExecutorScreen();
+    });
+
     /**
      * Bind the events to make Operators in the AddTable draggable
      */
@@ -278,7 +312,7 @@ $(document).ready(function() {
 function getRuleFromContainer($container, level) {
     // Init
     var rule = null;
-    
+
     // Loop through possible Rules
     for (var index = 0; index < level.rules.length; index++) {
 	if (level.rules[index].displayName === $container.text()) {
@@ -286,7 +320,7 @@ function getRuleFromContainer($container, level) {
 	    break;
 	}
     }
-    
+
     // Return the Rule
     return rule;
 }
@@ -383,25 +417,28 @@ function updateReplacementResults() {
     // Init
     var level = Levels.getCurrentLevel();
     var rule = getRuleFromContainer($("#Controls_Modifier_Rule"), level);
-    var factString = ($('.replacement-control-selected').length === 0) ? 
-    $('#Controls_Modifier_SelectionArea').text() : $('.replacement-control-selected').text();
+    var factString = ($('.replacement-control-selected').length === 0) ?
+	    $('#Controls_Modifier_SelectionArea').text() : $('.replacement-control-selected').text();
     var fact, results;
-    
+
     // If the Rule is null or the Fact is null, then there is nothing to do.
     if (rule === null || fact === null) {
 	$("#Controls_Modifier_Results_Container").empty();
 	return;
     }
-    
+
+    // Since something changed, disable the AddIt button
+    $("#Controls_Modifier_AddIt").disable();
+
     // Now, get the Fact object from the String
-    fact = getFactFromHTMLString(factString);
-    
+    fact = getFactFromHTMLString(factString, false);
+
     // Now compute the results
     results = rule.applyRule(fact);
-    
+
     // Empty the existing results
     $("#Controls_Modifier_Results_Container").empty();
-    
+
     // Check the results
     if (results.length === 0) {
 	$("#Controls_Modifier_Results_Container").hide();
@@ -417,18 +454,19 @@ function updateReplacementResults() {
 		newFact = results[i];
 	    } else {
 		// Replace the selected with the result and new Fact is the whole thing
-		generateFactHTML(results[i], newFact.find(".replacement-control-selected"), 'replacement', function() {});
+		generateFactHTML(results[i], newFact.find(".replacement-control-selected"), 'replacement', function() {
+		});
 		newFact.find(".replacement-control-selected").children().unwrap();
-		newFact = getFactFromHTMLString(newFact.text());
+		newFact = getFactFromHTMLString(newFact.text(), true);
 	    }
-	    
+
 	    html = '<div class="replacement-result boxed">' + newFact.toPrettyString() + '</div>';
 	    $("#Controls_Modifier_Results_Container").append(html);
 	}
-	
+
 	// Bind the events to the new HTML
 	bindFactDetailResultEvents();
-	
+
 	// Show the results
 	$("#Controls_Modifier_Results_Container").hide();
 	$("#Controls_Modifier_Results_Container").show("slide", 250);
@@ -441,7 +479,14 @@ function updateReplacementResults() {
  * @returns {undefined}
  */
 function bindFactDetailResultEvents() {
-    // TODO logic here
+    $(".replacement-result").click(function(event) {
+	// Use the glowing class
+	$(".glowing").removeClass("glowing");
+	$(this).addClass("glowing");
+
+	// Enable the button
+	$("#Controls_Modifier_AddIt").enable();
+    });
 }
 
 /**

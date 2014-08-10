@@ -223,9 +223,12 @@ function getFactFromString(data) {
  * of replacement.
  * 
  * @param {String} displayString The HTML String to create a Fact from
+ * @param {Boolean} prettyPrinted true if the string is a prettyPrinted String, 
+ * false otherwise. Hint: If it was generated, you should pass in false. If it was 
+ * ripped straight from a pretty print, pass in true.
  * @returns {Fact} The resulting Fact
  */
-function getFactFromHTMLString(displayString) {
+function getFactFromHTMLString(displayString, prettyPrinted) {
     // Replace the actual operators
     displayString = displayString.split('\u2192').join('>');
     displayString = displayString.split('\u2295').join('#');
@@ -236,9 +239,8 @@ function getFactFromHTMLString(displayString) {
     
     // Possibly add parens
     if (displayString.length > 1 &&
-	    displayString[0] !== '(' &&
 	    displayString[0] !== '~' &&
-	    displayString[displayString.length - 1] !== ')') {
+	    prettyPrinted) {
 	displayString = '(' + displayString + ')';
     }
 
