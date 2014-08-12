@@ -451,7 +451,12 @@ function updateReplacementResults() {
     fact = getFactFromHTMLString(factString, false);
 
     // Now compute the results
-    results = rule.applyRule(fact);
+    results = [];
+    if (isAmbiguousRule(rule)) {
+        results = rule.applyRule(fact);
+    } else {
+        results.push(rule.applyRule(fact));
+    }
 
     // Empty the existing results
     $("#Controls_Modifier_Results_Container").empty();
