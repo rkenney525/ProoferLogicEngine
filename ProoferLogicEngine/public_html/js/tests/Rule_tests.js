@@ -177,17 +177,43 @@ QUnit.test("Rules - Add", function(assert) {
     testRule(Rules.Add, "(h|(e&(l#(l%o))))", "(t|(h>(e%(r&e))))", "((h|(e&(l#(l%o))))|(t|(h>(e%(r&e)))))", assert);
 });
 
+/*
+ * Tests for DeMorgans Law
+ */
 //QUnit.test("Rules - DeM", function(assert) {
-//    testRule(Rules.DeM, "", null, "", assert);
+//    testRule(Rules.DeM, "~((p|q))", null, "(~(p)&~(q))", assert);
+//    testRule(Rules.DeM, "~((p&q))", null, "(~(p)|~(q))", assert);
+//    testRule(Rules.DeM, "(~(p)&~(q))", null, "~((p|q))", assert);
+//    testRule(Rules.DeM, "(~(p)|~(q))", null, "~((p&q))", assert);
+//    testRule(Rules.DeM, "(~(p)>~(q))", null, null, assert);
+//    testRule(Rules.DeM, "~((p#q))", null, null, assert);
 //});
 
-//QUnit.test("Rules - Com", function(assert) {
-//    testRule(Rules.Com, "", null, "", assert);
-//});
+/*
+ * Tests for Commutation
+ */
+QUnit.test("Rules - Com", function(assert) {
+    testRule(Rules.Com, "(p|q)", null, "(q|p)", assert);
+    testRule(Rules.Com, "(p&q)", null, "(q&p)", assert);
+    testRule(Rules.Com, "(p#q)", null, null, assert);
+    testRule(Rules.Com, "(p&~((q|s)))", null, "(~((q|s))&p)", assert);
+    testRule(Rules.Com, "((p>(q>r))&~((q|s)))", null, "(~((q|s))&(p>(q>r)))", assert);
+});
 
-//QUnit.test("Rules - Assoc", function(assert) {
-//    testRule(Rules.Assoc, "", null, "", assert);
-//});
+/*
+ * Tests for Association
+ */
+QUnit.test("Rules - Assoc", function(assert) {
+    testMultiReturnRule(Rules.Assoc, "(p|(q|r))", null, ["((p|q)|r)"], assert);
+    testMultiReturnRule(Rules.Assoc, "((p|q)|r)", null, ["(p|(q|r))"], assert);
+    testMultiReturnRule(Rules.Assoc, "((p|q)|(r|s))", null, ["(((p|q)|r)|s)", "(p|(q|(r|s)))"], assert);
+    testMultiReturnRule(Rules.Assoc, "(p&(q&r))", null, ["((p&q)&r)"], assert);
+    testMultiReturnRule(Rules.Assoc, "((p&q)&r)", null, ["(p&(q&r))"], assert);
+    testMultiReturnRule(Rules.Assoc, "((p&q)&(r&s))", null, ["(((p&q)&r)&s)", "(p&(q&(r&s)))"], assert);
+    testMultiReturnRule(Rules.Assoc, "(p>(q|r))", null, [], assert);
+    testMultiReturnRule(Rules.Assoc, "((p#q)&r)", null, [], assert);
+    testMultiReturnRule(Rules.Assoc, "((p|q)%(r|s))", null, [], assert);
+});
 
 //QUnit.test("Rules - Dist", function(assert) {
 //    testRule(Rules.Dist, "", null, "", assert);
