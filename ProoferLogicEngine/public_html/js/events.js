@@ -479,7 +479,7 @@ function updateReplacementResults() {
                 generateFactHTML(results[i], newFact.find(".replacement-control-selected"), 'replacement', function() {
                 });
                 newFact.find(".replacement-control-selected").children().unwrap();
-                newFact = getFactFromHTMLString(newFact.text(), true);
+                newFact = getFactFromHTMLString(newFact.text(), false);
             }
 
             html = '<div class="replacement-result boxed">' + newFact.toPrettyString() + '</div>';
