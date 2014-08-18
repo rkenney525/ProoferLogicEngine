@@ -180,14 +180,16 @@ QUnit.test("Rules - Add", function(assert) {
 /*
  * Tests for DeMorgans Law
  */
-//QUnit.test("Rules - DeM", function(assert) {
-//    testRule(Rules.DeM, "~((p|q))", null, "(~(p)&~(q))", assert);
-//    testRule(Rules.DeM, "~((p&q))", null, "(~(p)|~(q))", assert);
-//    testRule(Rules.DeM, "(~(p)&~(q))", null, "~((p|q))", assert);
-//    testRule(Rules.DeM, "(~(p)|~(q))", null, "~((p&q))", assert);
-//    testRule(Rules.DeM, "(~(p)>~(q))", null, null, assert);
-//    testRule(Rules.DeM, "~((p#q))", null, null, assert);
-//});
+QUnit.test("Rules - DeM", function(assert) {
+    testRule(Rules.DeM, "~((p|q))", null, "(~(p)&~(q))", assert);
+    testRule(Rules.DeM, "~((p&q))", null, "(~(p)|~(q))", assert);
+    testRule(Rules.DeM, "(~(p)&~(q))", null, "~((p|q))", assert);
+    testRule(Rules.DeM, "(~(p)|~(q))", null, "~((p&q))", assert);
+    testRule(Rules.DeM, "(~(~(p))&~(~(q)))", null, "~((~(p)|~(q)))", assert);
+    testRule(Rules.DeM, "~((~(p)|~(q)))", null, "(~(~(p))&~(~(q)))", assert);
+    testRule(Rules.DeM, "(~(p)>~(q))", null, null, assert);
+    testRule(Rules.DeM, "~((p#q))", null, null, assert);
+});
 
 /*
  * Tests for Commutation

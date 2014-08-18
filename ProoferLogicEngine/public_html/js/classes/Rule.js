@@ -248,7 +248,49 @@ var Rules = {
         return createFactFromComponents(arg0, arg1, Operators.OR);
     }),
     DeM: new Rule("DeMorgan's Law", "DeM", RuleType.REPLACEMENT, function(arg0) {
-        // TODO implement DeMorgans
+        // Init
+        var op = arg0.op;
+        var otherOp;
+        var result = null;
+        function getOtherOp(op) {
+            if (op === Operators.AND) {
+                return Operators.OR;
+            } else if (op === Operators.OR) {
+                return Operators.AND;
+            } else {
+                return null;
+            }
+        }
+
+        // Sanity check
+        if (op === Operators.NEG) {
+            /* For example:
+             *  arg0 = ~(p op q)
+             * Return:
+             *  (~p otherOp ~q)
+             */
+            if (arg0.arg0.op === Operators.AND ||
+                    arg0.arg0.op === Operators.OR) {
+                result = createFactFromComponents(
+                        arg0.arg0.arg0.getNegation(),
+                        arg0.arg0.arg1.getNegation(),
+                        getOtherOp(arg0.arg0.op));
+            }
+        } else if (op === Operators.AND ||
+                op === Operators.OR) {
+            /* For example:
+             *  arg0 = ~p op ~q
+             * Return:
+             *  ~(p otherOp q)
+             */
+            if (arg0.arg0.op === Operators.NEG &&
+                    arg0.arg1.op === Operators.NEG) {
+                result = (new Fact(arg0.arg0.arg0, arg0.arg1.arg0, getOtherOp(op))).getNegation();
+            }
+        }
+        
+        // Return the result
+        return result;
     }),
     Com: new Rule("Commutation", "Com", RuleType.REPLACEMENT, function(arg0) {
         /* For example (same logic for &)
@@ -270,9 +312,9 @@ var Rules = {
         // Init
         var results = [];
         var op = arg0.op;
-        
+
         // Sanity check
-        if (op !== Operators.OR && 
+        if (op !== Operators.OR &&
                 op !== Operators.AND) {
             return results;
         }
@@ -308,13 +350,13 @@ var Rules = {
         var results = [];
         var o1 = arg0.op;
         var o2;
-        
+
         // Sanity check
-        if (arg0.op !== Operators.OR && 
+        if (arg0.op !== Operators.OR &&
                 arg0.op !== Operators.AND) {
             return results;
         }
-        
+
         /* Case 1
          *  o1, o2 = | or & but both cant be the same
          *  arg0 = (p o1 (q o2 r))
@@ -353,7 +395,7 @@ var Rules = {
                     o2
                     ));
         }
-        
+
         // Return the results
         return results;
     }),
@@ -379,7 +421,7 @@ var Rules = {
          */
         // Always do this one
         results.push(arg0.getNegation().getNegation());
-        
+
         // Return the results
         return results;
     }),
@@ -388,7 +430,7 @@ var Rules = {
         if (arg0.op !== Operators.COND) {
             return null;
         }
-        
+
         /**
          * The rule:
          *  p -> q  <-> ~q -> ~p
@@ -417,7 +459,7 @@ var Rules = {
         }
         // This version can always be applied, but isn't always useful
         results.push(createFactFromComponents(arg0, arg0, Operators.OR));
-        
+
         // Returnt he results
         return results;
     }),

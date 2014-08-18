@@ -185,6 +185,12 @@ QUnit.test("Fact.getInverse", function(assert) {
     expecting = getFactFromString("(a&(c|d))");
     manipulated = fact.getInverse();
     assert.deepEqual(manipulated, expecting, "The inverse of ~p is p");
+    
+    // The ~~p scenario
+    fact = getFactFromString("~(~(p))");
+    expecting = getFactFromString("~(p)");
+    manipulated = fact.getInverse();
+    assert.deepEqual(manipulated, expecting, "The inverse of ~~p is ~p");
 });
 
 /*
