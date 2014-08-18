@@ -68,6 +68,7 @@ function toReplacementScreen(fact) {
     
     // Display the level's Rules of Replacement
     var rules = Levels.getCurrentLevel().rules;
+    // TODO if rules is empty, display a message saying no rules of replacement are available
     populateRules(getRulesByType(rules, RuleType.REPLACEMENT));
     
     // Clear Executor fields
