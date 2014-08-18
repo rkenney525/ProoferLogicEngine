@@ -255,13 +255,13 @@ QUnit.test("Rules - Trans", function(assert) {
 /*
  * Tests for Material Implication
  */
-//QUnit.test("Rules - Impl", function(assert) {
-//    testRule(Rules.Impl, "(p>q)", null, "(~(p)|q)", assert);
-//    testRule(Rules.Impl, "(~(p)|q)", null, "(p>q)", assert);
-//    testRule(Rules.Impl, "(~(p)>q)", null, "(p|q)", assert);
-//    testRule(Rules.Impl, "(p|q)", null, "(~(p)>q)", assert);
-//    testRule(Rules.Impl, "(p&q)", null, null, assert);
-//});
+QUnit.test("Rules - Impl", function(assert) {
+    testRule(Rules.Impl, "(p>q)", null, "(~(p)|q)", assert);
+    testRule(Rules.Impl, "(~(p)|q)", null, "(p>q)", assert);
+    testRule(Rules.Impl, "(~(p)>q)", null, "(p|q)", assert);
+    testRule(Rules.Impl, "(p|q)", null, "(~(p)>q)", assert);
+    testRule(Rules.Impl, "(p&q)", null, null, assert);
+});
 
 /*
  * Tests for Material Equivalence

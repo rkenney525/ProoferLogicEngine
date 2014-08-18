@@ -439,7 +439,25 @@ var Rules = {
         return createFactFromComponents(arg0.arg1.getInverse(), arg0.arg0.getInverse(), Operators.COND);
     }),
     Impl: new Rule("Material Implication", "Impl", RuleType.REPLACEMENT, function(arg0) {
-        // TODO implement Material Implication
+        // Init
+        var result = null;
+        
+        if (arg0.op === Operators.COND) {
+            /*
+             * (p>q) <-> (~p|q)
+             * (~p>q) <-> (p|q)
+             */
+            result = createFactFromComponents(arg0.arg0.getInverse(), arg0.arg1, Operators.OR);
+        } else if (arg0.op === Operators.OR) {
+            /*
+             * (p|q) <-> (~p>q)
+             * (~p|q) <-> (p>q)
+             */
+            result = createFactFromComponents(arg0.arg0.getInverse(), arg0.arg1, Operators.COND);
+        }
+        
+        // Return
+        return result;
     }),
     Equiv: new Rule("Material Equivalence", "Equiv", RuleType.REPLACEMENT, function(arg0) {
         // TODO implement Material Equivalence
