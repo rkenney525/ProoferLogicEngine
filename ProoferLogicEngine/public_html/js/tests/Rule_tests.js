@@ -266,26 +266,29 @@ QUnit.test("Rules - Impl", function(assert) {
 /*
  * Tests for Material Equivalence
  */
-//QUnit.test("Rules - Equiv", function(assert) {
-//    testMultiReturnRule(Rules.Equiv, "(p%q)", null, ["((p>q)&(q>p))", "((p&q)|(~(p)&~(q)))"], assert);
-//    testMultiReturnRule(Rules.Equiv, "((p>q)&(q>p))", null, ["(p%q)"], assert);
-//    testMultiReturnRule(Rules.Equiv, "((p&q)|(~(p)&~(q)))", null, ["(p%q)"], assert);
-//    testMultiReturnRule(Rules.Equiv, "(p>q)", null, [], assert);
-//    testMultiReturnRule(Rules.Equiv, "((p>q)|(q>p))", null, [], assert);
-//    testMultiReturnRule(Rules.Equiv, "((p|q)&(~(p)|~(q)))", null, [], assert);
-//});
+QUnit.test("Rules - Equiv", function(assert) {
+    testMultiReturnRule(Rules.Equiv, "(p%q)", null, ["((p>q)&(q>p))", "((p&q)|(~(p)&~(q)))"], assert);
+    testMultiReturnRule(Rules.Equiv, "((p>q)&(q>p))", null, ["(p%q)"], assert);
+    testMultiReturnRule(Rules.Equiv, "((p&q)|(~(p)&~(q)))", null, ["(p%q)"], assert);
+    testMultiReturnRule(Rules.Equiv, "((~(p)&~(q))|(~(~(p))&~(~(q))))", null, ["(~(p)%~(q))"], assert);
+    testMultiReturnRule(Rules.Equiv, "((p&q)|(~(p)&~(r)))", null, [], assert);
+    testMultiReturnRule(Rules.Equiv, "(p>q)", null, [], assert);
+    testMultiReturnRule(Rules.Equiv, "((p>q)|(q>p))", null, [], assert);
+    testMultiReturnRule(Rules.Equiv, "((p>q)&(r>p))", null, [], assert);
+    testMultiReturnRule(Rules.Equiv, "((p|q)&(~(p)|~(q)))", null, [], assert);
+});
 
 /*
  * Tests for Exportation
  */
-//QUnit.test("Rules - Exp", function(assert) {
-//    testMultiReturnRule(Rules.Exp, "((p&q)>r)", null, ["(p>(q>r))"], assert);
-//    testMultiReturnRule(Rules.Exp, "(p>(q>r))", null, ["((p&q)>r)"], assert);
-//    testMultiReturnRule(Rules.Exp, "(((p&s)&q)>r)", null, ["((p&s)>(q>r))"], assert);
-//    testMultiReturnRule(Rules.Exp, "((p&s)>(q>r))", null, ["(((p&s)&q)>r)", "(p>(s>(q>r)))"], assert);
-//    testMultiReturnRule(Rules.Exp, "((p&q)#r)", null, [], assert);
-//    testMultiReturnRule(Rules.Exp, "((p%q)>r)", null, [], assert);
-//});
+QUnit.test("Rules - Exp", function(assert) {
+    testMultiReturnRule(Rules.Exp, "((p&q)>r)", null, ["(p>(q>r))"], assert);
+    testMultiReturnRule(Rules.Exp, "(p>(q>r))", null, ["((p&q)>r)"], assert);
+    testMultiReturnRule(Rules.Exp, "(((p&s)&q)>r)", null, ["((p&s)>(q>r))"], assert);
+    testMultiReturnRule(Rules.Exp, "((p&s)>(q>r))", null, ["(((p&s)&q)>r)", "(p>(s>(q>r)))"], assert);
+    testMultiReturnRule(Rules.Exp, "((p&q)#r)", null, [], assert);
+    testMultiReturnRule(Rules.Exp, "((p%q)>r)", null, [], assert);
+});
 
 /*
  * Tests for Tautology

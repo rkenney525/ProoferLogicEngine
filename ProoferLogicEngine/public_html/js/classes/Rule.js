@@ -288,7 +288,7 @@ var Rules = {
                 result = (new Fact(arg0.arg0.arg0, arg0.arg1.arg0, getOtherOp(op))).getNegation();
             }
         }
-        
+
         // Return the result
         return result;
     }),
@@ -441,7 +441,7 @@ var Rules = {
     Impl: new Rule("Material Implication", "Impl", RuleType.REPLACEMENT, function(arg0) {
         // Init
         var result = null;
-        
+
         if (arg0.op === Operators.COND) {
             /*
              * (p>q) <-> (~p|q)
@@ -455,15 +455,84 @@ var Rules = {
              */
             result = createFactFromComponents(arg0.arg0.getInverse(), arg0.arg1, Operators.COND);
         }
-        
+
         // Return
         return result;
     }),
     Equiv: new Rule("Material Equivalence", "Equiv", RuleType.REPLACEMENT, function(arg0) {
-        // TODO implement Material Equivalence
+        // Init
+        var op = arg0.op;
+        var results = [];
+
+        if (op === Operators.BICOND) {
+            /*
+             * Form of p%q
+             */
+            var part1, part2;
+
+            // First result is ( (p>q) & (q>p) )
+            part1 = new Fact(arg0.arg0, arg0.arg1, Operators.COND);
+            part2 = new Fact(arg0.arg1, arg0.arg0, Operators.COND);
+            results.push(createFactFromComponents(part1, part2, Operators.AND));
+
+            // Second result is ( (p&q) | (~p&~q))
+            part1 = new Fact(arg0.arg0, arg0.arg1, Operators.AND);
+            part2 = new Fact(arg0.arg0.getNegation(), arg0.arg1.getNegation(), Operators.AND);
+            results.push(createFactFromComponents(part1, part2, Operators.OR));
+        } else if (op === Operators.AND) {
+            /*
+             * Form of ( (p>q) & (q>p) )
+             */
+            // Check inner args
+            if (arg0.arg0.op === Operators.COND &&
+                    arg0.arg1.op === Operators.COND) {
+                if (arg0.arg0.arg0.equals(arg0.arg1.arg1) &&
+                        arg0.arg0.arg1.equals(arg0.arg1.arg0)) {
+                    // Create (p%q)
+                    results.push(createFactFromComponents(arg0.arg0.arg0, arg0.arg0.arg1, Operators.BICOND));
+                }
+            }
+        } else if (op === Operators.OR) {
+            /*
+             * Form of ( (p&q) | (~p&~q))
+             */
+            // Check inner args
+            if (arg0.arg0.op === Operators.AND &&
+                    arg0.arg1.op === Operators.AND) {
+                if (arg0.arg0.arg0.getNegation().equals(arg0.arg1.arg0) &&
+                        arg0.arg0.arg1.getNegation().equals(arg0.arg1.arg1)) {
+                    // Create (p%q)
+                    results.push(createFactFromComponents(arg0.arg0.arg0, arg0.arg0.arg1, Operators.BICOND));
+                }
+            }
+        }
+
+        // Return
+        return results;
     }),
     Exp: new Rule("Exportation", "Exp", RuleType.REPLACEMENT, function(arg0) {
-        // TODO implement Exportation
+        // Init
+        var results = [];
+
+        if (arg0.op === Operators.COND) {
+            /*
+             * Form of ( (p & q) > r )
+             */
+            if (arg0.arg0.op === Operators.AND) {
+                var newCond = new Fact(arg0.arg0.arg1, arg0.arg1, Operators.COND);
+                results.push(createFactFromComponents(arg0.arg0.arg0, newCond, Operators.COND));
+            }
+            /*
+             * Form of ( p > (q > r) )
+             */
+            if (arg0.arg1.op === Operators.COND) {
+                var newConj = new Fact(arg0.arg0, arg0.arg1.arg0, Operators.AND);
+                results.push(createFactFromComponents(newConj, arg0.arg1.arg1, Operators.COND));
+            }
+        }
+
+        // Return
+        return results;
     }),
     Taut: new Rule("Tautology", "Taut", RuleType.REPLACEMENT, function(arg0) {
         var results = [];
