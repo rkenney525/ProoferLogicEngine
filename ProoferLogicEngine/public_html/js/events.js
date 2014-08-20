@@ -196,14 +196,19 @@ $(document).ready(function() {
      * 
      * @param {Object} event The keypress event
      */
-    $('body').keypress(function(event) {
+    $('body, #PauseMenu').keypress(function(event) {
         // first make sure you are in game
+        // TODO prevent holding the enter key and rapidly pausing/unpausing
         if ($('body').hasClass('machine-focused')) {
-            // Next make sure the correct key was pressed
+            // Next make sure the correct key was pressed (Enter key)
             var keycode = event.which;
             if (keycode === 13) {
-                console.log('togglololole');
-                // TODO toggle pause
+                if (!PauseMenu.isPaused()) {
+                    openPauseMenu();
+                } else {
+                    closePauseMenu();
+                }
+                PauseMenu.togglePause();
             }
         }
     });
@@ -275,7 +280,7 @@ $(document).ready(function() {
 
             // Make it draggable
             bindFactEvents();
-            
+
             // Check if it's the end
             checkForLevelCleared(fact);
         }
