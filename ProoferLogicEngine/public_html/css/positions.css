@@ -101,6 +101,14 @@
     background: -webkit-linear-gradient(#000000, #A0A0A0);
 }
 
+#PauseMenu {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+}
+
 ::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;

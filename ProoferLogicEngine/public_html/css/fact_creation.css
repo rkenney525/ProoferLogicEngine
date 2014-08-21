@@ -29,6 +29,10 @@
     background-color: rgb(230, 215, 215);
 }
 
+.add-fact {
+    /* This class is used as a control for adding a new Fact to AddTable */
+}
+
 .select-fact {
     font-size: 14pt;
 }

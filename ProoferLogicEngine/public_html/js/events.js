@@ -199,15 +199,11 @@ $(document).ready(function() {
     $('body, #PauseMenu').keypress(function(event) {
         // first make sure you are in game
         // TODO prevent holding the enter key and rapidly pausing/unpausing
+        // TODO make sure a dialog isn't opened
         if ($('body').hasClass('machine-focused')) {
             // Next make sure the correct key was pressed (Enter key)
             var keycode = event.which;
             if (keycode === 13) {
-                if (!PauseMenu.isPaused()) {
-                    openPauseMenu();
-                } else {
-                    closePauseMenu();
-                }
                 PauseMenu.togglePause();
             }
         }
