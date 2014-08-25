@@ -1,0 +1,9 @@
+{
+    "name": "conf",
+    "window": {
+        "width": 1026,
+        "height": 768,
+        "toolbar": false
+    },
+    "main": "proofer.html"
+}
