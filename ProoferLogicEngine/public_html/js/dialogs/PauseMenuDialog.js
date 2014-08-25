@@ -5,11 +5,12 @@ var PauseMenu = {
     },
     togglePause: function() {
         // Functionally pause or unpause
+        // TODO figure out how to get the filter working properly
         if (this.isPaused()) {
-            $("body").removeClass("grayed");
+            $("#FilterLayer").hide();
             $("#PauseMenu").hide();
         } else {
-            $("body").addClass("grayed");
+            $("#FilterLayer").show();
             $("#PauseMenu").show();
         }
 

@@ -88,8 +88,8 @@ body {
     padding-right: 25%;
 }
 
-.grayed {
-    background-color: rgba(128, 128, 128, 0.3);
+#FilterLayer {
+    background: rgba(128, 128, 128, 0.5);
 }
 
 .fill {
@@ -111,15 +111,15 @@ body {
     text-align: center;
     font-size: calc(10.24vh * 0.21 + 10px);
     background: 
-	radial-gradient(rgba(255, 32, 32, 0.8), rgba(255, 32, 32, 0.6));
+        radial-gradient(rgba(255, 32, 32, 0.8), rgba(255, 32, 32, 0.6));
 }
 
 .rule-filled {
     text-align: center;
     font-size: 35px;
     background: 
-	radial-gradient(rgba(255, 32, 32, 0.8), rgba(255, 32, 32, 0.6)) 
-	!important;
+        radial-gradient(rgba(255, 32, 32, 0.9), rgba(255, 32, 32, 0.8)) 
+        !important;
 }
 
 .rule-text {
@@ -136,7 +136,7 @@ body {
     vertical-align: baseline;
     font-size: 20px;
     background: 
-	radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+        radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
 }
 
 .fact-filled {
@@ -144,8 +144,8 @@ body {
     vertical-align: baseline;
     font-size: 20px;
     background: 
-	radial-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4)) 
-	!important;
+        radial-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)) 
+        !important;
 }
 
 .fact-row-selected {
@@ -193,7 +193,8 @@ body {
 }
 
 .machine-focused {
-    background-image: url("../img/digital.png");
+    background: url("../img/digital.svg") no-repeat top left;
+    background-size: contain;
 }
 
 .center {
