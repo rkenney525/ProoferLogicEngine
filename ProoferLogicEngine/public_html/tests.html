@@ -7,20 +7,16 @@
         <!-- Load QUnit -->
         <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.14.0.css">
         <script src="js/libs/qunit-1.10.0/qunit-1.10.0.js"></script>
+        <script src="js/libs/require.js/require.js"></script>
         
         <!-- Import JS files to test here -->
-        <link rel="import" href="dependencies.html" />
+        <script src="dependencies.js"></script>
         
         <!-- Add test files here -->
         <script src="js/tests/Operator_tests.js"></script>
         <script src="js/tests/Fact_tests.js"></script>
         <script src="js/tests/Rule_tests.js"></script>
         <script src="js/tests/Level_tests.js"></script>
-	
-	<!-- From init.js -->
-	<script>
-	    addPrototypes();
-	</script>
     </head>
     <body>
         <div id="qunit"></div>
