@@ -20,6 +20,7 @@ requirejs.config({
         'canvas': "js/canvas",
         'control': "js/control",
         'events': "js/events",
-        'cloud': "js/cloud"
+        'cloud': "js/cloud",
+        'globals': 'js/globals'
     }
 });

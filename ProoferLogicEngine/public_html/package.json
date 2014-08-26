@@ -3,7 +3,8 @@
     "window": {
         "width": 1026,
         "height": 768,
-        "toolbar": false
+        "toolbar": true,
+        "icon": "img/proofer-ico-16.png"
     },
     "main": "proofer.html"
 }

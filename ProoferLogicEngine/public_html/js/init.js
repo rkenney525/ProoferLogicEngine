@@ -1,11 +1,8 @@
-require(['jquery', 'jqueryui', 'blockUI', 'util', 'Operator', 'Fact', 'Rule',
+requirejs(['jquery', 'jqueryui', 'blockUI', 'util', 'Operator', 'Fact', 'Rule',
     'Tutorial', 'Level', 'AddTable', 'LevelClearedDialog', 'TutorialDialog',
     'FactCreationDialog', 'PauseMenuDialog', 'canvas', 'control', 'events',
-    'cloud'], function() {
+    'cloud', 'globals'], function() {
     $(document).ready(function() {
-        /* Give the body the appropriate size */
-        //chrome.app.window.current().fullscreen();
-
         /* Add additional prototypes */
         addPrototypes();
 
@@ -42,6 +39,6 @@ require(['jquery', 'jqueryui', 'blockUI', 'util', 'Operator', 'Fact', 'Rule',
     $('#Controls_Rules').width(window.innerWidth);
 
     /* Pagination */
-    // TODO MAYBE fix the moving of the controls
-    var LevelSelectionPagination = new Pagination(Levels.data, 15);
+    // TODO fix the moving of the controls
+    LevelSelectionPagination = new Pagination(Levels.data, 15);
 });

@@ -7,7 +7,7 @@
 function saveData(key, value) {
     var obj = {};
     obj[key] = value;
-    chrome.storage.local.set(obj);
+    //chrome.storage.local.set(obj);
 }
 
 /**
@@ -20,7 +20,8 @@ function saveData(key, value) {
 function saveDataSync(key, value, callback) {
     var obj = {};
     obj[key] = value;
-    chrome.storage.local.set(obj, callback);
+//    chrome.storage.local.set(obj, callback);
+    callback();
 }
 
 /**
@@ -30,16 +31,18 @@ function saveDataSync(key, value, callback) {
  * @param {Function} context The code to execute that needs this data
  */
 function getData(key, context) {
-    chrome.storage.local.get(key, function(items) {
-        context(items[key]);
-    });
+//    chrome.storage.local.get(key, function(items) {
+//        context(items[key]);
+//    });
+    context(undefined);
+
 }
 
 /**
  * Clear all saved data
  */
 function clearData() {
-    chrome.storage.local.clear();
+//    chrome.storage.local.clear();
 }
 
 
