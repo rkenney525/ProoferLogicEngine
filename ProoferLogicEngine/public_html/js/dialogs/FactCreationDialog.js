@@ -1,125 +1,128 @@
-$(document).ready(function() {
-    $("#Dialogs_FactCreation").dialog({
-        modal: true,
-        autoOpen: false,
-        buttons: {
-            "OK": function() {
-                // Hide error messages
-                $('#Dialogs_FactCreation_Error_NotEnoughGroups').hide();
-                $('#Dialogs_FactCreation_Error_ElementNotEntered').hide();
+define(['jquery', 'jqueryui', 'control', 'Fact', 'AddTable', 'events'], 
+function($, jqueryui, control, Fact, AddTable, events) {
+    return {
+        init: function() {
+            var FactCreationDialog = this;
+            $("#Dialogs_FactCreation").dialog({
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    "OK": function() {
+                        // Hide error messages
+                        $('#Dialogs_FactCreation_Error_NotEnoughGroups').hide();
+                        $('#Dialogs_FactCreation_Error_ElementNotEntered').hide();
 
-                // Get the fact String and make it parsable
-                var factStr = $('#Dialogs_FactCreation_Creation').text();
+                        // Get the fact String and make it parsable
+                        var factStr = $('#Dialogs_FactCreation_Creation').text();
 
-                // Look for a few obvious errors
-                // Find any unentered data fields (?s)
-                var possiblities = $('.creation-operator, .creation-element');
-                for (var i = 0; i < possiblities.length; i++) {
-                    if ($(possiblities[i]).text() === "?") {
-                        $('.selected').removeClass('selected');
-                        $(possiblities[i]).addClass('selected');
-                        $('#Dialogs_FactCreation_Error_ElementNotEntered').show(500);
-                        return;
-                    }
-                }
-
-                // Find ambiguous statements
-                var possiblities = $('.creation-operator');
-                for (var i = 0; i < possiblities.length; i++) {
-                    if ($(possiblities[i]).next().next().hasClass('close-paren') &&
-                            $(possiblities[i]).prev().prev().hasClass('open-paren')) {
-                        continue;
-                    } else {
-                        if ($(possiblities[i]).parent().attr("id") === 'Dialogs_FactCreation_Creation') {
-                            // The highest order operator doesnt need parens
-                            // However, if we want to parse it then it needs them
-                            // So we add it in the call to getFactFromHTMLString
-                            continue;
+                        // Look for a few obvious errors
+                        // Find any unentered data fields (?s)
+                        var possiblities = $('.creation-operator, .creation-element');
+                        for (var i = 0; i < possiblities.length; i++) {
+                            if ($(possiblities[i]).text() === "?") {
+                                $('.selected').removeClass('selected');
+                                $(possiblities[i]).addClass('selected');
+                                $('#Dialogs_FactCreation_Error_ElementNotEntered').show(500);
+                                return;
+                            }
                         }
-                        $('.selected').removeClass('selected');
-                        $(possiblities[i]).addClass('selected');
-                        $('#Dialogs_FactCreation_Error_NotEnoughGroups').show(500);
-                        return;
+
+                        // Find ambiguous statements
+                        var possiblities = $('.creation-operator');
+                        for (var i = 0; i < possiblities.length; i++) {
+                            if ($(possiblities[i]).next().next().hasClass('close-paren') &&
+                                    $(possiblities[i]).prev().prev().hasClass('open-paren')) {
+                                continue;
+                            } else {
+                                if ($(possiblities[i]).parent().attr("id") === 'Dialogs_FactCreation_Creation') {
+                                    // The highest order operator doesnt need parens
+                                    // However, if we want to parse it then it needs them
+                                    // So we add it in the call to Fact.getFactFromHTMLString
+                                    continue;
+                                }
+                                $('.selected').removeClass('selected');
+                                $(possiblities[i]).addClass('selected');
+                                $('#Dialogs_FactCreation_Error_NotEnoughGroups').show(500);
+                                return;
+                            }
+                        }
+
+                        // Get the fact
+                        var fact = Fact.getFactFromHTMLString(factStr, true);
+
+                        // Exit and return
+                        if (fact !== null) {
+                            AddTable.addEntry(fact, function() {
+                                AddTable.updateHtml();
+                                FactCreationDialog.closeFactCreationDialog();
+                            });
+                        } else {
+                            // TODO error message
+                        }
+                    },
+                    "Cancel": function() {
+                        FactCreationDialog.closeFactCreationDialog();
                     }
+                },
+                show: {
+                    effect: "highlight",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "highlight",
+                    duration: 200
                 }
+            });
+        },
+        /**
+         * Opens the Fact Creation Dialog.
+         * 
+         * @param {String} id The ID of the AddTable fact being created
+         * @param {String} operation The operation to perform (add, edit)
+         */
+        openFactCreationDialog: function(id, operation) {
+            // Bind keypress events
+            events.bindKeyPressEvents();
 
-                // Get the fact
-                var fact = getFactFromHTMLString(factStr, true);
+            // open the dialog
+            $("#Dialogs_FactCreation").dialog("open");
 
-                // Exit and return
-                if (fact !== null) {
-                    AddTable.addEntry(fact, function() {
-                        AddTable.updateHtml();
-                        closeFactCreationDialog();
-                    });
-                } else {
-                    // TODO error message
-                }
-            },
-            "Cancel": function() {
-                closeFactCreationDialog();
+            // Check if we have data to load
+            control.clearFactCreation();
+            switch (operation) {
+                case "add":
+                    control.initializeFactCreation();
+                    break;
+                case "edit":
+                    var fact = AddTable[id];
+                    this.populateFactCreationAreaFromFact(fact);
+                    break;
             }
+
+            // Deselect the buttons
+            $('.ui-dialog-buttonset button').blur();
+
+            // Set size
+            $("#Dialogs_FactCreation").parent().css("min-width", 650);
         },
-        show: {
-            effect: "highlight",
-            duration: 1000
+        closeFactCreationDialog: function() {
+            $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog' +
+                    '-buttons.ui-draggable.ui-resizable').unbind("keypress");
+
+            // Hide error messages
+            $('#Dialogs_FactCreation_Error_NotEnoughGroups').hide();
+            $('#Dialogs_FactCreation_Error_ElementNotEntered').hide();
+
+            // Close
+            $("#Dialogs_FactCreation").dialog("close");
         },
-        hide: {
-            effect: "highlight",
-            duration: 200
+        /**
+         * Populate the Fact Creation area with the specified Fact.
+         * 
+         * @param {Fact} fact The Fact to populate.
+         */
+        populateFactCreationAreaFromFact: function(fact) {
+            control.generateFactHTML(fact, $('#Dialogs_FactCreation_Creation'), 'creation', events.updateCreationElements);
         }
-    });
+    };
 });
-
-/**
- * Opens the Fact Creation Dialog.
- * 
- * @param {String} id The ID of the AddTable fact being created
- * @param {String} operation The operation to perform (add, edit)
- */
-function openFactCreationDialog(id, operation) {
-    // Bind keypress events
-    bindKeyPressEvents();
-
-    // open the dialog
-    $("#Dialogs_FactCreation").dialog("open");
-
-    // Check if we have data to load
-    clearFactCreation();
-    switch (operation) {
-        case "add":
-            initializeFactCreation();
-            break;
-        case "edit":
-            var fact = AddTable[id];
-            populateFactCreationAreaFromFact(fact);
-            break;
-    }
-
-    // Deselect the buttons
-    $('.ui-dialog-buttonset button').blur();
-
-    // Set size
-    $("#Dialogs_FactCreation").parent().css("min-width", 650);
-}
-
-function closeFactCreationDialog() {
-    $('div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog' +
-            '-buttons.ui-draggable.ui-resizable').unbind("keypress");
-
-    // Hide error messages
-    $('#Dialogs_FactCreation_Error_NotEnoughGroups').hide();
-    $('#Dialogs_FactCreation_Error_ElementNotEntered').hide();
-
-    // Close
-    $("#Dialogs_FactCreation").dialog("close");
-}
-
-/**
- * Populate the Fact Creation area with the specified Fact.
- * 
- * @param {Fact} fact The Fact to populate.
- */
-function populateFactCreationAreaFromFact(fact) {
-    generateFactHTML(fact, $('#Dialogs_FactCreation_Creation'), 'creation', updateCreationElements);
-}

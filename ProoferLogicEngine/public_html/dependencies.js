@@ -13,14 +13,14 @@ requirejs.config({
         'Tutorial': "js/classes/Tutorial",
         'Level': "js/classes/Level",
         'AddTable': "js/classes/AddTable",
+        'Pagination': 'js/classes/Pagination',
         'LevelClearedDialog': "js/dialogs/LevelClearedDialog",
         'TutorialDialog': "js/dialogs/TutorialDialog",
         'FactCreationDialog': "js/dialogs/FactCreationDialog",
-        'PauseMenuDialog': "js/dialogs/PauseMenuDialog",
+        'PauseMenu': "js/dialogs/PauseMenu",
         'canvas': "js/canvas",
         'control': "js/control",
         'events': "js/events",
-        'cloud': "js/cloud",
-        'globals': 'js/globals'
+        'cloud': "js/cloud"
     }
 });
