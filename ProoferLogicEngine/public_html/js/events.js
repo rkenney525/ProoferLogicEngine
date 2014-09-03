@@ -1,10 +1,11 @@
 define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'control',
-    'util', 'PauseMenu', 'LevelClearedDialog', 'Rule', 'Fact', 'AddTable'],
+    'util', 'PauseMenu', 'LevelClearedDialog', 'Rule', 'Fact', 'AddTable',
+    'FactCreationDialog'],
         function($, Levels, jqueryui, blockUI, Pagination, cloud, control,
-                util, PauseMenu, LevelClearedDialog, Rules, Fact, AddTable) {
-            return {
+                util, PauseMenu, LevelClearedDialog, Rules, Fact, AddTable,
+                FactCreationDialog) {
+            var events = {
                 init: function() {
-                    var events = this;
                     $('#MenuReset').click(function() {
                         $.blockUI({
                             message: "<h1>Clearing Save data ...</h1>",
@@ -33,7 +34,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                      * view.
                      */
                     $('#MenuPickLevel').click(function() {
-                        control.toPickLevel();
+                        control.toPickLevel(events.updateSelectLevelEvents);
                     });
 
                     /**
@@ -49,7 +50,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                      */
                     $('#PickLevel_PageControls_Next').click(function() {
                         Pagination.LevelSelectionPagination.nextPage();
-                        control.populateLevelSelectionScreen();
+                        control.populateLevelSelectionScreen(events.updateSelectLevelEvents);
                     });
 
                     /**
@@ -58,7 +59,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                      */
                     $('#PickLevel_PageControls_Prev').click(function() {
                         Pagination.LevelSelectionPagination.prevPage();
-                        control.populateLevelSelectionScreen();
+                        control.populateLevelSelectionScreen(events.updateSelectLevelEvents);
                     });
 
                     /**
@@ -224,7 +225,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                      * Close the AddTable when the banner is clicked
                      */
                     $('#Controls_AddTable_Banner').click(function() {
-                        closeAddTable();
+                        events.closeAddTable();
                     });
 
                     /**
@@ -359,10 +360,10 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
 
                             // Show the details
                             var id = Number($(this).children('.level-id').text()) - 1;
-                            populateLevelDetails(id);
+                            control.populateLevelDetails(id);
 
                             // Update the player
-                            updatePlayLevelEvent(id);
+                            events.updatePlayLevelEvent(id);
                         } else {
                             // Toggle off
                             $('#PickLevel_PageControls_Play').disable();
@@ -377,11 +378,10 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                  * @param {Number} id The id of the number to skip to
                  */
                 updatePlayLevelEvent: function(id) {
-                    var events = this;
                     $('#PickLevel_PageControls_Play').unbind("click");
                     $('#PickLevel_PageControls_Play').click(function() {
                         Levels.goToLevel(id);
-                        toGameScreen(events.bindFactEvents, events.bindRuleEvents);
+                        control.toGameScreen(events.bindFactEvents, events.bindRuleEvents);
                     });
                 },
                 /**
@@ -400,7 +400,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                      */
                     $('.add-fact').click(function() {
                         var id = $(this).attr("data");
-                        openFactCreationDialog(id, "add");
+                        FactCreationDialog.openFactCreationDialog(id, "add", events.updateCreationElements, events.bindKeyPressEvents);
                     });
 
                     /**
@@ -408,7 +408,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                      */
                     $('.edit-fact').click(function() {
                         var id = $(this).attr("data");
-                        openFactCreationDialog(id, "edit");
+                        FactCreationDialog.openFactCreationDialog(id, "edit", events.updateCreationElements, events.bindKeyPressEvents);
                     });
 
                     /**
@@ -418,7 +418,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                         var id = $($(this).parent().siblings()[0]).text();
                         $('#Controls_Executor_Arg1').addClass('fact-filled');
                         $('#Controls_Executor_Arg1').text(id);
-                        closeAddTable();
+                        events.closeAddTable();
                     });
 
                     /* Create buttons for the AddTable */
@@ -434,7 +434,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                 updateReplacementResults: function() {
                     // Init
                     var level = Levels.getCurrentLevel();
-                    var rule = this.getRuleFromContainer($("#Controls_Modifier_Rule"), level);
+                    var rule = events.getRuleFromContainer($("#Controls_Modifier_Rule"), level);
                     var factString = ($('.replacement-control-selected').length === 0) ?
                             $('#Controls_Modifier_SelectionArea').text() : $('.replacement-control-selected').text();
                     var fact, results;
@@ -488,7 +488,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                         }
 
                         // Bind the events to the new HTML
-                        this.bindFactDetailResultEvents();
+                        events.bindFactDetailResultEvents();
 
                         // Show the results
                         $("#Controls_Modifier_Results_Container").hide();
@@ -530,7 +530,6 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                                 $el.hasClass("negation")) ?
                                 $el.parent() : $el;
                     }
-                    var events = this;
 
                     /**
                      * Handle the highlighting of the different parts of the Fact
@@ -583,7 +582,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                             }
 
                             // Update creation elements
-                            this.updateCreationElements();
+                            events.updateCreationElements();
                         } else if (keycode === 32) {
                             // Get the target
                             var target = $('.selected').parent();
@@ -609,7 +608,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                             }
 
                             // Update creation elements
-                            this.updateCreationElements();
+                            events.updateCreationElements();
                         }
                     });
                 },
@@ -694,7 +693,6 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                  */
                 bindRuleEvents: function() {
                     // TODO try jquery ui tooltip for hints
-                    var events = this;
                     $('#Controls_Executor_Rule, #Controls_Modifier_Rule').droppable({
                         tolerance: 'touch',
                         drop: function(event) {
@@ -716,7 +714,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                                     } else if (Rules[droppedItem.getAttribute('ruleId')] === Rules.Add) {
                                         $('#Controls_Executor_Arg1').html('<img src="img/ellipse.png" />');
                                         $('#Controls_Executor_Arg1').droppable("disable");
-                                        $('#Controls_Executor_Arg1').click(displayNewFactSelector);
+                                        $('#Controls_Executor_Arg1').click(events.displayNewFactSelector);
                                     } else {
                                         $('#Controls_Executor_Arg1').droppable("enable");
                                         $('#Controls_Executor_Arg1').unbind("click");
@@ -773,7 +771,6 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                  * droppable.  When a new Fact is added, this method should be called.
                  */
                 bindFactEvents: function() {
-                    var events = this;
                     $('#Controls_Executor_Arg0, #Controls_Executor_Arg1').droppable({
                         tolerance: 'touch',
                         drop: function(event) {
@@ -863,4 +860,5 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                     });
                 }
             };
+            return events;
         });

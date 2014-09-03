@@ -158,8 +158,11 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
                 },
                 /**
                  * Navigate away and switch to viewing all levels and their current stats.
+                 * 
+                 * @param {Function} updateSelectLevelEvents Function to add events 
+                 * to Level Selection screen.
                  */
-                toPickLevel: function() {
+                toPickLevel: function(updateSelectLevelEvents) {
                     // Clean up
                     this.navigateAway();
 
@@ -168,7 +171,7 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
                     $('#PickLevel').show();
 
                     // Populate the selection screen
-                    this.populateLevelSelectionScreen();
+                    this.populateLevelSelectionScreen(updateSelectLevelEvents);
                 },
                 populateLevelDetails: function(id) {
                     var level = Levels.data[id]();
@@ -193,7 +196,7 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
                 /**
                  * Populate the LevelSelection Screen with each level and its respective html.
                  */
-                populateLevelSelectionScreen: function() {
+                populateLevelSelectionScreen: function(updateSelectLevelEvents) {
                     // Init
                     var levels = Pagination.LevelSelectionPagination.getPage();
                     $('#PickLevel_LevelContainer_List').empty();
@@ -213,7 +216,7 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
                     this.checkPaginationButtons();
 
                     // Update the events
-                    events.updateSelectLevelEvents();
+                    updateSelectLevelEvents();
                 },
                 /**
                  * Disable Next button if on the last page and disable the prev button if on the 

@@ -1,5 +1,5 @@
-define(['jquery', 'jqueryui', 'control', 'Fact', 'AddTable', 'events'], 
-function($, jqueryui, control, Fact, AddTable, events) {
+define(['jquery', 'jqueryui', 'control', 'Fact', 'AddTable'], 
+function($, jqueryui, control, Fact, AddTable) {
     return {
         init: function() {
             var FactCreationDialog = this;
@@ -80,9 +80,9 @@ function($, jqueryui, control, Fact, AddTable, events) {
          * @param {String} id The ID of the AddTable fact being created
          * @param {String} operation The operation to perform (add, edit)
          */
-        openFactCreationDialog: function(id, operation) {
+        openFactCreationDialog: function(id, operation, updateCreationElements, bindKeyPressEvents) {
             // Bind keypress events
-            events.bindKeyPressEvents();
+            bindKeyPressEvents();
 
             // open the dialog
             $("#Dialogs_FactCreation").dialog("open");
@@ -95,7 +95,7 @@ function($, jqueryui, control, Fact, AddTable, events) {
                     break;
                 case "edit":
                     var fact = AddTable[id];
-                    this.populateFactCreationAreaFromFact(fact);
+                    this.populateFactCreationAreaFromFact(fact, updateCreationElements);
                     break;
             }
 
@@ -121,8 +121,8 @@ function($, jqueryui, control, Fact, AddTable, events) {
          * 
          * @param {Fact} fact The Fact to populate.
          */
-        populateFactCreationAreaFromFact: function(fact) {
-            control.generateFactHTML(fact, $('#Dialogs_FactCreation_Creation'), 'creation', events.updateCreationElements);
+        populateFactCreationAreaFromFact: function(fact, updateCreationElements) {
+            control.generateFactHTML(fact, $('#Dialogs_FactCreation_Creation'), 'creation', updateCreationElements);
         }
     };
 });
