@@ -3,7 +3,10 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="800px"
      height="600px" viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
-<g id="CircuitPaths">
+    <g id="Background" >
+        <rect x="0" y="0" stroke-miterlimit="10" width="800" height="600" fill="#662525" stroke="none" />
+    </g>
+    <g id="CircuitPaths">
 	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="0,73.833 174.5,73.833 259.917,159.25 259.917,313.833 
 		346.375,400.292 532,400.292 591.896,340.396 658.667,340.396 717.885,399.615 717.885,529.667 650.192,597.359 	"/>
 	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="0,58 183.667,58 275.333,149.667 275.333,305.5 
@@ -15,9 +18,9 @@
 		678.667,311.854 709.448,342.635 801.208,250.875 	"/>
 	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="0,98.833 171.167,98.833 239.083,166.75 239.083,325.5 
 		292.208,378.625 292.208,418.833 237.938,473.104 237.938,559.667 352.833,559.667 352.833,476.333 	"/>
-	<circle fill="#FFFFFF" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="353" cy="477.917" r="7.5"/>
-	<circle fill="#FFFFFF" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="439.833" cy="334.597" r="7.5"/>
-	<circle fill="#FFFFFF" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="538.667" cy="313.291" r="7.5"/>
+	<circle fill="#ff4444" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="353" cy="477.917" r="7.5"/>
+	<circle fill="#ff4444" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="439.833" cy="334.597" r="7.5"/>
+	<circle fill="#ff4444" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="538.667" cy="313.291" r="7.5"/>
 	<g>
 		<polyline fill="none" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" points="0,129.667 169.5,129.667 
 			210.729,170.896 210.729,334.597 169.559,375.768 169.559,497.167 102.03,564.696 130.917,593.583 		"/>
@@ -41,23 +44,23 @@
 			178.986,180.402 178.986,327.847 139.531,367.302 139.531,479.842 57.728,561.645 88.167,592.084 		"/>
 		<polyline fill="none" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" points="0,158.833 152.833,158.833 
 			175.458,181.458 175.458,327.097 136.194,366.361 136.194,477.917 52.806,561.306 83.417,591.917 		"/>
-	</g>
-</g>
+    </g>
+        </g>
 <g id="Processor">
 	<g>
-		<path fill="#FFFFFF" d="M672,170c0,1.657-1.343,3-3,3H566.167h-24.5c-1.657,0-3-1.343-3-3V42.667c0-1.657,1.343-3,3-3H669
+		<path fill="#a03838" d="M672,170c0,1.657-1.343,3-3,3H566.167h-24.5c-1.657,0-3-1.343-3-3V42.667c0-1.657,1.343-3,3-3H669
 			c1.657,0,3,1.343,3,3V170z"/>
 		<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M672,170c0,1.657-1.343,3-3,3H566.167h-24.5c-1.657,0-3-1.343-3-3
 			V42.667c0-1.657,1.343-3,3-3H669c1.657,0,3,1.343,3,3V170z"/>
 		<rect x="546.667" y="47.667" fill="none" stroke="#000000" stroke-miterlimit="10" width="117.333" height="117.333"/>
-	</g>
+    </g>
 	<g>
-		<polyline fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="559.5,173 559.5,218 589.083,247.583 659.5,247.583 
+		<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="559.5,173 559.5,218 589.083,247.583 659.5,247.583 
 			689.708,277.791 738.667,277.791 756.479,295.604 		"/>
-		<polyline fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="574.5,173 574.5,216.75 597.951,240.2 668.25,240.2 
+		<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="574.5,173 574.5,216.75 597.951,240.2 668.25,240.2 
 			697.982,269.934 747.573,269.934 764.861,287.222 		"/>
-		<polyline fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="589.5,173 589.5,215.5 606.818,232.818 677,232.818 
+		<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="589.5,173 589.5,215.5 606.818,232.818 677,232.818 
 			706.258,262.076 756.479,262.076 773.243,278.84 		"/>
-	</g>
-</g>
+        </g>
+        </g>
 </svg>

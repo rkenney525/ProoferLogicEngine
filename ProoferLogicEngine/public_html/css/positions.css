@@ -13,25 +13,25 @@
 }
 
 #Controls_Executor_Result {
-    top: 17%;
-    left: 44%;
+    top: 17vh;
+    left: 31vw;
     position: fixed;
 }
 
 #Controls_Executor_Arg0 {
-    top: 39%;
-    left: 30%;
+    top: 39vh;
+    left: 13vw;
     position: fixed;
 }
 
 #Controls_Executor_Arg1 {
-    top: 39%;
-    left: 59%;
+    top: 39vh;
+    left: 49vw;
     position: fixed;
 }
 
 #Controls_Executor_Rule {
-    top: 66%;
+    top: 66vh;
     left: 31vw;
     position: fixed;
     line-height: 200%;
