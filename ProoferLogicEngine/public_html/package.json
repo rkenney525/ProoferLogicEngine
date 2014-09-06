@@ -1,8 +1,8 @@
 {
     "name": "conf",
     "window": {
-        "width": 1026,
-        "height": 768,
+        "width": 1280,
+        "height": 720,
         "toolbar": true,
         "icon": "img/proofer-ico-16.png"
     },

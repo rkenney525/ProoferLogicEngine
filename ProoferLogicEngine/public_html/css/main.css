@@ -106,7 +106,7 @@ body {
 }
 
 .rule {
-    width: 13vw;
+    width: 10vw; /* 13 for 4:3 */
     height: 13vh;
     text-align: center;
     font-size: calc(10.24vh * 0.21 + 10px);
@@ -181,7 +181,7 @@ body {
 }
 
 .executor-box {
-    min-width: 13vw;
+    min-width: 10vw; /*13 for 4:3 */
     min-height: 13vh;
     background: rgba(128,128,128,0.3);
     border: 1px black solid;

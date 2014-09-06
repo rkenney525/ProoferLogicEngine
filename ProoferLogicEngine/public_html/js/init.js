@@ -13,14 +13,8 @@ requirejs(['jquery', 'jqueryui', 'blockUI', 'util', 'Level',
     //cloud.greenworks.initAPI();
 
     /* Create buttons  */
-    $('#Dialogs_FactCreation_OpList_Clear').button();
-    $('#Dialogs_FactCreation_OpList_Negate').button();
-    $('#PickLevel_PageControls_Next').button();
-    $('#PickLevel_PageControls_Prev').button();
-    $('#PickLevel_PageControls_Back').button();
-    $('#PickLevel_PageControls_Play').button();
+    $('.jui-button').button();
     $('#PickLevel_PageControls_Play').disable();
-    $('#MainMenuOptions li input').button();
 
     /* Initialize the AddTable */
     AddTable.loadData();
