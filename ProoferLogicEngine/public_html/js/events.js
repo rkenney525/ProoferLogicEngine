@@ -1,9 +1,9 @@
 define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'control',
     'util', 'PauseMenu', 'LevelClearedDialog', 'Rule', 'Fact', 'AddTable',
-    'FactCreationDialog'],
+    'FactCreationDialog', 'OptionsMenu'],
         function($, Levels, jqueryui, blockUI, Pagination, cloud, control,
                 util, PauseMenu, LevelClearedDialog, Rules, Fact, AddTable,
-                FactCreationDialog) {
+                FactCreationDialog, OptionsMenu) {
             var events = {
                 init: function() {
                     $('#MenuReset').click(function() {
@@ -27,6 +27,13 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                      */
                     $('#MenuPlayGame').click(function() {
                         control.toGameScreen(events.bindFactEvents, events.bindRuleEvents);
+                    });
+                    
+                    $('#MenuOptions').click(function() {
+                        // Save current progress
+                        OptionsMenu.openMenu(control.toMainMenu());
+                        // TODO use this for pause menu event:
+                        // control.toGameScreen(events.bindFactEvents, events.bindRuleEvents)
                     });
 
                     /**

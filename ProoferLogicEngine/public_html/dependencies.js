@@ -17,6 +17,7 @@ requirejs.config({
         'LevelClearedDialog': "js/dialogs/LevelClearedDialog",
         'TutorialDialog': "js/dialogs/TutorialDialog",
         'FactCreationDialog': "js/dialogs/FactCreationDialog",
+        'OptionsMenu': 'js/dialogs/OptionsMenu',
         'PauseMenu': "js/dialogs/PauseMenu",
         'canvas': "js/canvas",
         'control': "js/control",
