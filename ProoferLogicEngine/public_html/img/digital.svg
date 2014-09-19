@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="800px"
-     height="600px" viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1280px"
+     height="720px" viewBox="0 0 1280 720" enable-background="new 0 0 1280 720" xml:space="preserve">
     <g id="Background" >
-        <rect x="0" y="0" stroke-miterlimit="10" width="800" height="600" fill="#662525" stroke="none" />
+        <rect x="0" y="0" stroke-miterlimit="10" width="1280" height="720" fill="#662525" stroke="none" />
     </g>
     <g id="CircuitPaths">
-	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="0,73.833 174.5,73.833 259.917,159.25 259.917,313.833 
-		346.375,400.292 532,400.292 591.896,340.396 658.667,340.396 717.885,399.615 717.885,529.667 650.192,597.359 	"/>
-	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="0,58 183.667,58 275.333,149.667 275.333,305.5 
-		314.083,344.25 435.333,223 435.333,110.5 378.25,53.417 378.25,0 	"/>
-	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="394.125,0 394.125,53.042 454.083,113 454.083,223.417 
-		324.5,353 348.25,376.75 445.333,376.75 500.541,321.541 449.083,270.083 424.5,270.083 346.792,347.791 360.751,361.75 
-		412.521,361.75 442.052,332.219 	"/>
-	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="537.833,313 475.125,375.708 532,375.708 595.854,311.854 
-		678.667,311.854 709.448,342.635 801.208,250.875 	"/>
-	<polyline fill="none" stroke="#000000" stroke-miterlimit="10" points="0,98.833 171.167,98.833 239.083,166.75 239.083,325.5 
-		292.208,378.625 292.208,418.833 237.938,473.104 237.938,559.667 352.833,559.667 352.833,476.333 	"/>
+	<polyline fill="none" stroke="#00FF00" stroke-miterlimit="10" points="0,74 175,74 259,159 259,313 
+		346,400 532,400 591,340 658,340 717,399 717,529 650,597"/>
+	<polyline fill="none" stroke="#00FF00" stroke-miterlimit="10" points="0,58 183,58 275,149 275,305 
+		314,344 435,223 435,110 378,53 378,0 	"/>
+	<polyline fill="none" stroke="#00FF00" stroke-miterlimit="10" points="394,0 394,53 454,113 454,223 
+		324,353 348,376 445,376 500,321 449,270 424,270 346,347 360,361 
+		412,361 442,332 	"/>
+	<polyline fill="none" stroke="#00FF00" stroke-miterlimit="10" points="537,313 475,375 532,375 595,311 
+		678,311 709,342 801,250 	"/>
+	<polyline fill="none" stroke="#00FF00" stroke-miterlimit="10" points="0,98 171,98 239,166 239,325 
+		292,378 292,418 237,473 237,559 352,559 352,476 	"/>
 	<circle fill="#ff4444" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="353" cy="477.917" r="7.5"/>
 	<circle fill="#ff4444" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="439.833" cy="334.597" r="7.5"/>
 	<circle fill="#ff4444" stroke="#000000" stroke-width="0.9174" stroke-miterlimit="10" cx="538.667" cy="313.291" r="7.5"/>
