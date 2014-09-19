@@ -1,4 +1,4 @@
-define(['jquery', 'cloud', 'Fact', 'events'], function($, cloud, Fact, events) {
+define(['jquery', 'cloud', 'Fact'], function($, cloud, Fact) {
     return {
         AT1: null,
         AT2: null,
@@ -22,30 +22,32 @@ define(['jquery', 'cloud', 'Fact', 'events'], function($, cloud, Fact, events) {
 
             // Update the save data
             cloud.getData("addTable", function(data) {
-                // AT5
-                data.AT5 = data.AT4;
+                if (data !== undefined) {
+                    // AT5
+                    data.AT5 = data.AT4;
 
-                // AT4
-                data.AT4 = data.AT3;
+                    // AT4
+                    data.AT4 = data.AT3;
 
-                // AT3
-                data.AT3 = data.AT2;
+                    // AT3
+                    data.AT3 = data.AT2;
 
-                // AT2
-                data.AT2 = data.AT1;
+                    // AT2
+                    data.AT2 = data.AT1;
 
-                // AT1
-                data.AT1 = fact.toParsableString();
+                    // AT1
+                    data.AT1 = fact.toParsableString();
 
-                // Save
-                cloud.saveData("addTable", data);
+                    // Save
+                    cloud.saveData("addTable", data);
+                }
             });
 
             // Additional changes
             callback();
 
         },
-        loadData: function() {
+        loadData: function(updateAddTableEvents) {
             var AddTable = this;
             cloud.getData("addTable", function(data) {
                 if (data !== undefined) {
@@ -75,11 +77,11 @@ define(['jquery', 'cloud', 'Fact', 'events'], function($, cloud, Fact, events) {
                     }
 
                     // Update
-                    AddTable.updateHtml();
+                    AddTable.updateHtml(updateAddTableEvents);
                 }
             });
         },
-        updateHtml: function() {
+        updateHtml: function(updateAddTableEvents) {
             // AT1
             var at1 = $('#Controls_AddTable_Fact1');
             at1.empty();
@@ -136,7 +138,7 @@ define(['jquery', 'cloud', 'Fact', 'events'], function($, cloud, Fact, events) {
             }
 
             // Update events
-            events.updateAddTableEvents();
+            updateAddTableEvents();
         }
     };
 });

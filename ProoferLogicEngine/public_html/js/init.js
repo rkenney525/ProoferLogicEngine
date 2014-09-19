@@ -17,7 +17,7 @@ requirejs(['jquery', 'jqueryui', 'blockUI', 'util', 'Level',
     $('#PickLevel_PageControls_Play').disable();
 
     /* Initialize the AddTable */
-    AddTable.loadData();
+    AddTable.loadData(events.updateAddTableEvents);
 
     /* initialize the creation elements */
     events.updateCreationElements();
@@ -41,7 +41,7 @@ requirejs(['jquery', 'jqueryui', 'blockUI', 'util', 'Level',
     events.init();
 
     /* Dialogs */
-    FactCreationDialog.init();
+    FactCreationDialog.init(events.updateAddTableEvents);
     LevelClearedDialog.init(events.bindFactEvents, events.bindRuleEvents);
     TutorialDialog.init();
 

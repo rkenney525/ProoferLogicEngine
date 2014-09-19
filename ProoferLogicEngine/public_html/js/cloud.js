@@ -12,7 +12,7 @@ define(['Rule', 'Fact'], function(Rules, Fact) {
         saveData: function(key, value) {
             var obj = {};
             obj[key] = value;
-            //chrome.storage.local.set(obj);
+            chrome.storage.local.set(obj);
         },
         /**
          * Store data locally with code executed at the end
@@ -24,7 +24,7 @@ define(['Rule', 'Fact'], function(Rules, Fact) {
         saveDataSync: function(key, value, callback) {
             var obj = {};
             obj[key] = value;
-//    chrome.storage.local.set(obj, callback);
+            chrome.storage.local.set(obj, callback);
             callback();
         },
         /**
@@ -34,9 +34,9 @@ define(['Rule', 'Fact'], function(Rules, Fact) {
          * @param {Function} context The code to execute that needs this data
          */
         getData: function(key, context) {
-//    chrome.storage.local.get(key, function(items) {
-//        context(items[key]);
-//    });
+            chrome.storage.local.get(key, function(items) {
+                context(items[key]);
+            });
             context(undefined);
 
         },
@@ -44,7 +44,7 @@ define(['Rule', 'Fact'], function(Rules, Fact) {
          * Clear all saved data
          */
         clearData: function() {
-//    chrome.storage.local.clear();
+            chrome.storage.local.clear();
         },
         /**
          * Format a Level to save

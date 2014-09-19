@@ -2,7 +2,7 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
     'TutorialDialog'],
         function($, Levels, cloud, Rules, Pagination,
                 TutorialDialog) {
-            return {
+            var control = {
                 /**
                  * Configure the page to display the main menu.  This is the default state of 
                  * the application.
@@ -62,7 +62,7 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
                  * Fact to apply the replacement rule.
                  * @returns {undefined}
                  */
-                toReplacementScreen: function(fact, generatedFactEventBinder, bindRuleEvents) {
+                toReplacementScreen: function(fact, generatedFactEventBinder, bindRuleEvents, closeDialogs) {
                     // Hide Executor
                     $('#Controls_Executor').hide();
                     $('#Controls_Executor').removeClass('executor-modifier-active');
@@ -73,6 +73,9 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
 
                     // Clear any existing data
                     this.clearModifierFields();
+                    
+                    // Close any open dialogs
+                    closeDialogs();
 
                     // Display the level's Rules of Replacement
                     var rules = Levels.getCurrentLevel().rules;
@@ -372,4 +375,5 @@ define(['jquery', 'Level', 'cloud', 'Rule', 'Pagination',
                     eventUpdate();
                 }
             };
+            return control;
         });

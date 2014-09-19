@@ -296,7 +296,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                         }
 
                         // Go back to the executor
-                        control.toExecutorScreen();
+                        control.toExecutorScreen(events.bindRuleEvents);
                     });
 
                     /**
@@ -853,7 +853,7 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                             row.removeClass("fact-row-selected");
 
                             // Navigate back to Executor
-                            control.toExecutorScreen(events.bindFactDetailEvents);
+                            control.toExecutorScreen(events.bindRuleEvents);
                         } else {
                             // If another Row was selected, remove it
                             $(".fact-row-selected").removeClass("fact-row-selected");
@@ -862,7 +862,9 @@ define(['jquery', 'Level', 'jqueryui', 'blockUI', 'Pagination', 'cloud', 'contro
                             row.addClass("fact-row-selected");
 
                             // Swap screens
-                            control.toReplacementScreen(fact, events.bindFactDetailEvents);
+                            control.toReplacementScreen(fact, events.bindFactDetailEvents, events.bindRuleEvents, function() {
+                                events.closeAddTable();
+                            });
                         }
                     });
                 }
