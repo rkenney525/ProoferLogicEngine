@@ -25,7 +25,7 @@ module.exports = function (grunt) {
                 version: 'v0.12.0'
             },
             //winIco: "TODO.png"
-            src: ['./package.json', './proofer.html', './build/**/*']
+            src: ['./package.json', './js/libs/require.js/require.js', './proofer.html', './build/**/*']
         }
     });
 
