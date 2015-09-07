@@ -1,0 +1,129 @@
+/* 
+    Document   : positions
+    Created on : Jan 29, 2014, 1:26:46 PM
+    Author     : Ryan Kenney
+    Description:
+        Define the layout and positions for specific control elements
+*/
+
+.executor-modifier-active {
+    width: 75%;
+    height: 80%;
+    float: left;
+}
+
+#Controls_Executor_Result {
+    top: 17vh;
+    left: 31vw;
+    position: fixed;
+}
+
+#Controls_Executor_Arg0 {
+    top: 39vh;
+    left: 13vw;
+    position: fixed;
+}
+
+#Controls_Executor_Arg1 {
+    top: 39vh;
+    left: 49vw;
+    position: fixed;
+}
+
+#Controls_Executor_Rule {
+    top: 66vh;
+    left: 31vw;
+    position: fixed;
+    line-height: 200%;
+}
+
+#Controls_Executor_Evaluate {
+    top: 30%;
+    left: 46%;
+    position: fixed;
+}
+
+#Controls_Modifier_Results {
+    top: 30%;
+    position: fixed;
+    height: 10%;
+    width: 73%;
+    margin-left: 1%;
+    background: rgba(128,128,128,0.3);
+}
+
+#Controls_Modifier_SelectionArea {
+    top: 45%;
+    position: fixed;
+    height: 10%;
+    width: 73%;
+    margin-left: 1%;
+    background: rgba(128,128,128,0.3);
+    font-size: -webkit-xxx-large;
+    text-align: center;
+}
+
+#Controls_Modifier_AddIt {
+    top: 20%;
+    left: 35%;
+    position: fixed;
+}
+
+#Controls_Modifier_Rule {
+    top: 66%;
+    left: 31vw;
+    position: fixed;
+    line-height: 200%;
+}
+
+#Controls_Modifier_Addit {
+
+}
+
+#Controls_Facts {
+    width: 25%;
+    height: 80%;
+    float: left;
+
+    overflow: auto;
+
+    background: -webkit-linear-gradient(rgba(162,162,162,0.95), rgba(160,160,160,0.95));
+    clear: right;
+}
+
+#Controls_Rules {
+    width: 100%;
+    height: 20%;
+    float: left;
+
+    overflow: auto;
+
+    background: -webkit-linear-gradient(rgba( 0, 0, 0,0.95), rgba(160,160,160,0.95));
+}
+
+#PauseMenu {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    height: 70%;
+    width: 70%;
+    z-index: 5;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: rgba(113,112,107,0.1);
+    -webkit-border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:vertical,
+::-webkit-scrollbar-thumb:horizontal {
+    background-color: rgba(192,0,0,0.8);
+    -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background: rgba(160,0,0,0.9);
+}
