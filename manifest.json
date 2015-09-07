@@ -11,7 +11,7 @@
     },
     "permissions": [
         "storage",
-	"fullscreen"
+        "fullscreen"
     ],
     "icons": {
         "16": "img/proofer-ico-16.png",

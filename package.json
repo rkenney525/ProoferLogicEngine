@@ -1,21 +1,23 @@
 {
-    "name": "Proofer",
-    "description": "A game of logical thinking",
-    "version": "2.0.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/rkenney525/ProoferLogicEngine.git"
-    },
-    "license": "ISC",
-    "window": {
-        "width": 1280,
-        "height": 720,
-        "toolbar": true,
-        "icon": "img/proofer-ico-16.png"
-    },
-    "main": "proofer.html",
-    "devDependencies": {
-        "grunt": "^0.4.5",
-        "grunt-contrib-requirejs": "^0.4.4"
-    }
+  "name": "Proofer",
+  "description": "A game of logical thinking",
+  "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rkenney525/ProoferLogicEngine.git"
+  },
+  "license": "ISC",
+  "window": {
+    "width": 1280,
+    "height": 720,
+    "toolbar": true,
+    "icon": "img/proofer-ico-16.png"
+  },
+  "main": "proofer.html",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.13.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-nw-builder": "^2.0.0"
+  }
 }
