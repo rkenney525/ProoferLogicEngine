@@ -1,3 +1,4 @@
+// TODO Deprecated entry point for app
 requirejs(['jquery', 'jqueryui', 'blockUI', 'util', 'Level',
     'AddTable', 'LevelClearedDialog', 'TutorialDialog',
     'FactCreationDialog', 'Pagination', 'events',

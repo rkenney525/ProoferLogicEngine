@@ -108,6 +108,10 @@ body {
 
 }
 
+.hidden {
+    display: none;
+}
+
 .ui-dialog-titlebar-close {
     visibility: hidden;
 }

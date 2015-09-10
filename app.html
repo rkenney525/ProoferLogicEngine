@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html manifest="etc/main.appcache" class="fill">
+    <head>
+        <title>Proofer - The Logic Engine</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="build/proofer.css" />
+        <script src="js/libs/require.js/require.js"></script>
+        <script src="build/proofer.js"></script>
+    </head>
+    <body class="menu-focused fill">
+        <div id="FilterLayer" class="fill" style="display: none;"></div>
+        <div id="GameContent" class="fill">
+            <div id="MainMenu" class="fill">
+                <div id="OpeningGraphic">
+                    <p>Proofer - Logic Engine</p>
+                </div>
+                <ul id="MainMenuOptions" class="center">
+                    <li><input type="button" value="Play Game" id="MenuPlayGame" class="jui-button" /></li>
+                    <li><input type="button" value="Pick Level" id="MenuPickLevel" class="jui-button" /></li>
+                    <li><input type="button" value="Options" id="MenuOptions" class="jui-button" /></li>
+                    <li><input type="button" value="Reset Progress" id="MenuReset" class="jui-button" /></li>
+                    <li><input type="button" value="Exit" id="MenuExitGame" class="jui-button" /></li>
+                </ul>
+            </div>
+            <div id="Options" class="center" style="display: none;">
+                
+            </div>
+            <div id="PickLevel" style="display: none">
+                <div id="PickLevel_LevelContainer">
+                    <ul id="PickLevel_LevelContainer_List"></ul>
+                </div>
+                <div id="PickLevel_MoreInfoContainer">
+                    <div id="PickLevel_MoreInfo" style="display: none;">
+                        <span class="level-info-piece">
+                            <span class="level-info-heading">Your best:</span>
+                            <span class="level-info-value" id="PickLevel_MoreInfo_Best"></span>
+                        </span>
+                        <span class="level-info-piece">
+                            <span class="level-info-heading">Par:</span>
+                            <span class="level-info-value" id="PickLevel_MoreInfo_Par"></span>
+                        </span>
+                        <span class="level-info-piece">
+                            <span class="level-info-heading">Completed?</span>
+                            <span class="level-info-value" id="PickLevel_MoreInfo_Completed"></span>
+                        </span>
+                        <span class="level-info-piece">
+                            <span class="level-info-heading">Par?</span>
+                            <span class="level-info-value" id="PickLevel_MoreInfo_OnPar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div id="PickLevel_PageControls">
+                    <button type="button" id="PickLevel_PageControls_Prev" class="jui-button">Prev Page</button>
+                    <button type="button" id="PickLevel_PageControls_Next" class="jui-button">Next Page</button>
+                    <button type="button" id="PickLevel_PageControls_Back" class="jui-button">Back to Main Menu</button>
+                    <button type="button" id="PickLevel_PageControls_Play" class="jui-button">Play Level</button>
+                </div>
+            </div>
+            <div id="GameScreen" style="display: none;" class="fill">
+                <canvas width="1026" height="768" id="MainGameCanvas">
+                    Something went wrong when rendering the canvas.
+                </canvas>
+                <div id="GameControls" class="fill">
+                    <div id="Controls_Display">
+                        <p>Prove:  <b><span id="Controls_Display_Conclusion"></span></b></p>
+                        <button type="button" id="Controls_Executor_ClearResults">Clear Results</button>
+                        <button type="button" id="Controls_Executor_ClearInput">Clear Input</button>
+                        <button type="button" id="Controls_Executor_Save">Save</button>
+                        <button type="button" id="Controls_Executor_Reset">Reset</button>
+                    </div>
+                    <div id="Controls_Modifier" style="display: none;">
+                        <div id="Controls_Modifier_Results" class="boxed">
+                            <div id="Controls_Modifier_Results_Container" style="display: none;"></div>
+                        </div>
+                        <input type="button" value="Add It" id="Controls_Modifier_AddIt" disabled="disabled"/>
+                        <div id="Controls_Modifier_SelectionArea" class="boxed"></div>
+                        <div id="Controls_Modifier_Rule" class="executor-box boxed"></div>
+                        <!--<div id="Controls_Modifier_Error">
+                            <div class="ui-state-error error-message" id="Controls_Modifier_Error_NoRules" style="display: none;">
+                                It looks like this problem doesn't let you use any Rules of Replacement!
+                            </div>
+                        </div>-->
+                    </div>
+                    <div id="Controls_Executor" class="executor-modifier-active">
+                        <div id="Controls_Executor_Result" class="executor-box boxed"></div>
+                        <div id="Controls_Executor_Arg0" class="executor-box boxed"></div>
+                        <div id="Controls_Executor_Arg1" class="executor-box boxed"></div>
+                        <div id="Controls_Executor_Rule" class="executor-box boxed"></div>
+                        <button type="button" id="Controls_Executor_Evaluate">Evaluate</button>
+                    </div>
+                    <div id="Controls_Facts">
+                        <table id="Controls_Facts_Table"></table>
+                    </div>
+                    <div id="Controls_Rules">
+                        <ul id="Controls_Rules_List"></ul>
+                    </div>
+                    <div id="Controls_Tooltip" style="display: none;">
+
+                    </div>
+                    <div id="Controls_AddTable" style="display: none;">
+                        <table>
+                            <tr>
+                                <th id="Controls_AddTable_Banner" colspan="2">Recent Facts</th>
+                                <th><div class="add-fact" data="AT1">+</div></th>
+                            </tr>
+                            <tr id="Controls_AddTable_Fact1">
+                                <td>AT1</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr id="Controls_AddTable_Fact2">
+                                <td>AT2</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr id="Controls_AddTable_Fact3">
+                                <td>AT3</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr id="Controls_AddTable_Fact4">
+                                <td>AT4</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr id="Controls_AddTable_Fact5">
+                                <td>AT5</td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="Dialogs" style="display: none;">
+                <div id="Dialogs_LevelCleared" title="Stage Cleared!">
+                    <p>Congratulations, you've shown <b><span id="Dialogs_LevelCleared_Conclusion"></span></b> to be true!</p>
+                    <br />
+                    <p>A pro can do this establishing only <b><span id="Dialogs_LevelCleared_Par"></span> </b>
+                        fact(s).  You had a total of <b><span id="Dialogs_LevelCleared_Actual"></span></b>, minus the 
+                        <b><span id="Dialogs_LevelCleared_Starting"></span></b> you started with means you established 
+                        <b><span id="Dialogs_LevelCleared_Established"></span></b>.  
+                        <span id="Dialogs_LevelCleared_Congrats" style="display: none;">
+                            Looks like you know what you're doing after all!
+                        </span>
+                        <span id="Dialogs_LevelCleared_DoBetter" style="display: none;">
+                            That's not bad, but the conclusion could have been shown in fewer steps.
+                        </span>
+                    </p>
+                    <br />
+                    <p>Now you can either move on to the next level or replay this one to get a better score.</p>
+                </div>
+                <div id="Dialogs_Tutorial">
+
+                </div>
+                <div id="Dialogs_FactCreation" title="Fact Editor">
+                    <div>
+                        <h2>Instructions</h2>
+                        <ul>
+                            <li>Use your keyboard to enter <span class="red">simple statements</span></li>
+                            <li>Press the Space bar add an additional <span class="green">operator</span> and <span class="red">simple statement</span> spot.</li>
+                            <li>Click a <span class="red">simple statement</span> or <span class="green">operator</span> to select it</li>
+                            <li>Drag and drop <span class="green">operators</span></li>
+                            <li>Form groups by dragging the <span class="gray">(&nbsp;) tool</span> over an <span class="green">operator</span>.</li>
+                            <li>Select a <span class="red">simple statement</span> and press the <span class="gray">&tilde; button</span> to negate it.</li>
+                            <li>To negate a group, select the group's <span class="green">operator</span> and then press the <span class="gray">&tilde; button</span>.</li>
+                            <li>If you make a mistake, press the <span class="gray">Clear button</span>!</li>
+                        </ul>
+                        <h2>Creation Panel</h2>
+                        <div id="Dialogs_FactCreation_Creation">
+                        </div>
+                        <div id="Dialogs_FactCreation_Error">
+                            <div class="ui-state-error error-message" id="Dialogs_FactCreation_Error_NotEnoughGroups" style="display: none;">
+                                Hmm, this statement is a little ambiguous. Avoid situations where you have something like: p &and; q &and; r. Instead try p &and; (q &and; r), or (p &and; q) &and; r
+                            </div>
+                            <div class="ui-state-error error-message" id="Dialogs_FactCreation_Error_ElementNotEntered" style="display: none;">
+                                Whoops! Looks like you forgot to fill in an operator or simple statement! Those are identified by the "?"!
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Operators and tools</h4>
+                        <ul id="Dialogs_FactCreation_OpList">
+                            <li><div data="operator" class="operator"><span data="operator">&and;</span></div></li>
+                            <li><div data="operator" class="operator"><span data="operator">&or;</span></div></li>
+                            <li><div data="operator" class="operator"><span data="operator">&rarr;</span></div></li>
+                            <li><div data="operator" class="operator"><span data="operator">&harr;</span></div></li>
+                            <li><div data="operator" class="operator"><span data="operator">&oplus;</span></div></li>
+                            <li><div data="group" class="tool"><span data="group">(&nbsp;)</span></div></li>
+                            <li><div id="Dialogs_FactCreation_OpList_Negate" class="jui-button"><span>&tilde;</span></div></li>
+                            <li><div id="Dialogs_FactCreation_OpList_Clear" class="jui-button"><span>Clear</span></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="PauseMenu" class="boxed" style="display: none;">
+                <div id="PauseMenu_Content">
+                    <h1>In-Game Menu</h1>
+                    <h3>Press ENTER to return.</h3>
+                    <ul id="PauseMenu_Content_Options">
+                        <li id="PauseMenu_Content_Options_Resume" class="jui-button">Resume</li>
+                        <li id="PauseMenu_Content_Options_Options" class="jui-button">Options</li>
+                        <li id="PauseMenu_Content_Options_Menu" class="jui-button">Main Menu</li>
+                        <li id="PauseMenu_Content_Options_Exit" class="jui-button">Exit Game</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
