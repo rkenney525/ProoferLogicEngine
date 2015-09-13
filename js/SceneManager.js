@@ -14,10 +14,11 @@ define([], function() {
     // Attempt to get the Scene
     // TODO pretty this up and keep track of the current Scene
     var scene = new this.scenes[sceneName]({
-      $stage: this.$stage
+      $stage: this.$stage,
+      sceneManager: this
     });
     if (scene === undefined) {
-      throw "That scene is undefined";
+      throw new Error('That scene is undefined');
     }
     
     // TODO stop any running scene
