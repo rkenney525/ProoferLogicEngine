@@ -3,12 +3,6 @@ define([], function () {
     // Get the stage
     this.$stage = options.$stage;
 
-    // Get a reference to the scene transfer function from the scene manager
-    // as well as the list of scenes
-    var sceneManager = options.sceneManager;
-    this.toScene = sceneManager.startScene;
-    this.scenes = sceneManager.scenes;
-
     // Get the initialization function
     this.start = options.start;
     if (this.start === undefined) {

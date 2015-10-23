@@ -1,12 +1,9 @@
 requirejs(['jquery', 'SceneManager', 'MenuScene'],
   function ($, SceneManager, MenuScene) {
     var manager = new SceneManager({
-      $stage: $('#stage'),
-      scenes: {
-        MENU: MenuScene
-      }
+      $stage: $('#stage')
     });
-    manager.startScene("MENU", {
+    manager.begin(MenuScene, {
       value: "world"
     });
 });
