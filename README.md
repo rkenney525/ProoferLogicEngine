@@ -3,6 +3,13 @@
 
 <p><i>A game of logical thinking.</i></p>
 
+<h2>Prerequisites</h2>
+These are some things you need to install before you can build Proofer.
+<ul>
+<li>Node.js <i>v4.x</i></li>
+<li>grunt-cli <i>latest</i></li>
+</ul>
+
 <h2>Instructions for Running..</h2>
 <h3>As an application</h3>
 <ol>
