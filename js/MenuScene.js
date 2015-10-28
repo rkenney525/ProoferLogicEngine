@@ -1,9 +1,9 @@
-define(['underscore', 'Scene'], function(_, Scene) {
-  var MenuScene = Scene.extend({
+define(['underscore', 'Scene', 'PickLevelScene'], function(_, Scene, PickLevelScene) {
+  return Scene.extend({
     template: _.template($('#mainMenuTemplate').html()),
     events: {
       'click #PlayGame': 'test',
-      'click #PickLevel': 'test',
+      'click #PickLevel': 'pickLevel',
       'click #Options': 'test',
       'click #ExitGame': 'exit'
     },
@@ -13,9 +13,11 @@ define(['underscore', 'Scene'], function(_, Scene) {
     test: function() {
       alert('dees');
     },
+    pickLevel: function() {
+      this.startScene(PickLevelScene);
+    },
     exit: function() {
       window.close();
     }
   });
-  return MenuScene;
 });

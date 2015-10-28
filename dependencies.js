@@ -7,6 +7,7 @@ requirejs.config({
         underscore: 'js/libs/underscore.js/underscore-min',
         SceneManager: 'js/SceneManager',
         Scene: 'js/Scene',
-        MenuScene: 'js/MenuScene'
+        MenuScene: 'js/MenuScene',
+        PickLevelScene: 'js/PickLevelScene'
     }
 });
