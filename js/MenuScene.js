@@ -5,10 +5,7 @@ define(['underscore', 'Scene'], function(_, Scene) {
       'click #PlayGame': 'test',
       'click #PickLevel': 'test',
       'click #Options': 'test',
-      'click #Reset': 'test',
       'click #ExitGame': 'exit'
-    },
-    init: function() {
     },
     start: function(data) {
       this.$stage.append(this.template());
