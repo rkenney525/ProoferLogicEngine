@@ -1,4 +1,16 @@
 module.exports = function (grunt) {
+  var requireConfig = function (optimize) {
+    return {
+      options: {
+        baseUrl: '.',
+        mainConfigFile: 'dependencies.js',
+        name: 'js/proofer.js',
+        out: 'build/stage/proofer.js',
+        optimize: (optimize) ? 'uglify' : 'none'
+      }
+    };
+  };
+
   // Config
   grunt.initConfig({
     clean: ['build'],
@@ -9,14 +21,8 @@ module.exports = function (grunt) {
       }
     },
     requirejs: {
-      compile: {
-        options: {
-          baseUrl: ".",
-          mainConfigFile: "dependencies.js",
-          name: "js/proofer.js",
-          out: "build/stage/proofer.js"
-        }
-      }
+      prod: requireConfig(true),
+      dev: requireConfig(false)
     },
     cssmin: {
       target: {
@@ -44,9 +50,6 @@ module.exports = function (grunt) {
     }
   });
 
-  // TODO copy require.js
-  // TODO create package.json
-
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -56,7 +59,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-nw-builder');
 
   // Create targets
-  grunt.registerTask('setup', ['preprocess', 'requirejs', 'cssmin', 'copy']);
-  grunt.registerTask('build', ['nwjs']);
-  grunt.registerTask('default', ['clean', 'setup', 'build']);
+  grunt.registerTask('setup-prod', ['preprocess', 'requirejs:prod', 'cssmin', 'copy']);
+  grunt.registerTask('setup-dev', ['preprocess', 'requirejs:dev', 'cssmin', 'copy']);
+
+  grunt.registerTask('build-prod', ['clean', 'setup-prod', 'nwjs']);
+  grunt.registerTask('build-dev', ['clean', 'setup-dev', 'nwjs']);
+
+  grunt.registerTask('default', ['build-prod']);
 };
