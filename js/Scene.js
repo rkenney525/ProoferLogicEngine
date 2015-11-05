@@ -48,8 +48,7 @@ define([], function () {
         }
 
         // Bind
-        object.$stage.on(eventType, selector, action);
-        _.bind(action, object);
+        object.$stage.on(eventType, selector, _.bind(action, object));
       }
 
       // Finally, call the initialize functionality
