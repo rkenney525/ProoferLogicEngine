@@ -2,6 +2,7 @@ define([], function () {
   var Scene = function (options) {
     // Get the stage
     this.$stage = options.$stage;
+    this.startScene = options.startScene;
 
     // Get the initialization function
     this.start = options.start;
@@ -10,9 +11,10 @@ define([], function () {
       };
     }
   };
-  
-  Scene.prototype.init = function() {};
-  
+
+  Scene.prototype.init = function () {
+  };
+
   Scene.extend = function (extOptions) {
     // Init
     var parent = this;
@@ -39,16 +41,17 @@ define([], function () {
         var selector = parts[1];
         var actionName = object.events[event];
         var action = object[actionName];
-        
+
         // Validate
         if (typeof action !== 'function') {
           throw new Error(actionName + 'is not a member of scene.');
         }
-        
+
         // Bind
         object.$stage.on(eventType, selector, action);
+        _.bind(action, object);
       }
-      
+
       // Finally, call the initialize functionality
       object.init();
 
