@@ -5,8 +5,13 @@ requirejs.config({
         jqueryui: 'js/libs/jqueryui-1.10.0/jquery-ui.min',
         blockUI: 'js/libs/jquery-blockui/jquery.blockUI',
         underscore: 'js/libs/underscore.js/underscore-min',
+        // Arch
         SceneManager: 'js/SceneManager',
         Scene: 'js/Scene',
+        // Assets
+        Symbol: 'js/Symbol',
+        Symbols: 'js/Symbols',
+        // Scenes
         MenuScene: 'js/MenuScene',
         PickLevelScene: 'js/PickLevelScene'
     }
