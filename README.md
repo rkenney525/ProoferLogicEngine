@@ -1,5 +1,5 @@
+<p><b>This repo is no longer being maintained. Further development is taking place in a private repository.</b><p>
 <h1>ProoferLogicEngine</h1>
-==================
 
 <p><i>A game of logical thinking.</i></p>
 
