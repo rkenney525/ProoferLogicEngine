@@ -1,0 +1,19 @@
+.menu-list {
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.menu-list li {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+/* Probably a more elegant way to do this */
+.menu-list > li > button {
+    font-family: Arial;
+    font-size: 48px;
+    border-radius: 1em;
+    width: 50%;
+}
